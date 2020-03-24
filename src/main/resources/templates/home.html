@@ -3,88 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        body {
-            font-family: Tahoma;
-            margin: 0;
-            background: #483D8B url(files/background.jpg);
-        }
-        h1 {
-            margin: 0 ;
-            text-transform: uppercase;
-            padding-bottom: 5px;
-        }
-        h2 {
-            color: white;
-            margin: 0 ;
-            text-transform: uppercase;
-            padding-bottom: 5px;
-            border-bottom: 3px solid #4B0082;
-        }
-        form {
-            margin: 7% auto;
-            background: black;
-            width: 450px;
-            height: 500px;
-            padding: 20px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
-        }
-        .group {
-            margin: 10px;
-            padding: 5px;
-        }
-        label {
-            color: white;
-            padding-left: 10px;
-            text-transform: uppercase;
-        }
-        input {
-            margin-top: 10px;
-            height: 40px;
-            width: 400px;
-            border-radius: 20px/20px;
-            border: none;
-            padding-left: 15px;
-            font-size: 18px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
-        }
-        input:focus {
-            border: 3px solid #4B0082;
-            transform: translateY(2px);
-
-        }
-        button {
-            cursor: pointer;
-            padding: 10px 30px;
-            height: 50px;
-            width: 150px;
-            color: #fff;
-            background: #483D8B;
-            text-transform: uppercase;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
-            border-radius: 25px/25px;
-            border: none;
-        }
-        button:hover {
-            opacity: .80;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <form  action="">
     <h1 align="center" style="color:#808080">DARKLK</h1>
     <h2 align="center">| Авторизация |</h2>
     <div class="group">
-        Имя:
+        <label>Имя:</label>
         <input type="text">
     </div>
     <div class="group">
-        Фамилия:
+        <label>Фамилия:</label>
         <input type="text">
     </div>
     <div class="group">
-        Пароль:
+        <label>Пароль:</label>
         <input id="passwordField" type="password" name="password">
     </div>
     <div class="group">
