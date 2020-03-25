@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Table</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>ДЕНЬ НЕДЕЛИ</td>
+        <td>НАЗВАНИЕ ПАРЫ</td>
+        <td>ТИП ПАРЫ</td>
+    </tr>
+    <div th:each="num : ${WEEK1}">
+        <div th:each="item : ${num.getLessons()}">
+            <tr>
+                <td><input type=text readonly th:value="${item.getDay().getCurrentDay()}"/></td>
+                <td><input type=text readonly th:value="${item.getName()}"/></td>
+                <td><input type=text readonly th:value="${item.getLessonType()}"/></td>
+                <br/>
+            </tr>
+        </div>
+    </div>
+    </tr>
+</table>
+</body>
+</html>

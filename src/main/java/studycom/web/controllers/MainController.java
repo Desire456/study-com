@@ -16,6 +16,7 @@ import studycom.web.repos.LessonRepository;
 import studycom.web.repos.UserRepository;
 import studycom.web.repos.WeekRepository;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -53,6 +54,14 @@ public class MainController {
         }
         return "redirect:/addLesson";
     }
+
+
+    @GetMapping("/board")
+    public String showWeek(Map<String, Object> model){
+        model.put("WEEK1", new ArrayList<Day>(weekRepository.findByWeekNumb(1).get(0).getDays()));
+        return "board";
+    }
+
 
     @GetMapping("/addLesson")
     public String showAddLess() {

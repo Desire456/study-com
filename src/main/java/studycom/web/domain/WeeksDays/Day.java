@@ -28,6 +28,7 @@ public class Day {
 
     public Day(){}
 
+
     public Integer getId() {
         return Id;
     }
