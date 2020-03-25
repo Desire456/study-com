@@ -21,6 +21,13 @@ public class Day {
 
     private DayType currentDay;
 
+    public Day(String currentDay, Week week){
+        this.currentDay = DayType.valueOf(currentDay);
+        this.week = week;
+    }
+
+    public Day(){}
+
     public Integer getId() {
         return Id;
     }

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <form  action="" th:object="${user}"
-th:action="@{home}" method="GET">
+       th:action="@{home}" method="GET">
     <h1 align="center" style="color:#808080">DARKLK</h1>
     <h2 align="center">| Авторизация |</h2>
     <div class="group">
@@ -23,9 +22,8 @@ th:action="@{home}" method="GET">
         <input id="passwordField" type="password" name="password" th:field="*{password}">
     </div>
     <div class="group">
-        <center><button>Регистрация</button></center>
+        <center><button>Войти</button></center>
     </div>
 </form>
-<a href = "/enter"> Вход </a>
 </body>
 </html>

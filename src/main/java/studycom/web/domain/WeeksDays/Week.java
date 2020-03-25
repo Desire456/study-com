@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="weeks")
+@Table(name = "weeks")
 public class Week {
 
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
 
@@ -17,6 +17,13 @@ public class Week {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "week", cascade = CascadeType.ALL)
     private Set<Day> days;
+
+    public Week(Integer weekNumb) {
+        this.weekNumb = weekNumb;
+    }
+
+    public Week() {
+    }
 
     public Integer getId() {
         return id;

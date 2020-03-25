@@ -20,6 +20,14 @@ public class Lesson {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Day day;
 
+    public Lesson(String name, String time , String lessonType, Day day){
+        this.name = name;
+        this.lessonType = LessonType.valueOf(lessonType);
+        this.day = day;
+    }
+
+    public Lesson(){}
+
     public String getName() {
         return name;
     }
