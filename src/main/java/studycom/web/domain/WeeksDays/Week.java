@@ -1,5 +1,7 @@
 package studycom.web.domain.WeeksDays;
 
+import studycom.web.domain.UsersPart.Group;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,6 +19,9 @@ public class Week {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "week", cascade = CascadeType.ALL)
     private Set<Day> days;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Timetable timetable;
 
     public Week(Integer weekNumb) {
         this.weekNumb = weekNumb;

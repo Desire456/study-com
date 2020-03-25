@@ -14,9 +14,13 @@ public class User implements Serializable {
     private Integer id;
 
     private Role role = Role.CASUAL;
+    private String login;
     private String name;
     private String surname;
     private String password;//Лучше вынести в отдельный класс или ипользовать другую структуру
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Group group;
 
     public User(String name , String surname , String password){
         this.name = name ;
