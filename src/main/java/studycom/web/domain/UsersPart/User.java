@@ -1,4 +1,6 @@
-package studycom.web.domain;
+package studycom.web.domain.UsersPart;
+
+import studycom.web.domain.UsersPart.Role;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,14 +13,23 @@ public class User implements Serializable {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    private Role role = Role.CASUAL;
     private String name;
     private String surname;
-    private String password;//Лучше вынести в отдельны класс или ипользовать другую структуру
+    private String password;//Лучше вынести в отдельный класс или ипользовать другую структуру
 
     public User(String name , String surname , String password){
         this.name = name ;
         this.surname = surname;
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getName() {
