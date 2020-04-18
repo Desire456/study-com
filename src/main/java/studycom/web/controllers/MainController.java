@@ -3,6 +3,7 @@ package studycom.web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
@@ -16,6 +17,7 @@ import studycom.web.repos.WeekRepository;
 import java.util.ArrayList;
 import java.util.Map;
 
+@SessionAttributes(value = "user")
 @Controller
 public class MainController {
 
@@ -66,21 +68,42 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String home(Map<String, Object> model, @ModelAttribute("user") User user) {
-        if (user.getName() == null || user.getSurname() == null || user.getPassword() == null) {
-            return "home";
+    public String showHome(){
+        return "home";
+    }
+
+    @GetMapping("/addUser")
+    public ModelAndView home(ModelAndView model, @RequestParam(value = "name") String name , @RequestParam(value = "surname") String surname,
+                       @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
+
+        if (name == null || surname == null ||
+               password == null|| group == null|| login==null|| !userRepository.findByLogin(login).isEmpty()) {
+            model.setViewName("home");
+           return model;
         }
+
+        User user = new User(login, name, surname,password,group);
+        model.addObject("user",user);
+        model.setViewName("enter");
         userRepository.save(user);
-        return "lk";
+        return model;
     }
 
 
     @GetMapping("/enter")
-    public String enter(Map<String, Object> model, @ModelAttribute("user") User user) {
-        if (user.getName() == null || user.getSurname() == null || user.getPassword() == null) {
+    public ModelAndView showEnt(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("user", new User());
+        model.setViewName("enter");
+        return model;
+    }
+
+    @GetMapping("/enterAction")
+    public String enter(ModelAndView model, @RequestParam(value = "login") String login,@RequestParam(value = "password") String password) {
+        if (login == null || password == null ) {
             return "enter";
         }
-        if (userRepository.findByNameAndSurnameAndPassword(user.getName(), user.getSurname(), user.getPassword()).isEmpty()) {
+        if (userRepository.findByLoginAndPassword(login,password).isEmpty()) {
             return "enter";
         }
         return "lk";

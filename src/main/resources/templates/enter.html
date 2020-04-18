@@ -8,12 +8,12 @@
 </head>
 <body>
 <form  action="" th:object="${user}"
-       th:action="@{home}" method="GET" style="height: 350px">
+       th:action="@{enterAction}" method="GET" style="height: 350px">
     <h1 align="center" style="color:#808080">DARKLK</h1>
     <h2 align="center">| Авторизация |</h2>
     <div class="group">
         <label>Логин:</label>
-        <input type="text" th:field="*{name}" required>
+        <input name="login" type="text" th:field="*{login}" required>
     </div>
     <div class="group">
         <label>Пароль:</label>

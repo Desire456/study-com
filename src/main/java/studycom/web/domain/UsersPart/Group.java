@@ -13,11 +13,20 @@ public class Group  {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn// Связаны между собой тем что у них одинаковый id
     private Timetable timetable;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = CascadeType.ALL)
     private Set<User> users;
+
+    public Group(String name){
+        this.name = name;
+    }
+
+    public Group(){}
+
+    private String name;
 
     public void setId(Integer id) {
         this.id = id;
@@ -41,5 +50,13 @@ public class Group  {
 
     public Timetable getTimetable() {
         return timetable;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

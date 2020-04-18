@@ -22,10 +22,13 @@ public class User implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Group group;
 
-    public User(String name , String surname , String password){
+    public User(String login , String name , String surname , String password , String group){
         this.name = name ;
         this.surname = surname;
         this.password = password;
+        this.login = login;
+        this.group = new Group();
+        this.group.setName(group);
     }
 
     public Role getRole() {
@@ -66,6 +69,23 @@ public class User implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public User(){}

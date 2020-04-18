@@ -7,21 +7,29 @@
     <link rel="stylesheet" href="/static/css/style-1.css">
 </head>
 <body>
-<form  action="" th:object="${user}"
-th:action="@{home}" method="GET">
+<form  action=""
+th:action="@{addUser}" method="GET">
     <h1 align="center" style="color:#808080">DARKLK</h1>
     <h2 align="center">| Авторизация |</h2>
     <div class="group">
+        <label>Логин:</label>
+        <input name="login" type="text" >
+    </div>
+    <div class="group">
         <label>Имя:</label>
-        <input type="text" th:field="*{name}">
+        <input name="name" type="text" >
     </div>
     <div class="group">
         <label>Фамилия:</label>
-        <input type="text"th:field="*{surname}">
+        <input name="surname" type="text">
+    </div>
+    <div class="group">
+        <label>Группа:</label>
+        <input name="group" type="text">
     </div>
     <div class="group">
         <label>Пароль:</label>
-        <input id="passwordField" type="password" name="password" th:field="*{password}">
+        <input name="password" type="password"  >
     </div>
     <div class="group">
         <center><button>Регистрация</button></center>
