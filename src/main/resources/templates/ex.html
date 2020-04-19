@@ -128,9 +128,9 @@
                          class="profile-photo"></a>
     </div>
     <div class="profile-text">
-        <b th:text="${user.name}">Селицкий Владислав Дмитриевич</b>
+        <b th:text="${user.name}"></b>
         <br>
-        <b th:text ="${user.group.name}">6208-010302D</b><b> | 100 lvl</b>
+        <b th:text ="${user.group.name}"></b><b th:text ="${user.level}"></b>
     </div>
 </div>
 <div class="timetable-today disp-inline">
