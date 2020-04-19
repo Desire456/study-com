@@ -1,7 +1,5 @@
 package studycom.web.domain.UsersPart;
 
-import studycom.web.domain.UsersPart.Role;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,6 +17,8 @@ public class User implements Serializable {
     private String surname;
     private String password;
     private String urlPhoto;
+    private Integer level=0;
+    private Integer exp =0;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -106,5 +106,41 @@ public class User implements Serializable {
         this.login = login;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void lvlUp(){
+        ++level;
+    }
+
+    public void lvlDown(){
+        --level;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int xp) {
+        this.exp = xp;
+        level = xp/100;
+    }
+
+    public void addExp (int addition){
+        exp+=addition;
+        level = exp/100;
+    }
+
+    public void removeExp( int toRem){
+        exp-=toRem;
+        level=exp/100;
+    }
+
     public User(){}
+
 }
