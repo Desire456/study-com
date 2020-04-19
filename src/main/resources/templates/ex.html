@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -129,9 +128,9 @@
                          class="profile-photo"></a>
     </div>
     <div class="profile-text">
-        <b>Селицкий Владислав Дмитриевич</b>
+        <b th:text="${user.name}">Селицкий Владислав Дмитриевич</b>
         <br>
-        <b>6208-010302D | 100 lvl</b>
+        <b th:text ="${user.group.name}">6208-010302D</b><b> | 100 lvl</b>
     </div>
 </div>
 <div class="timetable-today disp-inline">

@@ -17,7 +17,9 @@ public class User implements Serializable {
     private String login;
     private String name;
     private String surname;
-    private String password;//Лучше вынести в отдельный класс или ипользовать другую структуру
+    private String password;
+    private String urlPhoto;
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Group group;
@@ -29,6 +31,22 @@ public class User implements Serializable {
         this.login = login;
         this.group = new Group();
         this.group.setName(group);
+    }
+
+    public User(String login , String name , String surname , String password ,Group group){
+        this.name = name ;
+        this.surname = surname;
+        this.password = password;
+        this.login = login;
+        this.group = group;
+    }
+
+    public String getUrlPhoto() {
+        return urlPhoto;
+    }
+
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
     }
 
     public Role getRole() {

@@ -5,21 +5,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
+import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.DayType;
 import studycom.web.domain.WeeksDays.Week;
-import studycom.web.repos.DayRepository;
-import studycom.web.repos.LessonRepository;
-import studycom.web.repos.UserRepository;
-import studycom.web.repos.WeekRepository;
+import studycom.web.repos.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @SessionAttributes(value = "user")
 @Controller
 public class MainController {
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -62,6 +64,7 @@ public class MainController {
     }
 
 
+
     @GetMapping("/addLesson")
     public String showAddLess() {
         return "addLesson";
@@ -75,16 +78,21 @@ public class MainController {
     @GetMapping("/addUser")
     public ModelAndView home(ModelAndView model, @RequestParam(value = "name") String name , @RequestParam(value = "surname") String surname,
                        @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
-
         if (name == null || surname == null ||
                password == null|| group == null|| login==null|| !userRepository.findByLogin(login).isEmpty()) {
             model.setViewName("home");
            return model;
         }
-
-        User user = new User(login, name, surname,password,group);
+        User user;
+        List<Group> thisUserGr = groupRepository.findByName(group);
+        if(!thisUserGr.isEmpty()){
+            user = new User(login, name , surname, password, thisUserGr.get(0));
+        }
+        else{
+            user = new User(login, name, surname,password,group);
+        }
         model.addObject("user",user);
-        model.setViewName("enter");
+        model.setViewName("ex");
         userRepository.save(user);
         return model;
     }
@@ -99,14 +107,19 @@ public class MainController {
     }
 
     @GetMapping("/enterAction")
-    public String enter(ModelAndView model, @RequestParam(value = "login") String login,@RequestParam(value = "password") String password) {
+    public ModelAndView  enter(@RequestParam(value = "login") String login,@RequestParam(value = "password") String password) {
+        ModelAndView model = new ModelAndView();
         if (login == null || password == null ) {
-            return "enter";
+            model.setViewName("enter");
+            return model;
         }
         if (userRepository.findByLoginAndPassword(login,password).isEmpty()) {
-            return "enter";
+            model.setViewName("enter");
+            return model;
         }
-        return "lk";
+        model.addObject("user", userRepository.findByLoginAndPassword(login,password).get(0));
+        model.setViewName("ex");
+        return model;
     }
 
 }
