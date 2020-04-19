@@ -46,7 +46,7 @@
 <div id = "a" class="todo-ul-li">
 	<ul id="myUL">
         <th:block th:each="task : ${tasks}">
-            <li th:text="${task.content}"></li>
+            <li th:text="${task.content}" ><span class = "close" th:id = "${task.id}">\u00D7</span></li>
         </th:block>
 	</ul>
 </div>
@@ -75,8 +75,15 @@ var close = document.getElementsByClassName("close");
 var i;
 for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
+      form.action = '/deleteTask';
+      form.method = 'GET';
+
+      form.innerHTML = '<input type = "hidden" name = "taskId" id = "taskId" value = "">';
+      document.body.append(form);
+      document.getElementById("taskId").value = this.parentElement.id;
+      form.submit();
+    /*var div = this.parentElement;
+    div.style.display = "none";*/
   }
 }
 

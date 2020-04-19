@@ -21,6 +21,7 @@ target/
 *.tar.gz
 *.rar
 
+
 src/main/resources/application.properties
 *.iml
 
