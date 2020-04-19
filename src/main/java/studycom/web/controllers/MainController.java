@@ -64,6 +64,10 @@ public class MainController {
     }
 
 
+    @GetMapping("/registration")
+    public String showRegistration() {
+        return "registration";
+    }
 
     @GetMapping("/addLesson")
     public String showAddLess() {
@@ -80,7 +84,7 @@ public class MainController {
                        @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
         if (name == null || surname == null ||
                password == null|| group == null|| login==null|| !userRepository.findByLogin(login).isEmpty()) {
-            model.setViewName("home");
+            model.setViewName("registration");
            return model;
         }
         User user;
@@ -92,7 +96,7 @@ public class MainController {
             user = new User(login, name, surname,password,group);
         }
         model.addObject("user",user);
-        model.setViewName("ex");
+        model.setViewName("home");
         userRepository.save(user);
         return model;
     }
@@ -118,7 +122,7 @@ public class MainController {
             return model;
         }
         model.addObject("user", userRepository.findByLoginAndPassword(login,password).get(0));
-        model.setViewName("ex");
+        model.setViewName("home");
         return model;
     }
 
