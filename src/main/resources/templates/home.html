@@ -99,14 +99,13 @@ list.addEventListener('click', function(ev) {
 function newElement() {
   //var li = document.createElement("li");
   var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
   var form = document.createElement('form');
   form.action = '/addTask';
   form.method = 'GET';
 
   form.innerHTML = '<input type = "hidden" name = "taskName" id = "taskName" value = "">';
   document.body.append(form);
-  document.getElementById("taskName").value = t;
+  document.getElementById("taskName").value = inputValue;
   form.submit();
   /*li.appendChild(t);
   if (inputValue === '') {
