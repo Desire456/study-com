@@ -1,40 +1,132 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel ="stylesheet" href="css/style-1.css">
-    <link rel="stylesheet" href="css/style-1.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>StudyCom</title>
 </head>
 <body>
-<form  action=""
-th:action="@{addUser}" method="GET">
-    <h1 align="center" style="color:#808080">DARKLK</h1>
-    <h2 align="center">| Авторизация |</h2>
-    <div class="group">
-        <label>Логин:</label>
-        <input name="login" type="text" >
+<div class="navbar">
+    <ul>
+        <li><a href="#"><b>Домашняя страница</b></a></li>
+        <li><a href="#"><b>Группа</b></a></li>
+        <li><a href="#"><b>Расписание</b></a></li>
+        <li><a href="#"><b>Чат</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                         class="profile-photo"></a>
     </div>
-    <div class="group">
-        <label>Имя:</label>
-        <input name="name" type="text" >
+    <div class="profile-text">
+        <b th:text="${user.name}">Селицкий Владислав Дмитриевич</b>
+        <br>
+        <b th:text ="${user.group.name}"></b><b th:text ="${user.level}"></b>
     </div>
-    <div class="group">
-        <label>Фамилия:</label>
-        <input name="surname" type="text">
-    </div>
-    <div class="group">
-        <label>Группа:</label>
-        <input name="group" type="text">
-    </div>
-    <div class="group">
-        <label>Пароль:</label>
-        <input name="password" type="password"  >
-    </div>
-    <div class="group">
-        <center><button>Регистрация</button></center>
-    </div>
-    </form>
-<a href = "/enter"> Вход </a>
+</div>
+<div class="timetable-today disp-inline">
+    <h2>Расписание на сегодня:</h2>
+    <ul>
+        <li>8.00 - 9.35 ТФКП</li>
+        <li>9.45 - 11:20 ТФКП</li>
+        <li>11:20 - 13:05 ТФКП</li>
+        <li>13:30 - 15:05 ТФКП</li>
+        <li>8.00 - 9.35 ТФКП</li>
+        <li>9.45 - 11:20 ТФКП</li>
+        <li>11:20 - 13:05 ТФКП</li>
+        <li>13:30 - 15:05 ТФКП</li>
+    </ul>
+</div>
+<div id="myDIV" class="todo disp-inline">
+  <h2>Список задач:</h2>
+  <input type="text" id="myInput">
+  <span onclick="newElement()" class="addBtn">Добавить</span>
+</div>
+<div id = "a" class="todo-ul-li">
+	<ul id="myUL">
+        <th:block th:each="task : ${tasks}">
+            <li th:text="${task.content}"></li>
+        </th:block>
+	</ul>
+</div>
+<div class="homework disp-inline">
+    <h2>Домашнее задание:</h2>
+    <ul>
+        <li>ТФКП: №123, 124(а,б), 150</li>
+        <li>ОС: написать реферат</li>
+        <li>Диф. ур.: выучить теорему Ляпунова</li>
+    </ul>
+</div>
+
+<script>
+	var myNodelist = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Add a "checked" symbol when clicking on a list item
+var list = document.querySelector('div.todo-ul-li ul[id = myUL]');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+// Create a new list item when clicking on the "Add" button
+function newElement() {
+  //var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  var form = document.createElement('form');
+  form.action = '/addTask';
+  form.method = 'GET';
+
+  form.innerHTML = '<input type = "hidden" name = "taskName" id = "taskName" value = "">';
+  document.body.append(form);
+  document.getElementById("taskName").value = t;
+  form.submit();
+  /*li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }*/
+
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>

@@ -21,6 +21,9 @@ import java.util.Map;
 public class MainController {
 
     @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
     private GroupRepository groupRepository;
 
     @Autowired
@@ -75,13 +78,17 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String showHome(){
-        return "home";
+    public ModelAndView  showHome(@ModelAttribute("user") User user){
+        ModelAndView model = new ModelAndView();
+        model.addObject("tasks",taskRepository.findByUser(user));
+        model.setViewName("home");
+        return model;
     }
 
     @GetMapping("/addUser")
-    public ModelAndView home(ModelAndView model, @RequestParam(value = "name") String name , @RequestParam(value = "surname") String surname,
+    public ModelAndView home(@RequestParam(value = "name") String name , @RequestParam(value = "surname") String surname,
                        @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
+        ModelAndView model = new ModelAndView();
         if (name == null || surname == null ||
                password == null|| group == null|| login==null|| !userRepository.findByLogin(login).isEmpty()) {
             model.setViewName("registration");
