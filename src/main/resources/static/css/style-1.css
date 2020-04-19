@@ -31,7 +31,7 @@ label {
     color: white;
     padding-left: 10px;
 }
-input {
+input[type = text], input[type = password]{
     margin-top: 10px;
     height: 40px;
     width: 400px;
@@ -41,12 +41,12 @@ input {
     font-size: 18px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
 }
-input:focus {
+input[type = text], input[type = password]:focus, input[type = text], input[type = password]:focus {
     border: 3px solid #4B0082;
     transform: translateY(2px);
-
 }
-button {
+
+button, input[type=submit] {
     font-family: Verdana, sans-serif;
     margin-top: 10px;
     margin-right: 57px;
@@ -61,6 +61,6 @@ button {
     border-radius: 25px/25px;
     border: none;
 }
-button:hover {
+button:hover, input[type=submit] {
     opacity: .80;
 }

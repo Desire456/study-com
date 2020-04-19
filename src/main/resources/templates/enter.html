@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/style-1.css">
 </head>
 <body>
-<form  action="" th:object="${user}"
-       th:action="@{enterAction}" method="GET" style="height: 350px">
+<form action="" th:object="${user}"
+      th:action="@{enterAction}" method="GET" style="height: 350px">
     <h1 align="center" style="color:#808080">DARKLK</h1>
     <h2 align="center">| Авторизация |</h2>
     <div class="group">
@@ -20,9 +20,11 @@
         <input id="passwordField" type="password" name="password" th:field="*{password}" required>
     </div>
     <div class="group">
-        <button>Войти</button>
-        <button>Регистрация</button>
+        <input type="submit" value="Войти">
     </div>
 </form>
+<div class="group">
+    <button>Регистрация</button>
+</div>
 </body>
 </html>
