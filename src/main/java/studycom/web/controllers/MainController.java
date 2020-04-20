@@ -109,7 +109,9 @@ public class MainController {
 
     @GetMapping("/addUser")
     public ModelAndView home(@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
-                             @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
+                             @RequestParam(value = "login") String login, @RequestParam(value = "password") String password,
+                             @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox") String starostaCheck) {
+
         ModelAndView model = new ModelAndView();
         if (name == null || surname == null ||
                 password == null || group == null || login == null || !userRepository.findByLogin(login).isEmpty()) {
@@ -122,6 +124,10 @@ public class MainController {
             user = new User(login, name, surname, password, thisUserGr.get(0));
         } else {
             user = new User(login, name, surname, password, group);
+        }
+        //В том случае если группа уже существует нужно сделать проверку на то что староста уже может существовать
+        if(starostaCheck!= null){
+            user.makeStar();
         }
         model.addObject("user", user);
         model.setViewName("home");
