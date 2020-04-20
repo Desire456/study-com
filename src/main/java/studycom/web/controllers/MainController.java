@@ -102,7 +102,6 @@ public class MainController {
     @GetMapping("/home")
     public ModelAndView showHome(@ModelAttribute("user") User user) {
         ModelAndView model = new ModelAndView();
-        List<Task> tasks = taskRepository.findByUser(user);
         model.addObject("tasks", taskRepository.findByUser(user));
         model.setViewName("home");
         return model;
@@ -150,7 +149,10 @@ public class MainController {
             model.setViewName("enter");
             return model;
         }
-        model.addObject("user", userRepository.findByLoginAndPassword(login, password).get(0));
+        User user =  userRepository.findByLoginAndPassword(login, password).get(0);
+        model.addObject("user", user);
+        model.addObject("tasks", taskRepository.findByUser(user));
+        model.setViewName("home");
         model.setViewName("home");
         return model;
     }
