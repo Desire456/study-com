@@ -151,7 +151,7 @@ public class MainController {
     }
 
     @GetMapping("/profile")
-    public String showProfile() {
+    public String showProfile(@ModelAttribute("user") User user) {
         return "profile";
     }
 
