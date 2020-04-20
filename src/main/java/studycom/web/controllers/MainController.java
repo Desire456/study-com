@@ -79,7 +79,7 @@ public class MainController {
     @GetMapping("/deleteTask")
     public String deleteTask (@RequestParam( value = "taskId") Integer id){
         taskRepository.deleteById(id);
-        return "home";
+        return "redirect:/home";
     }
 
 
@@ -90,7 +90,7 @@ public class MainController {
         Task task = new Task(taskName, user);
         task.setId(user.getId());
         taskRepository.save(task);
-        return "home";
+        return "redirect:/home";
     }
 
 
