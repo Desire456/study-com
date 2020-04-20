@@ -150,6 +150,10 @@ public class MainController {
         return model;
     }
 
+    @GetMapping("/profile")
+    public String showProfile() {
+        return "profile";
+    }
 
     @GetMapping("/enter")
     public ModelAndView showEnt() {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <title>StudyCom</title>
+</head>
+<body>
+<div class="navbar">
+    <ul>
+        <li><a href="#"><b>Домашняя страница</b></a></li>
+        <li><a href="#"><b>Группа</b></a></li>
+        <li><a href="#"><b>Расписание</b></a></li>
+        <li><a href="#"><b>Чат</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                         class="profile-photo"></a>
+    </div>
+    <div class="profile-text">
+        <b th:text="${user.name}"></b>
+        <br>
+        <b th:text ="${user.group.name}"></b><b th:text ="${user.level}"></b>
+    </div>
+</div>
+<div class="mainprofile">
+    <ul>
+        <li> <div class="gradient-border">
+            <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                             class="mainprofile-photo"></a></div></li>
+        <li><div class="profile-info">
+            <h1><b>Владислав Селицкий</b></h1>
+
+            <b>Группа 6208</b>
+            <br>
+            <br>
+            <b>Админ</b>
+            <br>
+            <br>
+            <br>
+            <br>
+            <b>Уровень</b>
+        </div></li>
+        <li><div class="statistic">
+            <b>Посещено пар: 0</b>
+            <br>
+            <b>Пропущено пар: 99999</b>
+            <br>
+            <b>Всего пар: 99999</b>
+        </div>
+        </li>
+    </ul>
+        <hr>
+    <button>Изменить</button>
+    <div class="ssilka">
+    <a  href="https://vk.com/novichegor">Как повышать уровень?</a>
+    </div>
+</div>
