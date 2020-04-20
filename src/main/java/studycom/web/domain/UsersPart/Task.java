@@ -5,19 +5,27 @@ import studycom.web.domain.WeeksDays.Timetable;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn// Связаны между собой тем что у них одинаковый id
+    @JoinColumn(name="user_id")
     private User user;
 
     private String content;
 
+    public Task() {
+
+    }
+
+    public Task(String name, User user) {
+        this.content = name;
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
