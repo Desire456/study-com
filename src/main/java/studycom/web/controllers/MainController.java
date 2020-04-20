@@ -121,13 +121,19 @@ public class MainController {
         User user;
         List<Group> thisUserGr = groupRepository.findByName(group);
         if (!thisUserGr.isEmpty()) {
-            user = new User(login, name, surname, password, thisUserGr.get(0));
+            Group thisUsersGroup = thisUserGr.get(0);
+            user = new User(login, name, surname, password, thisUsersGroup);
+            if(starostaCheck!= null){
+                user.makeStar();
+                if(thisUsersGroup.getStar()==null) {
+                    thisUsersGroup.setStar(user);
+                }
+            }
         } else {
             user = new User(login, name, surname, password, group);
-        }
-        //В том случае если группа уже существует нужно сделать проверку на то что староста уже может существовать
-        if(starostaCheck!= null){
-            user.makeStar();
+            if(starostaCheck!= null){
+                user.makeStar();
+            }
         }
         model.addObject("user", user);
         model.setViewName("home");

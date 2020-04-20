@@ -16,6 +16,9 @@ public class Group  {
     @JoinColumn(name="timetable_id")
     private Timetable timetable;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="star_id")
+    private User star;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = CascadeType.ALL)
     private Set<User> users;
@@ -58,5 +61,13 @@ public class Group  {
 
     public String getName() {
         return name;
+    }
+
+    public void setStar(User star) {
+        this.star = star;
+    }
+
+    public User getStar() {
+        return star;
     }
 }
