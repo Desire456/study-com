@@ -93,6 +93,15 @@ public class MainController {
         return "redirect:/home";
     }
 
+    @GetMapping("/coin")
+    public String showCoin() {
+        return "coin";
+    }
+
+    @GetMapping("/timetable")
+    public String showTimeTable() {
+        return "timetable";
+    }
 
     @GetMapping("/addLesson")
     public String showAddLess() {

@@ -10,10 +10,11 @@
 <body>
 <div class="navbar">
     <ul>
-        <li><a href="#"><b>Домашняя страница</b></a></li>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
         <li><a href="#"><b>Группа</b></a></li>
-        <li><a href="#"><b>Расписание</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
         <li><a href="#"><b>Чат</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
     </ul>
     <div class="profile">
         <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
@@ -46,7 +47,6 @@
 </div>
 <div id="a" class="todo-ul-li">
     <ul id="myUL">
-        <li>ОС: написать реферат</li>
         <th:block th:each="task : ${tasks}">
             <li th:text="${task.content}"></li>
             <input class = "tasksId" type = "hidden" th:value = "${task.id}">
@@ -63,23 +63,23 @@
 </div>
 
 <script>
-    var myNodelist = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
-    for (let i = 0; i < myNodelist.length; i++) {
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
+    const nodeList = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
+    for (let i = 0; i < nodeList.length; i++) {
+        const span = document.createElement("SPAN");
+        const txt = document.createTextNode("\u00D7");
         span.className = "close";
         span.appendChild(txt);
-        myNodelist[i].appendChild(span);
+        nodeList[i].appendChild(span);
     }
 
-    // Click on a close button to hide the current list item
+
     let close = document.getElementsByClassName("close");
     let tasksId = document.getElementsByClassName("tasksId");
     for (let i = 0; i < close.length; i++) {
-        var closeButton = close[i];
+        const closeButton = close[i];
         closeButton.onclick = function () {
-            var id = tasksId[i].value;
-            var form = document.createElement('form');
+            const id = tasksId[i].value;
+            const form = document.createElement('form');
             form.action = '/deleteTask';
             form.method = 'GET';
 
@@ -90,19 +90,16 @@
         }
     }
 
-    // Add a "checked" symbol when clicking on a list item
-    var list = document.querySelector('div.todo-ul-li ul[id = myUL]');
+    const list = document.querySelector('div.todo-ul-li ul[id = myUL]');
     list.addEventListener('click', function (ev) {
         if (ev.target.tagName === 'LI') {
             ev.target.classList.toggle('checked');
         }
     }, false);
 
-    // Create a new list item when clicking on the "Add" button
     function newElement() {
-        //var li = document.createElement("li");
-        var inputValue = document.getElementById("myInput").value;
-        var form = document.createElement('form');
+        const inputValue = document.getElementById("myInput").value;
+        const form = document.createElement('form');
         form.action = '/addTask';
         form.method = 'GET';
 
@@ -110,27 +107,6 @@
         document.body.append(form);
         document.getElementById("taskName").value = inputValue;
         form.submit();
-        /*li.appendChild(t);
-        if (inputValue === '') {
-          alert("You must write something!");
-        } else {
-          document.getElementById("myUL").appendChild(li);
-        }
-        document.getElementById("myInput").value = "";
-
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        li.appendChild(span);
-
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          }
-        }*/
-
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

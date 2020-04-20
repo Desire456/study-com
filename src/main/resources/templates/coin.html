@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <title>Coin Flip</title>
-  <link rel="stylesheet" href="../static/css/coinstyle.css"/>
+    <meta charset="utf-8"/>
+    <title>Coin Flip</title>
+    <link rel="stylesheet" href="css/coinstyle.css"/>
 </head>
 <body>
-  <div class="coin">
-  	<div class="head"></div>
-  	<div class="tail"></div>
-  </div>
-  <button id="flip">Узнать судьбу</button>
-  <script type="text/javascript">
-  	const button = document.querySelector("#flip");
-  	const coin = document.querySelector(".coin");
-  	button.addEventListener("click", function() {
-  	if((Math.random() * 10) >= 5) {
-  	coin.setAttribute('class', 'coin animation-head');
-  } else {
-  	coin.setAttribute('class', 'coin animation-tail');
-  }
-  });
-  </script>
+<div class="coin">
+    <div class="head"></div>
+    <div class="tail"></div>
+</div>
+<button id="flip">Узнать судьбу</button>
+<script type="text/javascript">
+    const button = document.querySelector("#flip");
+    const coin = document.querySelector(".coin");
+    button.addEventListener("click", function () {
+        if ((Math.random() * 10) >= 5) {
+            coin.setAttribute('class', 'coin animation-head');
+        } else {
+            coin.setAttribute('class', 'coin animation-tail');
+        }
+    });
+</script>
 </body>
 </html>
