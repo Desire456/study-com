@@ -22,7 +22,7 @@
     <div class="profile-text">
         <b th:text="${user.name}"></b>
         <br>
-        <b th:text="${user.group.name}"></b><b th:text="${user.level}"></b>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b>
     </div>
 </div>
 <div class="timetable-today disp-inline">
@@ -46,7 +46,8 @@
 <div id="a" class="todo-ul-li">
     <ul id="myUL">
         <th:block th:each="task : ${tasks}">
-            <li th:text="${task.content}"><span class="close" th:id = "${task.id}">\u00D7</span></li>
+            <li th:text="${task.content}"><span class="close">\u00D7</span></li>
+            <input class = "tasksId" type = "hidden" th:value = "${task.id}">
         </th:block>
     </ul>
 </div>
@@ -72,10 +73,11 @@
 
     // Click on a close button to hide the current list item
     var close = document.getElementsByClassName("close");
+    var tasksId = document.getElementsByClassName("tasksId");
     var i;
     for (i = 0; i < close.length; i++) {
         var closeButton = close[i];
-        closeButton.onclick = closeAction(closeButton.id);
+        closeButton.onclick = closeAction(tasksId[i].value);
     }
 
     function closeAction(id) {
@@ -83,9 +85,9 @@
         form.action = '/deleteTask';
         form.method = 'GET';
 
-        form.innerHTML = '<input type = "hidden" name = "taskId" id = "taskId" value = "">';
+        form.innerHTML = '<input type = "hidden" name = "taskId" id =' + '"taskId' + id + '" value = "">';
         document.body.append(form);
-        document.getElementById("taskId").value = id;
+        document.getElementById("taskId" + id).value = id;
         form.submit();
     }
 
