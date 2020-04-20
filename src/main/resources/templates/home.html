@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../static/css/main.css">
     <title>StudyCom</title>
 </head>
 <body>
@@ -20,9 +20,10 @@
                          class="profile-photo"></a>
     </div>
     <div class="profile-text">
+        <b th:text="${user.surname}"></b>
         <b th:text="${user.name}"></b>
         <br>
-        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
     </div>
 </div>
 <div class="timetable-today disp-inline">
@@ -45,6 +46,7 @@
 </div>
 <div id="a" class="todo-ul-li">
     <ul id="myUL">
+        <li>ОС: написать реферат</li>
         <th:block th:each="task : ${tasks}">
             <li th:text="${task.content}"></li>
             <input class = "tasksId" type = "hidden" th:value = "${task.id}">
