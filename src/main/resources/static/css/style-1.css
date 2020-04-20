@@ -1,7 +1,8 @@
 body {
     font-family: Verdana, sans-serif;
     margin: 0;
-    background: #483D8B url(../files/background.jpg);
+    background: #483D8B url(https://i.imgur.com/UMx2Goy.jpg);
+    background-size: cover;
 }
 h1 {
     margin: 0 ;
@@ -16,15 +17,15 @@ h2 {
     border-bottom: 3px solid #4B0082;
 }
 form {
-    margin: 7% auto;
-    background: black;
-    width: 450px;
-    height: 500px;
-    padding: 20px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+ margin: 7% auto;
+  background: black;
+  width: 450px;
+  height: 500px;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
 }
 .group {
-    margin: 10px;
+   margin: 10px;
     padding: 5px;
 }
 label {
@@ -46,10 +47,8 @@ input[type = text], input[type = password]:focus, input[type = text], input[type
     transform: translateY(2px);
 }
 
-button, input[type=submit] {
+input[type=submit] {
     font-family: Verdana, sans-serif;
-    margin-top: 10px;
-    margin-right: 57px;
     cursor: pointer;
     padding: 10px 30px;
     height: 50px;
@@ -61,6 +60,24 @@ button, input[type=submit] {
     border-radius: 25px/25px;
     border: none;
 }
-button:hover, input[type=submit] {
+
+button {
+    display:inline-block;
+    position:absolute;
+    top:500px;
+    left:885px;
+    font-family: Verdana, sans-serif;
+    cursor: pointer;
+    height: 50px;
+    width: 150px;
+    color: #fff;
+    background: #483D8B;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+    border-radius: 25px/25px;
+    border: none;
+}
+
+button:hover, input[type=submit]:hover {
     opacity: .80;
 }
