@@ -20,7 +20,7 @@ body {
 
 
 .homework {
-	left: 1000px;
+	left: 73%;
 }
 
 .homework li {
@@ -34,7 +34,7 @@ body {
 }
 
 .profile {
-	left: 1000px;
+	left: 74%;
 	position: absolute;
 }
 
@@ -50,7 +50,7 @@ body {
 .profile-text {
 	top: 7px;
 	color: white;
-	left: 1080px;
+	left: 80%;
 	position: absolute;
 }
 
@@ -86,7 +86,7 @@ body {
 }
 
 .todo {
-	left: 450px;
+	left: 33%;
 	background-color: #008080;
 	border: 3px solid #fff;
   padding: 30px 40px;
@@ -106,8 +106,8 @@ body {
 
 	position: absolute;
 	width: 384px;
-	left: 453px;
-	top: 239px;
+	left: 33.3%;
+	top: 38%;
 }
 
 /* Remove margins and padding from the list */
