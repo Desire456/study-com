@@ -13,7 +13,7 @@ public class Group  {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn// Связаны между собой тем что у них одинаковый id
+    @JoinColumn(name="timetable_id")
     private Timetable timetable;
 
 
