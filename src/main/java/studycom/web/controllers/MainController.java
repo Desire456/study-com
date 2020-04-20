@@ -110,7 +110,7 @@ public class MainController {
     @GetMapping("/addUser")
     public ModelAndView home(@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
                              @RequestParam(value = "login") String login, @RequestParam(value = "password") String password,
-                             @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox") String starostaCheck) {
+                             @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox", required = false) String starostaCheck) {
 
         ModelAndView model = new ModelAndView();
         if (name == null || surname == null ||
