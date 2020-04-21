@@ -137,8 +137,9 @@ public class MainController {
             Group thisUsersGroup = thisUserGr.get(0);
             user = new User(login, name, surname, password, thisUsersGroup);
             if(starostaCheck!= null){
-                user.makeStar();
                 if(thisUsersGroup.getStar()==null) {
+                    model.addObject("StarostaAlreadyExist", "exp");
+                    user.makeStar();
                     thisUsersGroup.setStar(user);
                 }
             }
@@ -171,17 +172,18 @@ public class MainController {
     public ModelAndView enter(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
         ModelAndView model = new ModelAndView();
         if (login == null || password == null) {
+            model.addObject("UserDoNotExist", "Exp");
             model.setViewName("enter");
             return model;
         }
         if (userRepository.findByLoginAndPassword(login, password).isEmpty()) {
+            model.addObject("UserDoNotExist", "Exp");
             model.setViewName("enter");
             return model;
         }
         User user =  userRepository.findByLoginAndPassword(login, password).get(0);
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
-        model.setViewName("home");
         model.setViewName("home");
         return model;
     }
