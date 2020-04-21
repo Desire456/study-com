@@ -23,7 +23,7 @@
         <br>
         <b th:text="${user.group.name}"></b><b th:text="${user.level}"></b>
     </div>
-    <div class="group"> 
+    <div class="group">
         <b>ниже${user.group.name}</b>
         <b th:text="${user.group.name}"></b>
     </div>
@@ -320,7 +320,7 @@ function sort(e) {
 
 function init(e) {
     if (!document.getElementsByTagName) return;
-    
+
     if (document.createEvent) function click_elem(elem){
         var evt = document.createEvent("MouseEvents");
         evt.initMouseEvent("click", false, false, window, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, elem);
@@ -335,7 +335,7 @@ function init(e) {
             node.title = "Нажмите на заголовок, чтобы отсортировать колонку";
         }
         thead.parentNode.up = 0;
-        
+
         if (typeof(initial_sort_id) != "undefined"){
             td_for_event = thead.getElementsByTagName("td").item(initial_sort_id);
             if (td_for_event.dispatchEvent) click_elem(td_for_event);
