@@ -21,6 +21,7 @@ public class Group  {
     private User star;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = CascadeType.ALL)
+    @OrderBy("name")
     private Set<User> users;
 
     public Group(String name){

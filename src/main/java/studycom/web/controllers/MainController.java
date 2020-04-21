@@ -74,10 +74,14 @@ public class MainController {
         return "registration";
     }
 
+    @GetMapping("/group")
+    public String showGroup() {
+        return "group";
+    }
 
 
     @GetMapping("/deleteTask")
-    public String deleteTask (@RequestParam( value = "taskId") Integer id){
+    public String deleteTask(@RequestParam(value = "taskId") Integer id) {
         taskRepository.deleteById(id);
         return "redirect:/home";
     }

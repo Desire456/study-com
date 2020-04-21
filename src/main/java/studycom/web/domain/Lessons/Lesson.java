@@ -15,6 +15,7 @@ public class Lesson {
 
     private LessonType lessonType;
     private String time;
+    private String homework;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -66,5 +67,13 @@ public class Lesson {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getHomework() {
+        return homework;
+    }
+
+    public void setHomework(String homework) {
+        this.homework = homework;
     }
 }

@@ -17,6 +17,7 @@ public class Day {
     private Week week;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "day", cascade = CascadeType.ALL)
+    @OrderBy("time")
     private Set<Lesson> lessons;
 
     private DayType currentDay;
