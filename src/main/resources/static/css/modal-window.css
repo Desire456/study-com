@@ -15,7 +15,8 @@
 /* ширина диалогового окна и его отступы от экрана */
 .modalwindow {
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
+  min-width: 500px;
   margin: 10% auto;
   padding: 2%;
   background: #fff;
@@ -42,7 +43,8 @@
   background: #369;
   padding: 2%;
   margin: 0 auto;
-  width: 50%;
+  box-sizing: border-box;
+  width: 40%;
   border-radius: 3px;
   text-align: center;
   text-decoration: none;
