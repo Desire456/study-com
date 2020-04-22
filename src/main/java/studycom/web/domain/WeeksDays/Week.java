@@ -3,6 +3,7 @@ package studycom.web.domain.WeeksDays;
 import studycom.web.domain.UsersPart.Group;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,17 @@ public class Week {
     public Week() {
     }
 
+    public Week(Integer weekNumb, Set<Day> days, Timetable timetable) {
+        this.weekNumb = weekNumb;
+        this.days = days;
+        this.timetable = timetable;
+    }
+
+    public Week(Integer weekNumb, Set<Day> days) {
+        this.weekNumb = weekNumb;
+        this.days = days;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -54,5 +66,13 @@ public class Week {
 
     public void setWeekNumb(Integer weekNumb) {
         this.weekNumb = weekNumb;
+    }
+
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
+    }
+
+    public Timetable getTimetable() {
+        return timetable;
     }
 }

@@ -29,8 +29,15 @@ public class Timetable {
         this.id = id;
     }
 
-   public void setWeeks(Set<Week> weeks) {
-       this.weeks = weeks;
+    public void setWeeks(Set<Week> weeks) {
+        this.weeks = weeks;
+    }
+
+    public Timetable() {
+    }
+
+    public Timetable(Set<Week> weeks) {
+        this.weeks = weeks;
     }
 
 

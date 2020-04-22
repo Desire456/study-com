@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Tahoma;
+            margin: 0;
+
+        }
+
+        form {
+            margin: 7% auto;
+            width: 450px;
+            height: 450px;
+            padding: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.82);
+            border-radius: 25px/25px;
+        }
+
+        label {
+            color: #008080;
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px 30px;
+            height: 50px;
+  width: 150px;
+  color: #fff;
+  background: #008080;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+  border-radius: 25px/25px;
+  border: none;
+}
+button:hover {
+  opacity: .80;
+}
+ .select {
+    position: relative;
+}
+ .group select {
+    margin: 10px;
+    display: block;
+    width: 100%; 
+    padding: .75rem 2.5rem .75rem 1rem;/* отступы от текста до рамки */
+    background: none; 
+    border: 1px solid #ccc; 
+    border-radius: 25px/25px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #444;
+}
+    </style>
+</head>
+<body>
+<form action="" th:action="@{addLesson}">
+    <div class="group">
+        <label for="numWeek">Неделя</label>
+        <select name="weekNumber">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+    </div>
+    <div class="group">
+        <label for="day">День</label>
+        <select name="day">
+            <option>MONDAY</option>
+            <option>TUESDAY</option>
+            <option>WEDNESDAY</option>
+            <option>THURSDAY</option>
+            <option>FRIDAY</option>
+            <option>SATURDAY</option>
+        </select>
+    </div>
+    <div class="group">
+        <label for="time">Время</label>
+        <select name="time">
+            <option>8.00-9.35</option>
+            <option>9.45-11.20</option>
+            <option>11.30-13.05</option>
+            <option>13.30-15.05</option>
+            <option>15.15-16.50</option>
+            <option>17.00-18.30</option>
+            <option>18.45-20.15</option>
+            <option>20.25-21.55</option>
+        </select>
+    </div>
+    <div class="group">
+        <label for="type">Тип</label>
+        <select name="lessonType">
+            <option>LECTURE</option>
+            <option>LAB</option>
+            <option>PRACTICE</option>
+        </select>
+    </div>
+    </div>
+    <div class="group">
+        <label for="name">Название</label>
+        <select name="lessonName">
+            <option>Безопасность жизнедеятельности</option>
+            <option>Введение в специальность</option>
+            <option>Военная кафедра</option>
+            <option>Операционные системы</option>
+            <option>Системное программирование</option>
+            <option>Теория вероятности</option>
+            <option>ТФКП</option>
+            <option>Физика</option>
+            <option>Физкультура</option>
+            <option>Численные методы</option>
+        </select>
+    </div>
+    <div class="group">
+        <center>
+            <button>Заполнить</button>
+        </center>
+    </div>
+
+</form>
+</body>
+</html>

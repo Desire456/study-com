@@ -22,9 +22,10 @@ public class Day {
 
     private DayType currentDay;
 
-    public Day(String currentDay, Week week){
+    public Day(String currentDay, Set<Lesson> lessons, Week week) {
         this.currentDay = DayType.valueOf(currentDay);
         this.week = week;
+        this.lessons = lessons;
     }
 
     public Day(){}
