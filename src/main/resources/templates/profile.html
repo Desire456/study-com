@@ -6,102 +6,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/modal-window.css">
+    <link rel="stylesheet" href="../static/css/input.css">
     <title>StudyCom</title>
 </head>
 <body>
 <div id="error" class="modalbackground">
+	<form action = "/editProfile" type = "POST" id = "editProfileForm">
     <div class="modalwindow">
-        <h3 style = "margin-top: 10px">Редактирование профиля</h3>
-        <div>
-            <span>Логин:</span>
-            <input type="text" style = "margin-left: 26px">
+        <h3>Редактирование профиля</h3>
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Логин" name="login" id='login' required/>
+            <label for="login" class="form__label">Логин</label>
         </div>
-        <div>
-            <span>Пароль:</span>
-            <input type="password" style = "margin-left: 16px">
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Фамилия" name="surname" id='surname' required/>
+            <label for="surname" class="form__label">Фамилия</label>
         </div>
-        <div>
-            <span>Фамилия:</span>
-            <input type="text" style = "margin-left: 5px">
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Имя" name="name" id='name' required/>
+            <label for="name" class="form__label">Имя</label>
         </div>
-        <div>
-            <span>Имя:</span>
-            <input type="text" style = "margin-left: 39px">
+        <div class="form__group field">
+            <input type="password" class="form__field" placeholder="Пароль" name="passowrd" id='password' required/>
+            <label for="password" class="form__label">Пароль</label>
         </div>
-        <div>
-            <span>Группа:</span>
-            <input type="text" style = "margin-left: 19px">
+        <div class="form__group field">
+            <input type="input" class="form__field" placeholder="Группа" name="group" id='group' required/>
+            <label for="group" class="form__label">Группа</label>
         </div>
-        <div>
-            <span>Аватар:</span>
-            <input type="text" style = "margin-left: 20px">
+        <div class="form__group field">
+            <input type="input"  class="form__field" placeholder="Аватар" name="avatar" id='avatar' title = "Для того чтобы загрузить аватар вам нужно ввести его URL" required/>
+            <label for="avatar" class="form__label">Аватар</label>
         </div>
-        <a style = "margin-top: 30px; display: inline-block;">Применить</a>
-        <a style = "margin-top: 0px; display: inline-block;">Закрыть</a>
+        <a href ="" style="margin-top: 30px; display: inline-block;">Применить</a>
+    </form>
+        <a style="margin-top: 0px; display: inline-block;" onclick ="document.getElementById('editProfileForm').submit()">Закрыть</a>
+        <a href="https://support.google.com/websearch/answer/118238?hl=ru&co=GENIE.Platform%3DDesktop" style="margin-top: 10px; margin-left: 25%">Как узнать URL изображения?</a>
     </div>
 </div>
 
 
-        <div class="navbar">
-            <ul>
-                <li><a href="/home"><b>Домашняя страница</b></a></li>
-                <li><a href="/group"><b>Группа</b></a></li>
-                <li><a href="/timetable"><b>Расписание</b></a></li>
-                <li><a href="#"><b>Чат</b></a></li>
-            </ul>
-            <div class="profile">
-                <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
-                                 class="profile-photo"></a>
+<div class="navbar">
+    <ul>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
+        <li><a href="/group"><b>Группа</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
+        <li><a href="#"><b>Чат</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                         class="profile-photo"></a>
+    </div>
+    <div class="profile-text">
+        <b th:text="${user.surname}"></b>
+        <b th:text="${user.name}"></b>
+        <br>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
+    </div>
+</div>
+<div class="main-profile">
+    <ul>
+        <li>
+            <div class="gradient-border">
+                <a href="#"><img
+                        src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                        class="mainprofile-photo"></a>
             </div>
-            <div class="profile-text">
-                <b th:text="${user.surname}"></b>
-                <b th:text="${user.name}"></b>
+        </li>
+        <li>
+            <div class="profile-info">
+                <h1><b>Владислав Селицкий</b></h1>
+                <b>Группа 6208</b>
                 <br>
-                <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
-            </div>
-        </div>
-        <div class="main-profile">
-            <ul>
-                <li>
-                    <div class="gradient-border">
-                        <a href="#"><img
-                                src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
-                                class="mainprofile-photo"></a>
-                    </div>
-                </li>
-                <li>
-                    <div class="profile-info">
-                        <h1><b>Владислав Селицкий</b></h1>
-                        <b>Группа 6208</b>
-                        <br>
-                        <br>
-                        <b>Студент</b>
-                        <br><br>
+                <br>
+                <b>Студент</b>
+                <br><br>
 
-                    </div>
-                </li>
-                <li>
-                    <div class="statistic">
-                        <b>Посещено пар: 0</b>
-                        <br>
-                        <b>Пропущено пар: 99999</b>
-                        <br>
-                        <b>Всего пар: 99999</b>
-                        <br><br>
-                        <button>Редактировать</button>
-                    </div>
-                </li>
-            </ul>
-            <div class="container">
-                <div class="exp">
-                    <div class="exp-line"></div>
-                    <p>20/100</p>
-                    <h2 style="text-align: center">1 уровень</h2>
-                    <p style="text-align: center">Как повышать уровень?</p>
-                    <div></div>
-                </div>
             </div>
+        </li>
+        <li>
+            <div class="statistic">
+                <b>Посещено пар: 0</b>
+                <br>
+                <b>Пропущено пар: 99999</b>
+                <br>
+                <b>Всего пар: 99999</b>
+                <br><br>
+                <button>Редактировать</button>
+            </div>
+        </li>
+    </ul>
+    <div class="container">
+        <div class="exp">
+            <div class="exp-line"></div>
+            <p>20/100</p>
+            <h2 style="text-align: center">1 уровень</h2>
+            <p style="text-align: center">Как повышать уровень?</p>
+            <div></div>
         </div>
+    </div>
+</div>
 </body>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script>

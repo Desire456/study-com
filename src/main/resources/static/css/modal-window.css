@@ -16,10 +16,9 @@
 .modalwindow {
   width: 100%;
   max-width: 500px;
-  min-width: 500px;
-  margin: 10% auto;
+  margin: 0% auto;
   padding: 2%;
-  background: #fff;
+  background: #fff;ч
   border-radius: 3px;
 }
 
@@ -36,21 +35,21 @@
 }
 
 /* вид кнопки ЗАКРЫТЬ */
-.modalwindow a {
+.modalwindow a{
   cursor: pointer;
   display: block;
   color: #fff;
   background: #369;
   padding: 2%;
   margin: 0 auto;
-  box-sizing: border-box;
-  width: 40%;
+  width: 45%;
   border-radius: 3px;
   text-align: center;
   text-decoration: none;
 }
 
+
 /* вид кнопки ЗАКРЫТЬ при наведении на нее мыши */
-.modalwindow a:hover {
+.modalwindow a:hover{
   background: #47a;
 }
