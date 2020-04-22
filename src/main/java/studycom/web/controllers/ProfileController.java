@@ -54,18 +54,10 @@ public class ProfileController {
                 return "redirect:/profile";
             }
         }
-        if (!login.equals("")) {
-            user.setLogin(login);
-        }
-        if (!surname.equals("")) {
-            user.setSurname(surname);
-        }
-        if (!name.equals("")) {
-            user.setName(name);
-        }
-        if (!password.equals("")) {
-            user.setPassword(password);
-        }
+        user.setLogin(login);
+        user.setSurname(surname);
+        user.setName(name);
+        user.setPassword(password);
         if (!avatar.equals("")) {
             user.setUrlPhoto(avatar);
         }

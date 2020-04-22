@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/modal-window.css">
-    <link rel="stylesheet" href="css/input.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/modal-window.css">
+    <link rel="stylesheet" href="../static/css/input.css">
     <title>StudyCom</title>
 </head>
 <body onload="createExpLine()">
@@ -31,17 +31,16 @@
                 <label for="password" class="form__label">Пароль</label>
             </div>
             <div class="form__group field">
-                <input type="text" class="form__field" placeholder="Группа" name="groupp" id='group' required>
+                <input type="text" class="form__field" placeholder="Группа" name="groupp" id='group'>
                 <label for="group" class="form__label">Группа</label>
             </div>
             <div class="form__group field">
                 <input type="url" class="form__field" placeholder="Аватар" name="avatarr" id='avatar'
-                       title="Для того чтобы загрузить аватар вам нужно ввести его URL" required>
+                       title="Для того чтобы загрузить аватар вам нужно ввести его URL">
                 <label for="avatar" class="form__label">Аватар</label>
             </div>
-            <a onclick="document.getElementById('editProfileForm').submit()"
-               style="margin-top: 30px; display: inline-block;">Применить</a>
-            <a style="margin-top: 0; display: inline-block;" onclick="closeModalWindow()">Закрыть</a>
+            <input type = "submit" value="Изменить" style="margin-left: 0; display: inline-block; margin-top: 20px" >
+            <a style="margin-top: 0; display: inline-block; margin-left: 10px" onclick="closeModalWindow()">Закрыть</a>
             <a href="https://support.google.com/websearch/answer/118238?hl=ru&co=GENIE.Platform%3DDesktop"
                style="margin-top: 10px; margin-left: 25%" target="_blank">Как узнать URL изображения?</a>
         </form>

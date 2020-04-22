@@ -43,13 +43,25 @@
   padding: 2%;
   margin: 0 auto;
   width: 45%;
-  border-radius: 3px;
   text-align: center;
   text-decoration: none;
 }
 
 
-/* вид кнопки ЗАКРЫТЬ при наведении на нее мыши */
-.modalwindow a:hover{
-  background: #47a;
+
+.modalwindow input[type = submit] {
+  font-family: inherit;
+  cursor: pointer;
+  display: block;
+  color: #fff;
+  background: #369;
+  font-size: 16px;
+  padding: 10px;
+  border: 0;
+  width: 100%;
+  height: 41px;
+  margin: 0 auto;
+  width: 45%;
+  text-align: center;
+  text-decoration: none;
 }
