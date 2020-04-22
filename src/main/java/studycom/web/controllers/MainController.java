@@ -66,7 +66,7 @@ public class MainController {
 
     @GetMapping("/board")
     public String showWeek(Map<String, Object> model) {
-        model.put("WEEK1", new ArrayList<Day>(weekRepository.findByWeekNumb(1).get(0).getDays()));
+        model.put("WEEK1", new ArrayList<>(weekRepository.findByWeekNumb(1).get(0).getDays()));
         return "board";
     }
 
@@ -166,13 +166,9 @@ public class MainController {
     }
 
     @GetMapping("/enterAction")
-    public ModelAndView enter(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
+    public ModelAndView enter(@RequestParam(value = "login") String login,
+                              @RequestParam(value = "password") String password) {
         ModelAndView model = new ModelAndView();
-        if (login == null || password == null) {
-            model.addObject("error", "Exp");
-            model.setViewName("enter");
-            return model;
-        }
         if (userRepository.findByLoginAndPassword(login, password).isEmpty()) {
             model.addObject("error", "Неверный логин или пароль");
             model.setViewName("enter");
