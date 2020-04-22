@@ -1,6 +1,7 @@
 package studycom.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ import studycom.web.domain.WeeksDays.DayType;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -126,8 +128,8 @@ public class MainController {
                              @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox", required = false) String starostaCheck) {
 
         ModelAndView model = new ModelAndView();
-        if (name == null || surname == null ||
-                password == null || group == null || login == null || !userRepository.findByLogin(login).isEmpty()) {
+        if (!userRepository.findByLogin(login).isEmpty()) {
+            model.addObject("error", "Пользователь с таким логином уже существует");
             model.setViewName("registration");
             return model;
         }
@@ -136,16 +138,17 @@ public class MainController {
         if (!thisUserGr.isEmpty()) {
             Group thisUsersGroup = thisUserGr.get(0);
             user = new User(login, name, surname, password, thisUsersGroup);
-            if(starostaCheck!= null){
-                if(thisUsersGroup.getStar()==null) {
-                    model.addObject("StarostaAlreadyExist", "exp");
-                    user.makeStar();
-                    thisUsersGroup.setStar(user);
-                }
+            if(starostaCheck!= null && thisUsersGroup.getStar() != null){
+                    model.addObject("error", "В этой группе уже есть староста");
+                    model.setViewName("registration");
+                    return model;
+            }
+            else if (starostaCheck != null){
+                user.makeStar();
             }
         } else {
             user = new User(login, name, surname, password, group);
-            if(starostaCheck!= null){
+            if(starostaCheck != null){
                 user.makeStar();
             }
         }
@@ -172,12 +175,12 @@ public class MainController {
     public ModelAndView enter(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
         ModelAndView model = new ModelAndView();
         if (login == null || password == null) {
-            model.addObject("UserDoNotExist", "Exp");
+            model.addObject("error", "Exp");
             model.setViewName("enter");
             return model;
         }
         if (userRepository.findByLoginAndPassword(login, password).isEmpty()) {
-            model.addObject("UserDoNotExist", "Exp");
+            model.addObject("error", "Неверный логин или пароль");
             model.setViewName("enter");
             return model;
         }
