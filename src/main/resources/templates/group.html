@@ -19,9 +19,10 @@
                          class="profile-photo"></a>
     </div>
     <div class="profile-text">
+        <b th:text="${user.surname}"></b>
         <b th:text="${user.name}"></b>
         <br>
-        <b th:text="${user.group.name}"></b><b th:text="${user.level}"></b>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
     </div>
     <div class="group">
         <b>ниже${user.group.name}</b>

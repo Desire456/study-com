@@ -77,7 +77,7 @@ public class MainController {
     }
 
     @GetMapping("/group")
-    public String showGroup() {
+    public String showGroup(@ModelAttribute("user") User user) {
         return "group";
     }
 
