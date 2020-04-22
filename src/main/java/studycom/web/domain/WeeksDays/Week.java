@@ -4,6 +4,8 @@ import studycom.web.domain.UsersPart.Group;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,8 +17,10 @@ public class Week {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-
     private Integer weekNumb;
+
+    @ElementCollection
+    private List<String> lessonsName;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "week", cascade = CascadeType.ALL)
     @OrderBy("currentDay")
