@@ -25,23 +25,11 @@ public class ProfileController {
     private GroupRepository groupRepository;
 
     @PostMapping("/editProfile")
-    public String editProfile(@ModelAttribute("user") User user, @RequestParam(value = "login") String login,
-                              @RequestParam(value = "surname") String surname, @RequestParam(value = "name") String name,
-                              @RequestParam(value = "password") String password, @RequestParam(value = "group") String group,
-                              @RequestParam(value = "avatar") String avatar) {
+    public String editProfile(@ModelAttribute("user") User user, @RequestParam(value = "loginn") String login,
+                              @RequestParam(value = "surnamee") String surname, @RequestParam(value = "namee") String name,
+                              @RequestParam(value = "passwordd") String password, @RequestParam(value = "groupp") String group,
+                              @RequestParam(value = "avatarr") String avatar) {
         ModelAndView model = new ModelAndView();
-        if (!login.equals("")) {
-            user.setLogin(login);
-        }
-        if (!surname.equals("")) {
-            user.setSurname(surname);
-        }
-        if (!name.equals("")) {
-            user.setName(name);
-        }
-        if (!password.equals("")) {
-            user.setPassword(password);
-        }
         if (!group.equals("")) {
             Group thisUsersGr = groupRepository.findByName(user.getGroup().getName()).get(0);
             List<Group> groups = groupRepository.findByName(group);
@@ -65,6 +53,18 @@ public class ProfileController {
                 model.addObject("error", "Такой группы не существует");
                 return "redirect:/profile";
             }
+        }
+        if (!login.equals("")) {
+            user.setLogin(login);
+        }
+        if (!surname.equals("")) {
+            user.setSurname(surname);
+        }
+        if (!name.equals("")) {
+            user.setName(name);
+        }
+        if (!password.equals("")) {
+            user.setPassword(password);
         }
         if (!avatar.equals("")) {
             user.setUrlPhoto(avatar);
