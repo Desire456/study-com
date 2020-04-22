@@ -111,33 +111,44 @@ public class MainController {
                              @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox", required = false) String starostaCheck) {
 
         ModelAndView model = new ModelAndView();
+
         if (!userRepository.findByLogin(login).isEmpty()) {
             model.addObject("error", "Пользователь с таким логином уже существует");
             model.setViewName("registration");
             return model;
         }
         User user;
+        Group thisUsersGroup;
         List<Group> thisUserGr = groupRepository.findByName(group);
         if (!thisUserGr.isEmpty()) {
-            Group thisUsersGroup = thisUserGr.get(0);
+            thisUsersGroup = thisUserGr.get(0);
             user = new User(login, name, surname, password, thisUsersGroup);
             if(starostaCheck!= null && thisUsersGroup.getStar() != null){
                     model.addObject("error", "В этой группе уже есть староста");
                     model.setViewName("registration");
                     return model;
-            }
-            else if (starostaCheck != null){
+            } else if (starostaCheck != null) {
                 user.makeStar();
+                thisUsersGroup.setStar(user);
+                groupRepository.save(thisUsersGroup);
+            } else {
+                userRepository.save(user);
             }
         } else {
             user = new User(login, name, surname, password, group);
-            if(starostaCheck != null){
+            if (starostaCheck != null) {
+                thisUsersGroup = new Group();
                 user.makeStar();
+                thisUsersGroup.setStar(user);
+                thisUsersGroup.setName(group);
+                user.setGroup(thisUsersGroup);
+                groupRepository.save(thisUsersGroup);
+            } else {
+                userRepository.save(user);
             }
         }
         model.addObject("user", user);
         model.setViewName("home");
-        userRepository.save(user);
         return model;
     }
 
