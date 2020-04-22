@@ -3,6 +3,7 @@ import studycom.web.domain.UsersPart.Group;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "timetables")
@@ -13,6 +14,7 @@ public class Timetable {
     private Integer id;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "timetable", cascade = CascadeType.ALL)
+    @OrderBy("weekNumb")
     private Set<Week> weeks;
 
     public Integer getId() {

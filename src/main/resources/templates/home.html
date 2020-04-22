@@ -4,25 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
     <title>StudyCom</title>
 </head>
 <body>
 <div class="navbar">
     <ul>
-        <li><a href="#"><b>Домашняя страница</b></a></li>
-        <li><a href="#"><b>Группа</b></a></li>
-        <li><a href="#"><b>Расписание</b></a></li>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
+        <li><a href="/group"><b>Группа</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
         <li><a href="#"><b>Чат</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
     </ul>
     <div class="profile">
-        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
-                         class="profile-photo"></a>
+        <a href="/profile"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                                class="profile-photo"></a>
     </div>
     <div class="profile-text">
+        <b th:text="${user.surname}"></b>
         <b th:text="${user.name}"></b>
         <br>
-        <b th:text ="${user.group.name}"></b><b th:text ="${user.level}"></b>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
     </div>
 </div>
 <div class="timetable-today disp-inline">
@@ -39,16 +41,17 @@
     </ul>
 </div>
 <div id="myDIV" class="todo disp-inline">
-  <h2>Список задач:</h2>
-  <input type="text" id="myInput">
-  <span onclick="newElement()" class="addBtn">Добавить</span>
+    <h2>Список задач:</h2>
+    <input type="text" id="myInput">
+    <span onclick="newElement()" class="addBtn">Добавить</span>
 </div>
-<div id = "a" class="todo-ul-li">
-	<ul id="myUL">
+<div id="a" class="todo-ul-li">
+    <ul id="myUL">
         <th:block th:each="task : ${tasks}">
-            <li th:text="${task.content}" ><span class = "close" th:id = "${task.id}">\u00D7</span></li>
+            <li th:text="${task.content}"></li>
+            <input class = "tasksId" type = "hidden" th:value = "${task.id}">
         </th:block>
-	</ul>
+    </ul>
 </div>
 <div class="homework disp-inline">
     <h2>Домашнее задание:</h2>
@@ -60,75 +63,51 @@
 </div>
 
 <script>
-	var myNodelist = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-      form.action = '/deleteTask';
-      form.method = 'GET';
-
-      form.innerHTML = '<input type = "hidden" name = "taskId" id = "taskId" value = "">';
-      document.body.append(form);
-      document.getElementById("taskId").value = this.parentElement.id;
-      form.submit();
-    /*var div = this.parentElement;
-    div.style.display = "none";*/
-  }
-}
-
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('div.todo-ul-li ul[id = myUL]');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  //var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var form = document.createElement('form');
-  form.action = '/addTask';
-  form.method = 'GET';
-
-  form.innerHTML = '<input type = "hidden" name = "taskName" id = "taskName" value = "">';
-  document.body.append(form);
-  document.getElementById("taskName").value = inputValue;
-  form.submit();
-  /*li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
+    const nodeList = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
+    for (let i = 0; i < nodeList.length; i++) {
+        const span = document.createElement("SPAN");
+        const txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        nodeList[i].appendChild(span);
     }
-  }*/
 
-}
+
+    let close = document.getElementsByClassName("close");
+    let tasksId = document.getElementsByClassName("tasksId");
+    for (let i = 0; i < close.length; i++) {
+        const closeButton = close[i];
+        closeButton.onclick = function () {
+            const id = tasksId[i].value;
+            const form = document.createElement('form');
+            form.action = '/deleteTask';
+            form.method = 'GET';
+
+            form.innerHTML = '<input type = "hidden" name = "taskId" id =' + '"taskId' + id + '" value = "">';
+            document.body.append(form);
+            document.getElementById("taskId" + id).value = id;
+            form.submit();
+        }
+    }
+
+    const list = document.querySelector('div.todo-ul-li ul[id = myUL]');
+    list.addEventListener('click', function (ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
+
+    function newElement() {
+        const inputValue = document.getElementById("myInput").value;
+        const form = document.createElement('form');
+        form.action = '/addTask';
+        form.method = 'GET';
+
+        form.innerHTML = '<input type = "hidden" name = "taskName" id = "taskName" value = "">';
+        document.body.append(form);
+        document.getElementById("taskName").value = inputValue;
+        form.submit();
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

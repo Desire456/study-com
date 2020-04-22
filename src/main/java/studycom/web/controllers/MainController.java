@@ -1,6 +1,7 @@
 package studycom.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ import studycom.web.domain.WeeksDays.DayType;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +66,7 @@ public class MainController {
 
     @GetMapping("/board")
     public String showWeek(Map<String, Object> model) {
-        model.put("WEEK1", new ArrayList<Day>(weekRepository.findByWeekNumb(1).get(0).getDays()));
+        model.put("WEEK1", new ArrayList<>(weekRepository.findByWeekNumb(1).get(0).getDays()));
         return "board";
     }
 
@@ -74,25 +76,21 @@ public class MainController {
         return "registration";
     }
 
-
-
-    @GetMapping("/deleteTask")
-    public String deleteTask (@RequestParam( value = "taskId") Integer id){
-        taskRepository.deleteById(id);
-        return "home";
+    @GetMapping("/group")
+    public String showGroup() {
+        return "group";
     }
 
 
-    @GetMapping("/addTask")
-    public String addTask(@ModelAttribute("user") User user,
-                          @RequestParam(value = "taskName") String taskName) {
-        ModelAndView model = new ModelAndView();
-        Task task = new Task(taskName, user);
-        task.setId(user.getId());
-        taskRepository.save(task);
-        return "home";
+    @GetMapping("/coin")
+    public String showCoin() {
+        return "coin";
     }
 
+    @GetMapping("/timetable")
+    public String showTimeTable() {
+        return "timetable";
+    }
 
     @GetMapping("/addLesson")
     public String showAddLess() {
@@ -109,26 +107,55 @@ public class MainController {
 
     @GetMapping("/addUser")
     public ModelAndView home(@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
-                             @RequestParam(value = "login") String login, @RequestParam(value = "password") String password, @RequestParam(value = "group") String group) {
+                             @RequestParam(value = "login") String login, @RequestParam(value = "password") String password,
+                             @RequestParam(value = "group") String group,@RequestParam(value = "starostaCheckbox", required = false) String starostaCheck) {
+
         ModelAndView model = new ModelAndView();
-        if (name == null || surname == null ||
-                password == null || group == null || login == null || !userRepository.findByLogin(login).isEmpty()) {
+
+        if (!userRepository.findByLogin(login).isEmpty()) {
+            model.addObject("error", "Пользователь с таким логином уже существует");
             model.setViewName("registration");
             return model;
         }
         User user;
+        Group thisUsersGroup;
         List<Group> thisUserGr = groupRepository.findByName(group);
         if (!thisUserGr.isEmpty()) {
-            user = new User(login, name, surname, password, thisUserGr.get(0));
+            thisUsersGroup = thisUserGr.get(0);
+            user = new User(login, name, surname, password, thisUsersGroup);
+            if(starostaCheck!= null && thisUsersGroup.getStar() != null){
+                    model.addObject("error", "В этой группе уже есть староста");
+                    model.setViewName("registration");
+                    return model;
+            } else if (starostaCheck != null) {
+                user.makeStar();
+                thisUsersGroup.setStar(user);
+                groupRepository.save(thisUsersGroup);
+            } else {
+                userRepository.save(user);
+            }
         } else {
             user = new User(login, name, surname, password, group);
+            if (starostaCheck != null) {
+                thisUsersGroup = new Group();
+                user.makeStar();
+                thisUsersGroup.setStar(user);
+                thisUsersGroup.setName(group);
+                user.setGroup(thisUsersGroup);
+                groupRepository.save(thisUsersGroup);
+            } else {
+                userRepository.save(user);
+            }
         }
         model.addObject("user", user);
         model.setViewName("home");
-        userRepository.save(user);
         return model;
     }
 
+    @GetMapping("/profile")
+    public String showProfile(@ModelAttribute("user") User user) {
+        return "profile";
+    }
 
     @GetMapping("/enter")
     public ModelAndView showEnt() {
@@ -139,20 +166,17 @@ public class MainController {
     }
 
     @GetMapping("/enterAction")
-    public ModelAndView enter(@RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
+    public ModelAndView enter(@RequestParam(value = "login") String login,
+                              @RequestParam(value = "password") String password) {
         ModelAndView model = new ModelAndView();
-        if (login == null || password == null) {
-            model.setViewName("enter");
-            return model;
-        }
         if (userRepository.findByLoginAndPassword(login, password).isEmpty()) {
+            model.addObject("error", "Неверный логин или пароль");
             model.setViewName("enter");
             return model;
         }
         User user =  userRepository.findByLoginAndPassword(login, password).get(0);
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
-        model.setViewName("home");
         model.setViewName("home");
         return model;
     }

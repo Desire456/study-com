@@ -18,6 +18,7 @@ public class Week {
     private Integer weekNumb;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "week", cascade = CascadeType.ALL)
+    @OrderBy("currentDay")
     private Set<Day> days;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -33,6 +34,7 @@ public class Week {
     public Integer getId() {
         return id;
     }
+
 
     public Set<Day> getDays() {
         return days;

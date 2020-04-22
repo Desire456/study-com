@@ -141,6 +141,10 @@ public class User implements Serializable {
         level=exp/100;
     }
 
+
+    public void makeStar(){
+        this.role = Role.STAR;
+    }
     public User(){}
 
 }

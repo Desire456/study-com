@@ -1,0 +1,287 @@
+body {
+  margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.timetable-today {
+	padding-left: 15px;
+}
+
+.timetable-today li {
+	list-style-type: circle;
+}
+
+
+.homework {
+	left: 73%;
+}
+
+.homework li {
+	list-style-type: circle;
+}
+
+
+.disp-inline {
+	display: inline-block;
+	position: absolute;
+}
+
+.profile {
+	left: 74%;
+	position: absolute;
+}
+
+
+.profile-photo {
+	width: 56px;
+	height: 56px;
+	border-radius: 50px; 
+   border: 3px solid white; 
+   box-shadow: 0 0 0 #666;
+}
+
+.profile-text {
+	top: 7px;
+	color: white;
+	left: 80%;
+	position: absolute;
+}
+
+.navbar {
+	position: relative;
+	background: #008080;
+	height: 64px;
+	margin-right: -5px;
+}
+
+.navbar ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: #dddddd;
+}
+
+.navbar li {
+	display: inline;
+	float: left;
+}
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.navbar li a:hover {
+  background-color: 	#C0C0C0;
+}
+
+.todo {
+	left: 36%;
+	background-color: #008080;
+	border: 3px solid #fff;
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+.todo * {
+  box-sizing: border-box;
+}
+
+.todo-ul-li * {
+	box-sizing: border-box;
+}
+
+.todo-ul-li {
+
+	position: absolute;
+	width: 384px;
+	left: 36.2%;
+	top: 25.8%;
+}
+
+/* Remove margins and padding from the list */
+.todo-ul-li ul {
+	list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the list items */
+.todo-ul-li ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+.todo-ul-li ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+.todo-ul-li ul li:hover {
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+.todo-ul-li ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+.todo-ul-li ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+/* Clear floats after the header */
+.todo:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the input */
+.todo input {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 60%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+/* Style the "Add" button */
+.addBtn {
+  padding: 7px;
+  margin-left: 5px;
+  width: 30%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+.main-profile {
+    position: relative;
+    background: white;
+    height: 1000px;
+}
+.main-profile ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+.main-profile li {
+    display: inline;
+    float: left;
+}
+
+
+.mainprofile-photo{
+    width: 400px;
+    height: 400px;
+
+    margin-left: 100px;
+    margin-top: 100px;
+    border-radius: 50px;
+    border: 3px solid white;
+    box-shadow: 0 0 0px #666;
+}
+.profile-info{
+    margin-top: 100px;
+    margin-left: 100px;
+}
+.statistic{
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 500px;
+}
+.main-profile ul{
+    height: 550px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-profile button {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  width: auto;
+  font-weight: bold;
+  padding: 2%;
+}
+
+
+.exp {
+    border: 2px solid black;
+    margin-left: 3%;
+    height: 3%;
+    width: 20%;
+}
+
+.container {
+  display: inline-block;
+  margin-left: 9%;
+  width: 100%;
+  height: 50%;
+}
+
+.container p {
+  font-size: 20px;
+  text-align: center;
+  font-weight: lighter;
+}
+
+
+.exp-line {
+    background-color: green;
+    height: 100%;
+    width: 30%;
+}
+
+
+.addBtn:hover {
+  background-color: #bbb;
+}
