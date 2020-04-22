@@ -204,18 +204,18 @@ body {
   transition: 0.3s;
   border-radius: 0;
 }
-.mainprofile {
+.main-profile {
     position: relative;
     background: white;
     height: 1000px;
 }
-.mainprofile ul {
+.main-profile ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: white;
 }
-.mainprofile li {
+.main-profile li {
     display: inline;
     float: left;
 }
@@ -236,66 +236,51 @@ body {
     margin-left: 100px;
 }
 .statistic{
-    margin-top: 165px;
-    margin-left: 250px;
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 500px;
 }
-.mainprofile ul{
+.main-profile ul{
     height: 550px;
     margin: 0;
     padding: 0;
 }
-.exp
-{
-    color: green;
-    margin-left: 600px;
-    margin-top:-200px;
-    height: 30px;
-    width: 500px;
+
+.main-profile button {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  width: auto;
+  font-weight: bold;
+  padding: 2%;
 }
-.mainprofile hr {
+
+
+.exp {
+    border: 2px solid black;
+    margin-left: 3%;
+    height: 3%;
+    width: 20%;
+}
+
+.container {
+  display: inline-block;
+  margin-left: 9%;
+  width: 100%;
+  height: 50%;
+}
+
+.container p {
+  font-size: 20px;
+  text-align: center;
+  font-weight: lighter;
+}
+
+
+.exp-line {
     background-color: green;
-    margin-left: 100px;
-    margin-top:-200px;
-    height: 30px;
-    width: 500px;
-    color: black;
+    height: 100%;
+    width: 30%;
 }
-.mainprofile button{
-    margin-top: 150px;
-    margin-left: -250px;
-    display: inline-block;
-    font-family: arial,sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    color: rgb(68,68,68);
-    text-decoration: none;
-    user-select: none;
-    padding: .2em 1.2em;
-    outline: none;
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 2px;
-    background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
-    transition: all .218s ease 0s;
-}
-.mainprofile button:hover {
-    color: rgb(24,24,24);
-    border: 1px solid rgb(198,198,198);
-    background: #f7f7f7 linear-gradient(#f7f7f7, #f1f1f1);
-    box-shadow: 0 1px 2px rgba(0,0,0,.1);
-}
-.mainprofile button:active {
-    color: rgb(51,51,51);
-    border: 1px solid rgb(204,204,204);
-    background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
-    box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
-}
-.ssilka{
-    margin-left: 650px;
-    margin-top: -175px;
-}
-.ssilka a{
-    height: 100px;
-}
+
 
 .addBtn:hover {
   background-color: #bbb;
