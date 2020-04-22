@@ -1,217 +1,66 @@
 body {
-	 margin: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: left;
-    background-color: #fff;
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    background: #483D8B url(../files/background.jpg);
 }
-
-
-.timetable-today {
-	padding-left: 15px;
+h1 {
+    margin: 0 ;
+    text-transform: uppercase;
+    padding-bottom: 5px;
 }
-
-.timetable-today li {
-	list-style-type: circle;
+h2 {
+    color: white;
+    margin: 0 ;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #4B0082;
 }
-
-
-.homework {
-	left: 1000px;
+form {
+    margin: 7% auto;
+    background: black;
+    width: 450px;
+    height: 500px;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
 }
-
-.homework li {
-	list-style-type: circle;
+.group {
+    margin: 10px;
+    padding: 5px;
 }
-
-
-.disp-inline {
-	display: inline-block;
-	position: absolute;
+label {
+    color: white;
+    padding-left: 10px;
 }
-
-.profile {
-	left: 1000px;
-	position: absolute;
+input {
+    margin-top: 10px;
+    height: 40px;
+    width: 400px;
+    border-radius: 20px/20px;
+    border: none;
+    padding-left: 15px;
+    font-size: 18px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
 }
+input:focus {
+    border: 3px solid #4B0082;
+    transform: translateY(2px);
 
-
-.profile-photo {
-	width: 56px;
-	height: 56px;
-	border-radius: 50px; 
-   border: 3px solid white; 
-   box-shadow: 0 0 0px #666;
 }
-
-.profile-text {
-	top: 7px;
-	color: white;
-	left: 1080px;
-	position: absolute;
+button {
+    font-family: Verdana, sans-serif;
+    margin-top: 10px;
+    margin-right: 57px;
+    cursor: pointer;
+    padding: 10px 30px;
+    height: 50px;
+    width: 150px;
+    color: #fff;
+    background: #483D8B;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.82);
+    border-radius: 25px/25px;
+    border: none;
 }
-
-.navbar {
-	position: relative;
-	background: #008080;
-	height: 64px;
-	margin-right: -5px;
-}
-
-.navbar ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	background-color: #dddddd;
-}
-
-.navbar li {
-	display: inline;
-	float: left;
-}
-.navbar li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 20px 16px;
-  text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-.navbar li a:hover {
-  background-color: 	#C0C0C0;
-}
-
-.todo {
-	left: 450px;
-	background-color: #008080;
-	border: 3px solid #fff;
-  padding: 30px 40px;
-  color: white;
-  text-align: center;
-}
-
-.todo * {
-  box-sizing: border-box;
-}
-
-.todo-ul-li * {
-	box-sizing: border-box;
-}
-
-.todo-ul-li {
-
-	position: absolute;
-	width: 384px;
-	left: 453px;
-	top: 239px;
-}
-
-/* Remove margins and padding from the list */
-.todo-ul-li ul {
-	list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Style the list items */
-.todo-ul-li ul li {
-  cursor: pointer;
-  position: relative;
-  padding: 12px 8px 12px 40px;
-  background: #eee;
-  font-size: 18px;
-  transition: 0.2s;
-
-  /* make the list items unselectable */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Set all odd list items to a different color (zebra-stripes) */
-.todo-ul-li ul li:nth-child(odd) {
-  background: #f9f9f9;
-}
-
-/* Darker background-color on hover */
-.todo-ul-li ul li:hover {
-  background: #ddd;
-}
-
-/* When clicked on, add a background color and strike out text */
-.todo-ul-li ul li.checked {
-  background: #888;
-  color: #fff;
-  text-decoration: line-through;
-}
-
-/* Add a "checked" mark when clicked on */
-.todo-ul-li ul li.checked::before {
-  content: '';
-  position: absolute;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  top: 10px;
-  left: 16px;
-  transform: rotate(45deg);
-  height: 15px;
-  width: 7px;
-}
-
-/* Style the close button */
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 12px 16px 12px 16px;
-}
-
-.close:hover {
-  background-color: #f44336;
-  color: white;
-}
-
-
-
-/* Clear floats after the header */
-.todo:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the input */
-.todo input {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  width: 60%;
-  padding: 10px;
-  float: left;
-  font-size: 16px;
-}
-
-/* Style the "Add" button */
-.addBtn {
-  padding: 7px;
-  margin-left: 5px;
-  width: 30%;
-  background: #d9d9d9;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
-}
-
-.addBtn:hover {
-  background-color: #bbb;
+button:hover {
+    opacity: .80;
 }
