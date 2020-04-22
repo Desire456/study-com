@@ -15,28 +15,28 @@
         <form action="/editProfile" method="POST" id="editProfileForm">
             <h3>Редактирование профиля</h3>
             <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Логин" name="login" id='login' required/>
+                <input type="text" class="form__field" placeholder="Логин" name="login" id='login' required>
                 <label for="login" class="form__label">Логин</label>
             </div>
             <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Фамилия" name="surname" id='surname' required/>
+                <input type="text" class="form__field" placeholder="Фамилия" name="surname" id='surname' required>
                 <label for="surname" class="form__label">Фамилия</label>
             </div>
             <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Имя" name="name" id='name' required/>
+                <input type="text" class="form__field" placeholder="Имя" name="name" id='name' required>
                 <label for="name" class="form__label">Имя</label>
             </div>
             <div class="form__group field">
-                <input type="password" class="form__field" placeholder="Пароль" name="passowrd" id='password' required/>
+                <input type="password" class="form__field" placeholder="Пароль" name="passowrd" id='password' required>
                 <label for="password" class="form__label">Пароль</label>
             </div>
             <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Группа" name="group" id='group' required/>
+                <input type="text" class="form__field" placeholder="Группа" name="group" id='group' required>
                 <label for="group" class="form__label">Группа</label>
             </div>
             <div class="form__group field">
-                <input type="input" class="form__field" placeholder="Аватар" name="avatar" id='avatar'
-                       title="Для того чтобы загрузить аватар вам нужно ввести его URL" required/>
+                <input type="url" class="form__field" placeholder="Аватар" name="avatar" id='avatar'
+                       title="Для того чтобы загрузить аватар вам нужно ввести его URL" required>
                 <label for="avatar" class="form__label">Аватар</label>
             </div>
             <a onclick="document.getElementById('editProfileForm').submit()"
@@ -55,8 +55,9 @@
         <li><a href="#"><b>Чат</b></a></li>
     </ul>
     <div class="profile">
-        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
-                         class="profile-photo"></a>
+        <a href="#"><img th:src="${user.urlPhoto == null ?
+                'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
+                 user.urlPhoto}" class="profile-photo"></a>
     </div>
     <div class="profile-text">
         <b th:text="${user.surname}"></b>
@@ -102,7 +103,7 @@
     <div class="container">
         <div class="exp">
             <input type="hidden" th:value="${user.exp}" id="percentOfLvl">
-            <div class="exp-line" id = "expLine"></div>
+            <div class="exp-line" id="expLine"></div>
             <p th:text="${user.exp}" style="display: inline-block; margin-left: 115px"></p>
             <p style="display: inline-block;">/100</p>
             <br>
