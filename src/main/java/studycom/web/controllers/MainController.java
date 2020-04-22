@@ -82,23 +82,6 @@ public class MainController {
     }
 
 
-    @GetMapping("/deleteTask")
-    public String deleteTask(@RequestParam(value = "taskId") Integer id) {
-        taskRepository.deleteById(id);
-        return "redirect:/home";
-    }
-
-
-    @GetMapping("/addTask")
-    public String addTask(@ModelAttribute("user") User user,
-                          @RequestParam(value = "taskName") String taskName) {
-        ModelAndView model = new ModelAndView();
-        Task task = new Task(taskName, user);
-        task.setId(user.getId());
-        taskRepository.save(task);
-        return "redirect:/home";
-    }
-
     @GetMapping("/coin")
     public String showCoin() {
         return "coin";
