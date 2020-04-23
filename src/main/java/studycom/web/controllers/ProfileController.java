@@ -31,8 +31,7 @@ public class ProfileController {
                               @RequestParam(value = "avatarr") String avatar) {
         ModelAndView model = new ModelAndView();
         model.setViewName("profile");
-
-        if (!group.equals("")) {
+        if (!group.equals("") && !group.equals(user.getGroup().getName())) {
             Group thisUsersGr = groupRepository.findByName(user.getGroup().getName()).get(0);
             List<Group> groups = groupRepository.findByName(group);
             if (!groups.isEmpty()) {

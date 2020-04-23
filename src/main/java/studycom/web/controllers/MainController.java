@@ -71,7 +71,7 @@ public class MainController {
     }
 
     @GetMapping("/timetable")
-    public String showTimeTable() {
+    public String showTimeTable(@ModelAttribute("user") User user) {
         return "timetable";
     }
 
@@ -144,6 +144,7 @@ public class MainController {
             user.getGroup().setTimetable(thisUserTimetable);
             userRepository.save(user);
         }
+        System.out.println(user);
         return "redirect:/timetable";
     }
 
