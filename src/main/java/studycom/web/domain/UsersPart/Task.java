@@ -1,7 +1,5 @@
 package studycom.web.domain.UsersPart;
 
-import studycom.web.domain.WeeksDays.Timetable;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,20 +29,20 @@ public class Task {
         return id;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {

@@ -78,7 +78,7 @@
             <div class="gradient-border">
                 <a href=""><img th:src="${user.urlPhoto == null ?
                 'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
-                 user.urlPhoto}"></a>
+                 user.urlPhoto}" style = "width: 550px; height: 550px; border-radius: 70px;"></a>
             </div>
         </li>
         <li>
@@ -89,7 +89,7 @@
                 <b>Группа </b> <b th:text="${user.group.name}"></b>
                 <br>
                 <br>
-                <b th:text="${user.role == 'CASUAL' ? 'Студент' : 'Староста'}"></b>
+                <b th:text="${user.role.name() == 'CASUAL' ? 'Студент' : 'Староста'}"></b>
                 <br><br>
 
             </div>

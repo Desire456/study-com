@@ -18,7 +18,7 @@ public class TaskController {
     private TaskRepository taskRepository;
 
     @GetMapping("/deleteTask")
-    public String deleteTask(@RequestParam(value = "taskId") Integer id) {
+    public String deleteTask(@ModelAttribute("user") User user, @RequestParam(value = "taskId") Integer id) {
         taskRepository.deleteById(id);
         return "redirect:/home";
     }

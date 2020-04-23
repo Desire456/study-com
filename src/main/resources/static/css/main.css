@@ -50,7 +50,7 @@ body {
 .navbar {
 	position: relative;
 	background: #008080;
-	height: 64px;
+	height: 61px;
 	margin-right: -5px;
 }
 
@@ -75,7 +75,7 @@ body {
 
 /* Change the link color to #111 (black) on hover */
 .navbar li a:hover {
-  background-color: 	#C0C0C0;
+  background-color: 	#C0C0C0
 }
 
 .todo {
@@ -98,9 +98,9 @@ body {
 .todo-ul-li {
 
 	position: absolute;
-	width: 384px;
-	left: 36.2%;
-	top: 25.8%;
+	width: 383px;
+	left: 36.3%;
+	top: 38.5%;
 }
 
 /* Remove margins and padding from the list */

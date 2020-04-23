@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login V19</title>
+    <title>StudyCom</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/modal-window.css">
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="util/bootstrap/css/bootstrap.min.css">
@@ -25,12 +26,20 @@
 </head>
 <body>
 
+<div id="error" class="modalbackground" th:if="${error == null ? false : true}">
+    <div class="modalwindow">
+        <h3>Ошибка</h3>
+        <p th:text="${error}" style="font-size: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"></p>
+        <a onclick = "closeModalWindow()" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">Закрыть</a>
+    </div>
+</div>
+
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
             <form class="login100-form validate-form" action="/enterAction">
 					<span class="login100-form-title p-b-33" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
-						StudyCom
+						Авторизация
 					</span>
 
                 <div class="wrap-input100 validate-input">
@@ -76,6 +85,12 @@
 <script src="util/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 <script src="js/autho/main.js"></script>
-
+<script>
+    let modalWindow = document.getElementById("error");
+    function closeModalWindow() {
+        modalWindow.style.opacity = "0";
+        modalWindow.style.pointerEvents = "none";
+    }
+</script>
 </body>
 </html>
