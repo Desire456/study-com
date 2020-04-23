@@ -21,7 +21,7 @@ public class User implements Serializable {
     private Integer exp =0;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Group group;
 
     public User(String login , String name , String surname , String password , String group){

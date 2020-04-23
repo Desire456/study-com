@@ -25,22 +25,23 @@ public class ProfileController {
     private GroupRepository groupRepository;
 
     @PostMapping("/editProfile")
-    public String editProfile(@ModelAttribute("user") User user, @RequestParam(value = "loginn") String login,
+    public ModelAndView editProfile(@ModelAttribute("user") User user, @RequestParam(value = "loginn") String login,
                               @RequestParam(value = "surnamee") String surname, @RequestParam(value = "namee") String name,
                               @RequestParam(value = "passwordd") String password, @RequestParam(value = "groupp") String group,
                               @RequestParam(value = "avatarr") String avatar) {
         ModelAndView model = new ModelAndView();
+        model.setViewName("profile");
+
         if (!group.equals("")) {
             Group thisUsersGr = groupRepository.findByName(user.getGroup().getName()).get(0);
             List<Group> groups = groupRepository.findByName(group);
             if (!groups.isEmpty()) {
                 Group newGroup = groups.get(0);
-                if (thisUsersGr.getStar().getId().equals(user.getId())) {
+                if (thisUsersGr.getStar() != null && thisUsersGr.getStar().getId().equals(user.getId())) {
                     thisUsersGr.setStar(null);
                     if (newGroup.getStar() != null) {
-                        model = new ModelAndView();
                         model.addObject("error", "В данный группе уже существует староста");
-                        return "redirect:/profile";
+                        return model;
                     } else {
                         newGroup.setStar(user);
                     }
@@ -49,9 +50,8 @@ public class ProfileController {
                 groupRepository.save(thisUsersGr);
                 user.setGroup(newGroup);
             } else {
-                model = new ModelAndView();
                 model.addObject("error", "Такой группы не существует");
-                return "redirect:/profile";
+                return model;
             }
         }
         user.setLogin(login);
@@ -63,6 +63,6 @@ public class ProfileController {
         }
         userRepository.save(user);
         model.addObject("user", user);
-        return "redirect:/profile";
+        return model;
     }
 }

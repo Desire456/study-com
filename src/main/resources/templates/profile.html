@@ -4,13 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../static/css/main.css">
-    <link rel="stylesheet" href="../static/css/modal-window.css">
-    <link rel="stylesheet" href="../static/css/input.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/modal-window.css">
+    <link rel="stylesheet" href="css/input.css">
     <title>StudyCom</title>
 </head>
 <body onload="createExpLine()">
-<div id="error" class="modalbackground" style="opacity: 0; pointer-events: none">
+<div id="errorWindow" class="modalbackground" th:if="${error == null ? false : true}">
+    <div class="modalwindow">
+        <h3>Ошибка</h3>
+        <p th:text="${error}"></p>
+        <a onclick="closeModalWindow('errorWindow')">Закрыть</a>
+    </div>
+</div>
+<div id="editWindow" class="modalbackground" style="opacity: 0; pointer-events: none">
     <div class="modalwindow">
         <form action="/editProfile" method="POST" id="editProfileForm">
             <h3>Редактирование профиля</h3>
@@ -39,8 +46,8 @@
                        title="Для того чтобы загрузить аватар вам нужно ввести его URL">
                 <label for="avatar" class="form__label">Аватар</label>
             </div>
-            <input type = "submit" value="Изменить" style="margin-left: 0; display: inline-block; margin-top: 20px" >
-            <a style="margin-top: 0; display: inline-block; margin-left: 10px" onclick="closeModalWindow()">Закрыть</a>
+            <input type="submit" value="Изменить" style="margin-left: 0; display: inline-block; margin-top: 20px">
+            <a style="margin-top: 0; display: inline-block; margin-left: 10px" onclick="closeModalWindow('editWindow')">Закрыть</a>
             <a href="https://support.google.com/websearch/answer/118238?hl=ru&co=GENIE.Platform%3DDesktop"
                style="margin-top: 10px; margin-left: 25%" target="_blank">Как узнать URL изображения?</a>
         </form>
@@ -116,7 +123,8 @@
 </body>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script>
-    let modalWindow = document.getElementById("error");
+    let editWindow = document.getElementById("editWindow");
+    let errorWindow = document.getElementById("errorWindow");
 
     function createExpLine() {
         let expLine = document.getElementById("expLine");
@@ -125,12 +133,14 @@
     }
 
     function openModalWindow() {
-        modalWindow.style.opacity = "1";
-        modalWindow.style.pointerEvents = "auto";
+        editWindow.style.opacity = "1";
+        editWindow.style.pointerEvents = "auto";
     }
 
-    function closeModalWindow() {
+    function closeModalWindow(nameOfWindow) {
+        let modalWindow = document.getElementById(nameOfWindow);
         modalWindow.style.opacity = "0";
         modalWindow.style.pointerEvents = "none";
-    }</script>
+    }
+</script>
 </html>
