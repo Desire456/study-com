@@ -174,7 +174,7 @@ public class MainController {
             } else if (starostaCheck != null) {
                 user.makeStar();
                 thisUsersGroup.setStar(user);
-                groupRepository.save(thisUsersGroup);
+                groupRepository.save(thisUsersGroup); //user сохранится при сохранении группы в котором есть староста
             } else {
                 userRepository.save(user);
             }

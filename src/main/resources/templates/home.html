@@ -4,10 +4,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/checkbox.css">
+    <link rel="stylesheet" href="../static/css/modal-window.css">
+    <link rel="stylesheet" href="../static/css/input.css">
     <title>StudyCom</title>
 </head>
 <body>
+<div id="addWindow" class="modalbackground" style="opacity: 0; pointer-events: none">
+    <div class="modalwindow">
+        <form action="/addHomework" method="GET" id="addTaskForm">
+            <h3>Добавление домашнего задания</h3>
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="Предмет" name="lessonn" id='lesson' required>
+                <label for="lesson" class="form__label">Предмет</label>
+            </div>
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="Предмет" name="taskk" id='task' required>
+                <label for="task" class="form__label">Задание</label>
+            </div>
+            <input type="submit" value="Добавить" style="margin-left: 0; display: inline-block; margin-top: 20px">
+            <a style="margin-top: 0; display: inline-block; margin-left: 10px" onclick="closeModalWindow('addWindow')">Закрыть</a>
+        </form>
+    </div>
+</div>
 <div class="navbar">
     <ul>
         <li><a href="/home"><b>Домашняя страница</b></a></li>
@@ -17,7 +37,7 @@
         <li><a href="/coin"><b>Монетка судьбы</b></a></li>
     </ul>
     <div class="profile">
-        <a href="/profile"><img th:src = "${user.urlPhoto == null ?
+        <a href="/profile"><img th:src="${user.urlPhoto == null ?
         'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
          user.urlPhoto}" class="profile-photo"></a>
     </div>
@@ -46,20 +66,85 @@
     <ul id="myUL">
         <th:block th:each="task : ${tasks}">
             <li th:text="${task.content}"></li>
-            <input class = "tasksId" type = "hidden" th:value = "${task.id}">
+            <input class="tasksId" type="hidden" th:value="${task.id}">
         </th:block>
     </ul>
 </div>
 <div class="homework disp-inline">
-    <h2>Домашнее задание:</h2>
-    <ul>
-        <li>ТФКП: №123, 124(а,б), 150</li>
-        <li>ОС: написать реферат</li>
-        <li>Диф. ур.: выучить теорему Ляпунова</li>
-    </ul>
+    <h2>Домашнее задание</h2>
+        <h3>Предмет1</h3>
+        <ul>
+            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" id="1" onchange="disableButtons()"><label
+                    for="1">dz asd</label></li>
+            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" id="2" onchange="disableButtons()"><label
+                    for="2">dz asdas</label></li>
+        </ul>
+        <h3>Предмет2</h3>
+        <ul>
+            <li><input type="checkbox" value = "lesson2" class="custom-checkbox" id="3" onchange="disableButtons()"><label
+                    for="3">dz</label></li>
+            <li><input type="checkbox" value = "lesson2" class="custom-checkbox" id="4" onchange="disableButtons()"><label
+                    for="4">dz</label></li>
+        </ul>
+        <h3>Предмет3</h3>
+        <ul>
+            <li><input type="checkbox" value = "lesson3" class="custom-checkbox" id="5" onchange="disableButtons()"><label
+                    for="5">dz</label></li>
+            <li><input type="checkbox" value = "lesson3" class="custom-checkbox" id="6" onchange="disableButtons()"><label
+                    for="6">dz</label></li>
+        </ul>
+        <button th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</button>
+        <button id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick = "deleteWorks()">Удалить</button>
 </div>
 
 <script>
+    let addTaskWindow = document.getElementById("addWindow");
+    const checkboxes = document.getElementsByClassName('custom-checkbox');
+    let disableButton = document.getElementById('deleteButton');
+
+    function openModalWindow() {
+        addTaskWindow.style.opacity = "1";
+        addTaskWindow.style.pointerEvents = "auto";
+    }
+
+    function disableButtons() {
+        let countOfChecked = 0;
+        let checkedCheckboxes = getChecked();
+        disableButton.disabled = checkedCheckboxes.length <= 0;
+    }
+
+    function getChecked() {
+        let checkedCheckboxes = [];
+        for (let i = 0; i < checkboxes.length; ++i) {
+            if (checkboxes[i].checked) checkedCheckboxes.push(checkboxes[i]);
+        }
+        return checkedCheckboxes;
+    }
+
+    function deleteWorks() {
+        let checkedCheckboxes = getChecked();
+        const form = document.createElement('form');
+        form.action = '/deleteWork';
+        form.method = 'GET';
+
+        form.innerHTML = '<input type = "hidden" id = "worksId" name = "worksId" value = "" >';
+        let checkbox, ids;
+        for(let i = 0; i < checkedCheckboxes.length; ++i) {
+            checkbox = checkedCheckboxes[i];
+            ids += checkbox.value + " ";
+        }
+        document.body.append(form);
+        document.getElementById('works').value = ids;
+        form.submit();
+
+    }
+
+    function closeModalWindow(nameOfWindow) {
+        let modalWindow = document.getElementById(nameOfWindow);
+        modalWindow.style.opacity = "0";
+        modalWindow.style.pointerEvents = "none";
+    }
+
     const nodeList = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
     for (let i = 0; i < nodeList.length; i++) {
         const span = document.createElement("SPAN");

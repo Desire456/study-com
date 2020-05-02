@@ -11,11 +11,12 @@
     <div class="tail"></div>
 </div>
 <button id="flip">Узнать судьбу</button>
+<button onclick = "window.location.href = 'home'">Вернуться назад</button>
 <script type="text/javascript">
     const button = document.querySelector("#flip");
     const coin = document.querySelector(".coin");
     button.addEventListener("click", function () {
-        if ((Math.random() * 10) >= 5) {
+        if (Math.random() <= 0.5) {
             coin.setAttribute('class', 'coin animation-head');
         } else {
             coin.setAttribute('class', 'coin animation-tail');
