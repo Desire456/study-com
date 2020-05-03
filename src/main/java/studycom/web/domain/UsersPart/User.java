@@ -2,6 +2,7 @@ package studycom.web.domain.UsersPart;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -17,15 +18,19 @@ public class User implements Serializable {
     private String surname;
     private String password;
     private String urlPhoto;
-    private Integer level=0;
-    private Integer exp =0;
+    private Integer level = 0;
+    private Integer exp = 0;
 
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "homeworks", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OrderBy("lessonName")
+    private Set<Homework> homeWorks;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Group group;
 
-    public User(String login , String name , String surname , String password , String group){
-        this.name = name ;
+    public User(String login, String name, String surname, String password, String group) {
+        this.name = name;
         this.surname = surname;
         this.password = password;
         this.login = login;
@@ -33,12 +38,21 @@ public class User implements Serializable {
         this.group.setName(group);
     }
 
-    public User(String login , String name , String surname , String password ,Group group){
-        this.name = name ;
+    public User(String login, String name, String surname, String password, Group group) {
+        this.name = name;
         this.surname = surname;
         this.password = password;
         this.login = login;
         this.group = group;
+    }
+
+
+    public Set<Homework> getHomeWorks() {
+        return homeWorks;
+    }
+
+    public void setHomeWorks(Set<Homework> homeWorks) {
+        this.homeWorks = homeWorks;
     }
 
     public String getUrlPhoto() {

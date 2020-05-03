@@ -20,7 +20,7 @@ public class Group  {
     @JoinColumn(name="star_id")
     private User star;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @OrderBy("name")
     private Set<User> users;
 
