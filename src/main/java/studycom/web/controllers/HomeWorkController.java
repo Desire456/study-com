@@ -15,6 +15,7 @@ import studycom.web.repos.GroupRepository;
 import studycom.web.repos.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @SessionAttributes(value = "user")
 @Controller
@@ -31,9 +32,12 @@ public class HomeWorkController {
 
 
     @GetMapping("/deleteWork")
-    public String deleteWork(@ModelAttribute("user") User user, @RequestParam(value = "worksId") Integer id) {
+    public String deleteWork(@ModelAttribute("user") User user, @RequestParam(value = "worksId") String ids) {
         ModelAndView model = new ModelAndView();
-        HomeworkRepository.deleteById(id);
+        List<Integer> listIds = this.parseStrIds(ids);
+        for(Integer id : listIds) {
+            HomeworkRepository.deleteById(id);
+        }
         user = userRepository.findById(user.getId()).get();
         model.addObject("user", user);
         return "redirect:/home";
@@ -53,5 +57,12 @@ public class HomeWorkController {
         return "redirect:/home";
     }
 
-
+    private List<Integer> parseStrIds(String ids) {
+        List<Integer> listIds = new ArrayList<>();
+        String[] splitIds = ids.split(" ");
+        for(String id : splitIds) {
+            listIds.add(Integer.parseInt(id));
+        }
+        return listIds;
+    }
 }
