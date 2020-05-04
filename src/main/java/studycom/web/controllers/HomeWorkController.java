@@ -50,9 +50,9 @@ public class HomeWorkController {
     public String addHomework(@ModelAttribute("user") User user,
                               @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
         List<Homework> homeworks = homeworkRepository.findByLessonNameAndUser(lesson, user);
+        Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
+        ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
         if (homeworks.isEmpty()) {
-            Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
-            ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
             for (User iterUser : users) {
                 Homework homework = new Homework(lesson, iterUser);
                 HomeworkContent content = new HomeworkContent(task);
@@ -60,14 +60,25 @@ public class HomeWorkController {
                 homework.getContent().add(content);
                 iterUser.getHomeWorks().add(homework);
             }
-            groupRepository.save(currGroup);
         } else {
-            Homework homework = homeworks.get(0);
-            HomeworkContent content = new HomeworkContent(task);
-            content.setHomework(homework);
-            homework.getContent().add(content);
-            homeworkRepository.save(homework);
+
+            for (User iterUser : users) {
+                List<Homework> homeworkList = homeworkRepository.findByLessonNameAndUser(lesson, iterUser);
+                if (homeworkList.isEmpty()) {
+                    Homework homework = new Homework(lesson, iterUser);
+                    HomeworkContent content = new HomeworkContent(task);
+                    content.setHomework(homework);
+                    homework.getContent().add(content);
+                    iterUser.getHomeWorks().add(homework);
+                } else {
+                    Homework homework = homeworkList.get(0);
+                    HomeworkContent content = new HomeworkContent(task);
+                    content.setHomework(homework);
+                    homework.getContent().add(content);
+                }
+            }
         }
+        groupRepository.save(currGroup);
         return "redirect:/home";
     }
 
