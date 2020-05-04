@@ -4,6 +4,8 @@ package studycom.web.domain.UsersPart;
 import studycom.web.domain.WeeksDays.Week;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "homeWorks")
@@ -14,14 +16,15 @@ public class Homework {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String content;
+    @ElementCollection
+    private List<String> content;
     private String lessonName;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setId(Integer id) {
@@ -32,7 +35,15 @@ public class Homework {
         this.lessonName = lessonName;
     }
 
-    public String getContent() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setContent(List<String> content) {
+        this.content = content;
+    }
+
+    public List<String> getContent() {
         return content;
     }
 
@@ -46,6 +57,12 @@ public class Homework {
 
 
     public Homework(String lessonName, String content) {
+        this.lessonName = lessonName;
+        this.content = new ArrayList<>();
+        this.content.add(content);
+    }
+
+    public Homework(String lessonName, List<String> content) {
         this.lessonName = lessonName;
         this.content = content;
     }
