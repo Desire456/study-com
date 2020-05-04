@@ -74,9 +74,9 @@
 <div class="homework disp-inline">
     <h2>Домашнее задание</h2>
     <th:block th:each="homework : ${homeworks}">
-        <h3 th:text = "${homework?.key}">Предмет1</h3>
+        <h3 th:text = "${homework?.lessonName}">Предмет1</h3>
         <ul>
-            <th:block th:each="task : ${homework.value}">
+            <th:block th:each="task : ${homework.content}">
                 <li th:text = "${task.content}"></li>
             <!--<li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
                     th:for = "${task.id}" th:text = "${task.content}">dz asd</label></li>-->

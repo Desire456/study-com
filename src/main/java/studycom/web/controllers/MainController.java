@@ -83,18 +83,18 @@ public class MainController {
     public ModelAndView showHome(@ModelAttribute("user") User user) {
         ModelAndView model = new ModelAndView();
         model.addObject("tasks", taskRepository.findByUser(user));
-        model.addObject("homeworks", this.getMapFromSet(user.getHomeWorks()));
+        model.addObject("homeworks", user.getHomeWorks());
         model.setViewName("home");
         return model;
     }
 
-    private Map<String, Set<HomeworkContent>> getMapFromSet(Set<Homework> homeworkSet) {
+    /*private Map<String, Set<HomeworkContent>> getMapFromSet(Set<Homework> homeworkSet) {
         Map<String, Set<HomeworkContent>> homeworkMap = new HashMap<>();
         for (Homework homework : homeworkSet) {
             homeworkMap.put(homework.getLessonName(), homework.getContent());
         }
         return homeworkMap;
-    }
+    }*/
 
 
     @GetMapping("/addLesson")
