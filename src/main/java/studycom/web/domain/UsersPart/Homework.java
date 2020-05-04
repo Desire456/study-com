@@ -1,9 +1,13 @@
 package studycom.web.domain.UsersPart;
 
 
+import studycom.web.domain.WeeksDays.Day;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "homeWorks")
@@ -14,8 +18,11 @@ public class Homework {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ElementCollection
-    private List<String> content;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "homework", cascade = CascadeType.ALL)
+    @OrderBy("content")
+    private Set<HomeworkContent> content;
+
+
     private String lessonName;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -37,14 +44,6 @@ public class Homework {
         return user;
     }
 
-    public void setContent(List<String> content) {
-        this.content = content;
-    }
-
-    public List<String> getContent() {
-        return content;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -54,15 +53,17 @@ public class Homework {
     }
 
 
-    public Homework(String lessonName, String content, User user) {
+    public Homework(String lessonName, User user) {
         this.lessonName = lessonName;
-        this.content = new ArrayList<>();
-        this.content.add(content);
+        this.content = new HashSet<HomeworkContent>();
         this.user = user;
     }
 
-    public Homework(String lessonName, List<String> content) {
-        this.lessonName = lessonName;
+    public Set<HomeworkContent> getContent() {
+        return content;
+    }
+
+    public void setContent(Set<HomeworkContent> content) {
         this.content = content;
     }
 

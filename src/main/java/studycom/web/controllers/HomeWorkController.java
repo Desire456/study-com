@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.Homework;
+import studycom.web.domain.UsersPart.HomeworkContent;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.GroupRepository;
 import studycom.web.repos.UserRepository;
@@ -49,7 +50,8 @@ public class HomeWorkController {
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
         ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
         for (User iterUser : users) {
-            Homework homework = new Homework(lesson, task, iterUser);
+            Homework homework = new Homework(lesson, iterUser);
+            homework.getContent().add(new HomeworkContent(task));
             iterUser.getHomeWorks().add(homework);
         }
         groupRepository.save(currGroup);
