@@ -17,6 +17,14 @@ public class HomeworkContent {
     private Homework homework;
 
 
+    public void setHomework(Homework homework) {
+        this.homework = homework;
+    }
+
+    public Homework getHomework() {
+        return homework;
+    }
+
     public Integer getId() {
         return id;
     }

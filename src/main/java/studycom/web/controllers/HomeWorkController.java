@@ -54,13 +54,17 @@ public class HomeWorkController {
             ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
             for (User iterUser : users) {
                 Homework homework = new Homework(lesson, iterUser);
-                homework.getContent().add(new HomeworkContent(task));
+                HomeworkContent content = new HomeworkContent(task);
+                content.setHomework(homework);
+                homework.getContent().add(content);
                 iterUser.getHomeWorks().add(homework);
             }
             groupRepository.save(currGroup);
         } else {
             Homework homework = homeworks.get(0);
-            homework.getContent().add(new HomeworkContent(task));
+            HomeworkContent content = new HomeworkContent(task);
+            content.setHomework(homework);
+            homework.getContent().add(content);
             homeworkRepository.save(homework);
         }
         return "redirect:/home";
