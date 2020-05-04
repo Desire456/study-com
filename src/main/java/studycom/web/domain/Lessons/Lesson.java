@@ -24,6 +24,7 @@ public class Lesson {
         this.name = name;
         this.lessonType = LessonType.valueOf(lessonType);
         this.day = day;
+        this.time = time;
     }
 
     public Lesson(){}
