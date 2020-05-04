@@ -31,10 +31,10 @@ public class HomeWorkController {
 
 
     @GetMapping("/deleteWork")
-    public String deleteWork(@ModelAttribute("user") User user, @RequestParam(value = "worksId") String ids) {
+    public String deleteHomework(@ModelAttribute("user") User user, @RequestParam(value = "worksId") String ids) {
         ModelAndView model = new ModelAndView();
         List<Integer> listIds = this.parseStrIds(ids);
-        for(Integer id : listIds) {
+        for (Integer id : listIds) {
             HomeworkRepository.deleteById(id);
         }
         user = userRepository.findById(user.getId()).get();
@@ -44,8 +44,8 @@ public class HomeWorkController {
 
 
     @GetMapping("/addHomework")
-    public String addTask(@ModelAttribute("user") User user,
-                          @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
+    public String addHomework(@ModelAttribute("user") User user,
+                              @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
         ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
         for (User iterUser : users) {

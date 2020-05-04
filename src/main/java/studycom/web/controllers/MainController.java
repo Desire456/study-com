@@ -151,7 +151,6 @@ public class MainController {
             user.getGroup().setTimetable(thisUserTimetable);
             userRepository.save(user);
         }
-        System.out.println(user);
         return "redirect:/timetable";
     }
 
