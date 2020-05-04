@@ -12,6 +12,7 @@ import studycom.web.domain.UsersPart.Homework;
 import studycom.web.domain.UsersPart.HomeworkContent;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.GroupRepository;
+import studycom.web.repos.HomeworkRepository;
 import studycom.web.repos.UserRepository;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class HomeWorkController {
     private GroupRepository groupRepository;
 
     @Autowired
-    private GroupRepository HomeworkRepository;
+    private HomeworkRepository homeworkRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +37,7 @@ public class HomeWorkController {
         ModelAndView model = new ModelAndView();
         List<Integer> listIds = this.parseStrIds(ids);
         for (Integer id : listIds) {
-            HomeworkRepository.deleteById(id);
+            homeworkRepository.deleteById(id);
         }
         user = userRepository.findById(user.getId()).get();
         model.addObject("user", user);
@@ -47,14 +48,21 @@ public class HomeWorkController {
     @GetMapping("/addHomework")
     public String addHomework(@ModelAttribute("user") User user,
                               @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
-        Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
-        ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
-        for (User iterUser : users) {
-            Homework homework = new Homework(lesson, iterUser);
+        List<Homework> homeworks = homeworkRepository.findByLessonNameAndUser(lesson, user);
+        if (homeworks.isEmpty()) {
+            Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
+            ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
+            for (User iterUser : users) {
+                Homework homework = new Homework(lesson, iterUser);
+                homework.getContent().add(new HomeworkContent(task));
+                iterUser.getHomeWorks().add(homework);
+            }
+            groupRepository.save(currGroup);
+        } else {
+            Homework homework = homeworks.get(0);
             homework.getContent().add(new HomeworkContent(task));
-            iterUser.getHomeWorks().add(homework);
+            homeworkRepository.save(homework);
         }
-        groupRepository.save(currGroup);
         return "redirect:/home";
     }
 
