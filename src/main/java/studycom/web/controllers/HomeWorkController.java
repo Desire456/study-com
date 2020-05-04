@@ -44,7 +44,7 @@ public class HomeWorkController {
     }
 
 
-    @GetMapping("/addTask")
+    @GetMapping("/addHomework")
     public String addTask(@ModelAttribute("user") User user,
                           @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();

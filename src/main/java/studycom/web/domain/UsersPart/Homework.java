@@ -1,9 +1,12 @@
 package studycom.web.domain.UsersPart;
 
+
+import studycom.web.domain.WeeksDays.Week;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "homeworks")
+@Table(name = "homeWorks")
 public class Homework {
 
 
@@ -13,6 +16,9 @@ public class Homework {
 
     private String content;
     private String lessonName;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private User user;
 
     public void setContent(String content) {
         this.content = content;
@@ -46,6 +52,4 @@ public class Homework {
 
     public Homework() {
     }
-
-
 }

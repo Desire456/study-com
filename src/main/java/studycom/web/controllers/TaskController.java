@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.UsersPart.Task;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.TaskRepository;
@@ -14,6 +13,7 @@ import studycom.web.repos.TaskRepository;
 @SessionAttributes(value = "user")
 @Controller
 public class TaskController {
+
     @Autowired
     private TaskRepository taskRepository;
 
