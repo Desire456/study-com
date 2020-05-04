@@ -50,7 +50,7 @@ public class HomeWorkController {
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
         ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
         for (User value : users) {
-            Homework homework = new Homework(lesson, task, user);
+            Homework homework = new Homework(lesson, task, value);
             value.getHomeWorks().add(homework);
         }
         groupRepository.save(currGroup);
