@@ -38,13 +38,10 @@ public class HomeWorkController {
 
     @GetMapping("/deleteWork")
     public String deleteHomework(@ModelAttribute("user") User user, @RequestParam(value = "works") String ids) {
-        ModelAndView model = new ModelAndView();
         List<Integer> listIds = this.parseStrIds(ids);
         for (Integer id : listIds) {
             homeworkContentRepository.deleteById(id);
         }
-        user = userRepository.findById(user.getId()).get();
-        model.addObject("user", user);
         return "redirect:/home";
     }
 

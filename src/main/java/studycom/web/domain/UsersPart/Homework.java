@@ -18,7 +18,7 @@ public class Homework {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "homework", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "homework", cascade = {CascadeType.MERGE})
     @OrderBy("content")
     private Set<HomeworkContent> content;
 

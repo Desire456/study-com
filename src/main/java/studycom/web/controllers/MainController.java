@@ -46,6 +46,9 @@ public class MainController {
     @Autowired
     private TimetableRepository timetableRepository;
 
+    @Autowired
+    private HomeworkRepository homeworkRepository;
+
 
     @GetMapping("/inputLesson")
     public String showInput() {
