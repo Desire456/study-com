@@ -56,10 +56,11 @@ public class Homework {
     }
 
 
-    public Homework(String lessonName, String content) {
+    public Homework(String lessonName, String content, User user) {
         this.lessonName = lessonName;
         this.content = new ArrayList<>();
         this.content.add(content);
+        this.user = user;
     }
 
     public Homework(String lessonName, List<String> content) {
