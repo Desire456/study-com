@@ -1,23 +1,64 @@
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+        }
+
         table td {
             width: 320px;
             height: 80px;
+            padding: 10px;
+        }
+
+        table th {
+            padding: 10px;
+        }
+
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            margin-bottom: 30px;
         }
     </style>
+    <link rel="stylesheet" href="css/add-timetable.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<table border="1">
-
-    <caption>Расписание на <select name="weekNum">
+<div class="navbar">
+    <ul>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
+        <li><a href="/group"><b>Группа</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
+        <li><a href="#"><b>Чат</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
+        <li th:if="${user.role.name() == 'STAR'}"><a href="/addTimetable"><b>Добавить расписание</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="/profile"><img th:src="${user.urlPhoto == null ?
+        'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
+         user.urlPhoto}" class="profile-photo"></a>
+    </div>
+    <div class="profile-text">
+        <b th:text="${user.surname}"></b>
+        <b th:text="${user.name}"></b>
+        <br>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
+    </div>
+</div>
+<table border="1" style="border-collapse: collapse" class="simple-little-table" cellspacing='0'>
+    <caption><strong>Расписание на <select name="weekNum">
         <option>1</option>
         <option>2</option>
         <option>3</option>
         <option>4</option>
     </select> неделю
-    </caption>
-
+    </strong></caption>
+    <thead>
     <tr>
 
         <th>Понедельник</th>
@@ -33,7 +74,8 @@
         <th>Суббота</th>
 
     </tr>
-
+    </thead>
+    <tbody>
     <tr id="1">
 
         <td id="monday1">
@@ -1051,8 +1093,12 @@
             Предмет: <input type="text">
         </td>
     </tr>
+    </tbody>
 </table>
-<button id="add" style="margin-left: 750px; margin-top: 10px; padding: 8px 20px;">Добавить расписание</button>
+<div class="actions">
+    <a id="add">Добавить расписание</a>
+    <a onclick="window.location.href = 'home'">Вернуться на домашнюю страницу</a>
+</div>
 </body>
 <script>
     let addButton = document.getElementById('add');
@@ -1113,11 +1159,11 @@
                 lesson = {};
             }
             arr.timetableForDay = timetableForDay;
-            if(timetableForDay.length !== 0)timetableForWeek.push(arr);
+            if (timetableForDay.length !== 0) timetableForWeek.push(arr);
             timetableForDay = [];
             arr = {};
         }
-        let fullTimeTable = {"content" : timetableForWeek};
+        let fullTimeTable = {"content": timetableForWeek};
         const form = document.createElement('form');
         form.action = '/addTimetable';
         form.method = 'POST';
@@ -1126,7 +1172,7 @@
             '<input type = "hidden" id = "timetable" name = "timetable" value = "" >';
         document.body.append(form);
         document.getElementById('numOfWeek').value = document.getElementsByTagName('select')[0].value;
-        document.getElementById('timetable').value = JSON.stringify(fullTimeTable);
+        document.getElementById('timetable').value = fullTimeTable.content.length === 0 ? "" : JSON.stringify(fullTimeTable);
         form.submit();
     }
 </script>

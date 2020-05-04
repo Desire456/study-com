@@ -35,6 +35,7 @@
         <li><a href="/timetable"><b>Расписание</b></a></li>
         <li><a href="#"><b>Чат</b></a></li>
         <li><a href="/coin"><b>Монетка судьбы</b></a></li>
+        <li th:if="${user.role.name() == 'STAR'}"><a href ="/addTimetable"><b>Добавить расписание</b></a></li>
     </ul>
     <div class="profile">
         <a href="/profile"><img th:src="${user.urlPhoto == null ?
@@ -72,17 +73,17 @@
 </div>
 <div class="homework disp-inline">
     <h2>Домашнее задание</h2>
-   <!-- <th:block th:each="homework : ${homeWorks}">
-        <h3 th:text = "${homework.lessonName}">Предмет1</h3>
+    <!--<th:block th:each="homework : ${homeworks}">
+        <h3 th:text = "${homework.key}">Предмет1</h3>
         <ul>
-            <th:block th:each="task : ${homework.content}">
-            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}"" onchange="disableButtons()"><label
+            <th:block th:each="task : ${homework.value}">
+            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${homework}" onchange="disableButtons()"><label
                     for="1" th:text = "${task}">dz asd</label></li>
             </th:block>
         </ul>
     </th:block>-->
-        <button th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</button>
-        <button id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick = "deleteWorks()">Удалить</button>
+        <a th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</a>
+        <a id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick = "deleteWorks()">Удалить</a>
 </div>
 <script>
     let addTaskWindow = document.getElementById("addWindow");

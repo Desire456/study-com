@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.User;
@@ -15,12 +16,10 @@ import studycom.web.repos.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 @SessionAttributes(value = "user")
 @Controller
 public class TimetableController {
-
     @Autowired
     private GroupRepository groupRepository;
 
@@ -39,11 +38,14 @@ public class TimetableController {
     @Autowired
     private TimetableRepository timetableRepository;
 
+
+
     @GetMapping("/addTimetable")
-    public String showTimetable() {
+    public String showTimetable(@ModelAttribute("user") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
         return "addTimetable";
     }
-
     @PostMapping("/addTimetable")
     public String addTimetable(@ModelAttribute("user") User user, @RequestParam(value = "numOfWeek") Integer numOfWeek, @RequestParam(value = "timetable") String timetable) {
         JSONObject jsonObject = new JSONObject(timetable);
