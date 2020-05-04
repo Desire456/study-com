@@ -48,6 +48,7 @@ public class HomeWorkController {
     @GetMapping("/addHomework")
     public String addHomework(@ModelAttribute("user") User user,
                               @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
+        ModelAndView model = new ModelAndView();
         List<Homework> homeworks = homeworkRepository.findByLessonNameAndUser(lesson, user);
         if (homeworks.isEmpty()) {
             Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
@@ -67,6 +68,8 @@ public class HomeWorkController {
             homework.getContent().add(content);
             homeworkRepository.save(homework);
         }
+        user = userRepository.findById(user.getId()).get();
+        model.addObject("user", user);
         return "redirect:/home";
     }
 
