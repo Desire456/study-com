@@ -11,6 +11,7 @@ import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.Lessons.LessonType;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.Homework;
+import studycom.web.domain.UsersPart.HomeworkContent;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.DayType;
@@ -87,8 +88,8 @@ public class MainController {
         return model;
     }
 
-    private Map<String, List<String>> getMapFromSet(Set<Homework> homeworkSet) {
-        Map<String, List<String>> homeworkMap = new HashMap<>();
+    private Map<String, Set<HomeworkContent>> getMapFromSet(Set<Homework> homeworkSet) {
+        Map<String, Set<HomeworkContent>> homeworkMap = new HashMap<>();
         for (Homework homework : homeworkSet) {
             homeworkMap.put(homework.getLessonName(), homework.getContent());
         }
