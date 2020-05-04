@@ -1,14 +1,16 @@
 package studycom.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.Lessons.LessonType;
 import studycom.web.domain.UsersPart.Group;
-import studycom.web.domain.UsersPart.Task;
+import studycom.web.domain.UsersPart.Homework;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.DayType;
@@ -16,12 +18,7 @@ import studycom.web.domain.WeeksDays.Timetable;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 
-import javax.servlet.http.HttpSession;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SessionAttributes(value = "user")
 @Controller
@@ -85,10 +82,19 @@ public class MainController {
     public ModelAndView showHome(@ModelAttribute("user") User user) {
         ModelAndView model = new ModelAndView();
         model.addObject("tasks", taskRepository.findByUser(user));
+
         model.addObject("homeWorks", user.getHomeWorks());
         model.setViewName("home");
         return model;
     }
+
+   /* private Map<String, List<String>> getMapFromSet(Set<Homework> homeworkSet) {
+        Map<String, List<String>> homeworkMap = new HashMap<>();
+        List<String> tasks = new ArrayList<>();
+        for (Homework homework : homeworkSet) {
+            homework.get
+        }
+    }*/
 
 
     @GetMapping("/addLesson")

@@ -72,31 +72,18 @@
 </div>
 <div class="homework disp-inline">
     <h2>Домашнее задание</h2>
-        <h3>Предмет1</h3>
+   <!-- <th:block th:each="homework : ${homeWorks}">
+        <h3 th:text = "${homework.lessonName}">Предмет1</h3>
         <ul>
-            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" id="1" onchange="disableButtons()"><label
-                    for="1">dz asd</label></li>
-            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" id="2" onchange="disableButtons()"><label
-                    for="2">dz asdas</label></li>
+            <th:block th:each="task : ${homework.content}">
+            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}"" onchange="disableButtons()"><label
+                    for="1" th:text = "${task}">dz asd</label></li>
+            </th:block>
         </ul>
-        <h3>Предмет2</h3>
-        <ul>
-            <li><input type="checkbox" value = "lesson2" class="custom-checkbox" id="3" onchange="disableButtons()"><label
-                    for="3">dz</label></li>
-            <li><input type="checkbox" value = "lesson2" class="custom-checkbox" id="4" onchange="disableButtons()"><label
-                    for="4">dz</label></li>
-        </ul>
-        <h3>Предмет3</h3>
-        <ul>
-            <li><input type="checkbox" value = "lesson3" class="custom-checkbox" id="5" onchange="disableButtons()"><label
-                    for="5">dz</label></li>
-            <li><input type="checkbox" value = "lesson3" class="custom-checkbox" id="6" onchange="disableButtons()"><label
-                    for="6">dz</label></li>
-        </ul>
+    </th:block>-->
         <button th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</button>
         <button id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick = "deleteWorks()">Удалить</button>
 </div>
-
 <script>
     let addTaskWindow = document.getElementById("addWindow");
     const checkboxes = document.getElementsByClassName('custom-checkbox');
@@ -108,7 +95,6 @@
     }
 
     function disableButtons() {
-        let countOfChecked = 0;
         let checkedCheckboxes = getChecked();
         disableButton.disabled = checkedCheckboxes.length <= 0;
     }
@@ -145,7 +131,7 @@
         modalWindow.style.pointerEvents = "none";
     }
 
-    const nodeList = document.getElementsByTagName('DIV')[5].getElementsByTagName('LI');
+    const nodeList = document.getElementsByClassName('todo-ul-li')[0].getElementsByTagName('LI');
     for (let i = 0; i < nodeList.length; i++) {
         const span = document.createElement("SPAN");
         const txt = document.createTextNode("\u00D7");

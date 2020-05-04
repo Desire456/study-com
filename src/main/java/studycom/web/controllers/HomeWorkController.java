@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.Homework;
-import studycom.web.domain.UsersPart.Task;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.GroupRepository;
 import studycom.web.repos.UserRepository;
@@ -49,9 +48,9 @@ public class HomeWorkController {
                           @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
         ArrayList<User> users = new ArrayList<>(currGroup.getUsers());
-        for (User value : users) {
-            Homework homework = new Homework(lesson, task, value);
-            value.getHomeWorks().add(homework);
+        for (User iterUser : users) {
+            Homework homework = new Homework(lesson, task, iterUser);
+            iterUser.getHomeWorks().add(homework);
         }
         groupRepository.save(currGroup);
         return "redirect:/home";

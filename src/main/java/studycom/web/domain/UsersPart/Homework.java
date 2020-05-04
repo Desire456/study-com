@@ -1,8 +1,6 @@
 package studycom.web.domain.UsersPart;
 
 
-import studycom.web.domain.WeeksDays.Week;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
