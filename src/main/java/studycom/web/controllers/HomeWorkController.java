@@ -12,6 +12,7 @@ import studycom.web.domain.UsersPart.Homework;
 import studycom.web.domain.UsersPart.HomeworkContent;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.GroupRepository;
+import studycom.web.repos.HomeworkContentRepository;
 import studycom.web.repos.HomeworkRepository;
 import studycom.web.repos.UserRepository;
 
@@ -29,15 +30,18 @@ public class HomeWorkController {
     private HomeworkRepository homeworkRepository;
 
     @Autowired
+    private HomeworkContentRepository homeworkContentRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
 
     @GetMapping("/deleteWork")
-    public String deleteHomework(@ModelAttribute("user") User user, @RequestParam(value = "worksId") String ids) {
+    public String deleteHomework(@ModelAttribute("user") User user, @RequestParam(value = "works") String ids) {
         ModelAndView model = new ModelAndView();
         List<Integer> listIds = this.parseStrIds(ids);
         for (Integer id : listIds) {
-            homeworkRepository.deleteById(id);
+            homeworkContentRepository.deleteById(id);
         }
         user = userRepository.findById(user.getId()).get();
         model.addObject("user", user);

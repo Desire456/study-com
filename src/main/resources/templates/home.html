@@ -77,9 +77,8 @@
         <h3 th:text = "${homework?.lessonName}">Предмет1</h3>
         <ul>
             <th:block th:each="task : ${homework.content}">
-                <li th:text = "${task.content}"></li>
-            <!--<li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
-                    th:for = "${task.id}" th:text = "${task.content}">dz asd</label></li>-->
+            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
+                    th:for = "${task.id}" th:text = "${task.content}">dz asd</label></li>
             </th:block>
         </ul>
     </th:block>
@@ -111,17 +110,19 @@
 
     function deleteWorks() {
         let checkedCheckboxes = getChecked();
+        if(checkedCheckboxes == null) return;
         const form = document.createElement('form');
         form.action = '/deleteWork';
         form.method = 'GET';
 
-        form.innerHTML = '<input type = "hidden" id = "worksId" name = "worksId" value = "" >';
-        let checkbox, ids;
+        form.innerHTML = '<input type = "hidden" id = "works" name = "works" value = "" >';
+        let checkbox, ids = "";
         for(let i = 0; i < checkedCheckboxes.length; ++i) {
             checkbox = checkedCheckboxes[i];
-            ids += checkbox.value + " ";
+            ids += checkbox.id + " ";
         }
         document.body.append(form);
+        alert(ids);
         document.getElementById('works').value = ids;
         form.submit();
 
