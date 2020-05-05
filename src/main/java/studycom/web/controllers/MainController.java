@@ -18,6 +18,7 @@ import studycom.web.domain.WeeksDays.DayType;
 import studycom.web.domain.WeeksDays.Timetable;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
+import studycom.web.util.HashingClass;
 
 import java.util.*;
 
@@ -172,12 +173,13 @@ public class MainController {
             model.setViewName("registration");
             return model;
         }
+        String hashPassword = HashingClass.hashPassword(password);
         User user;
         Group thisUsersGroup;
         List<Group> thisUserGr = groupRepository.findByName(group);
         if (!thisUserGr.isEmpty()) {
             thisUsersGroup = thisUserGr.get(0);
-            user = new User(login, name, surname, password, thisUsersGroup);
+            user = new User(login, name, surname, hashPassword, thisUsersGroup);
             if (starostaCheck != null && thisUsersGroup.getStar() != null) {
                 model.addObject("error", "В этой группе уже есть староста");
                 model.setViewName("registration");
@@ -190,7 +192,7 @@ public class MainController {
                 userRepository.save(user);
             }
         } else {
-            user = new User(login, name, surname, password, group);
+            user = new User(login, name, surname, hashPassword, group);
             if (starostaCheck != null) {
                 thisUsersGroup = new Group();
                 user.makeStar();
@@ -220,12 +222,18 @@ public class MainController {
     public ModelAndView enter(@RequestParam(value = "login") String login,
                               @RequestParam(value = "password") String password) {
         ModelAndView model = new ModelAndView();
-        if (userRepository.findByLoginAndPassword(login, password).isEmpty()) {
+        List<User> userList = userRepository.findByLogin(login);
+        if (userList.isEmpty()) {
             model.addObject("error", "Неверный логин или пароль");
             model.setViewName("enter");
             return model;
         }
-        User user = userRepository.findByLoginAndPassword(login, password).get(0);
+        User user = userRepository.findByLogin(login).get(0);
+        if(!HashingClass.validatePassword(password, user.getPassword())) {
+            model.addObject("error", "Неверный логин или пароль");
+            model.setViewName("enter");
+            return model;
+        }
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
         model.addObject("homeworks", user.getHomeWorks());

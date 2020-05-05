@@ -77,7 +77,7 @@
         <h3 th:text = "${homework?.lessonName}">Предмет1</h3>
         <ul>
             <th:block th:each="task : ${homework.content}">
-            <li><input type="checkbox" value = "lesson1" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
+            <li><input type="checkbox" th:value = "${homework.lessonName}" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
                     th:for = "${task.id}" th:text = "${task.content}">dz asd</label></li>
             </th:block>
         </ul>
