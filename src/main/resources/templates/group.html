@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -24,174 +24,26 @@
         <br>
         <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
     </div>
-    <div class="group">
-        <b>ниже${user.group.name}</b>
-        <b th:text="${user.group.name}"></b>
-    </div>
 </div>
 <table class="sort" align="center" width="40%" cellpadding="0">
- <colgroup>
-      <col style="background:#C7DAF0;">
-  </colgroup>
-  <thead>
+    <caption><b th:text="${user.group.name}"></b></caption>
+    <colgroup>
+        <col style="background:#C7DAF0;">
+    </colgroup>
+    <thead>
     <tr>
-         <th align="center" width="70%">Студент</th>
-          <th  align="center">Лвл</th>
-           <th  align="center">Роль</th>
+        <th align="center" width="70%">Студент</th>
+        <th align="center">Лвл</th>
+        <th align="center">Роль</th>
     </tr>
-</thead>
-<tbody>
-      <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
+    </thead>
+    <tbody>
+    <tr th:each = "curUser : ${groupUsers}">
+        <td><a href="" th:text = "${curUser.surname} ${curUser.name}">ячейка</a></td>
+        <td th:text="${curUser.level}">ячейка</td>
+        <td th:text="${curUser.getStringRole()}">ячейка</td>
     </tr>
-         <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-  <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-             <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-            <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-       <tr>
-        <td><a href="">ячейка</a></td>
-        <td>ячейка</td>
-        <td>ячейка</td>
-    </tr>
-</tbody>
+    </tbody>
 </table>
 </body>
 </html>

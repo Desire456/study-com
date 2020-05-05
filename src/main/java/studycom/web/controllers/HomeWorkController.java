@@ -42,13 +42,13 @@ public class HomeWorkController {
         for (Integer id : listIds) {
             homeworkContentRepository.deleteById(id);
         }
-        return "redirect:/home";
+        return "redirect:/home";    
     }
 
 
     @GetMapping("/addHomework")
-    public String addHomework(@ModelAttribute("user") User user,
-                              @RequestParam(value = "lesson") String lesson, @RequestParam(value = "task") String task) {
+    public String addHomework(@ModelAttribute("user") User user, @RequestParam(value = "lesson") String lesson,
+                              @RequestParam(value = "task") String task) {
         List<Homework> homeworks = homeworkRepository.findByLessonNameAndUser(lesson, user);
         Group currGroup = groupRepository.findById(user.getGroup().getId()).get();
         ArrayList<User> users = new ArrayList<>(currGroup.getUsers());

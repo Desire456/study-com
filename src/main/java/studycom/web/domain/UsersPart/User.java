@@ -51,6 +51,7 @@ public class User implements Serializable {
         return homeWorks;
     }
 
+
     public void setHomeWorks(Set<Homework> homeWorks) {
         this.homeWorks = homeWorks;
     }
@@ -69,6 +70,15 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getStringRole() {
+        switch (this.role) {
+            case CASUAL: return "Студент";
+            case STAR: return "Староста";
+            case ADMIN: return "Админ";
+        }
+        return null;
     }
 
     public String getName() {

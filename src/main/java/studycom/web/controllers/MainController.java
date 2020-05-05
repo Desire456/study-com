@@ -10,8 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.Lessons.LessonType;
 import studycom.web.domain.UsersPart.Group;
-import studycom.web.domain.UsersPart.Homework;
-import studycom.web.domain.UsersPart.HomeworkContent;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.DayType;
@@ -20,7 +18,9 @@ import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 import studycom.web.util.HashingClass;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SessionAttributes(value = "user")
 @Controller
@@ -63,6 +63,9 @@ public class MainController {
 
     @GetMapping("/group")
     public String showGroup(@ModelAttribute("user") User user) {
+        Set<User> groupUsers = user.getGroup().getUsers();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("groupUsers", groupUsers);
         return "group";
     }
 
@@ -229,7 +232,7 @@ public class MainController {
             return model;
         }
         User user = userRepository.findByLogin(login).get(0);
-        if(!HashingClass.validatePassword(password, user.getPassword())) {
+        if (!HashingClass.validatePassword(password, user.getPassword())) {
             model.addObject("error", "Неверный логин или пароль");
             model.setViewName("enter");
             return model;
