@@ -43,13 +43,16 @@
     </tr>
     </thead>
     <tbody>
-    <th:block th:each = "curUser : ${groupUsers}">
-    <tr>
-        <td><p th:utext = "${curUser.surname}"style="display: inline-block">ячейка</p> <p style="display: inline-block" th:utext="${curUser.name}"></p></td>
-        <td th:text="${curUser.level}">ячейка</td>
-        <td th:text = "${curUser.getStringRole()}">ячейка</td>
+    <tr th:each="curUser : ${groupUsers}" th:if = "${curUser.getStringRole() == 'Староста'}">
+        <td><p th:utext = "${curUser.surname}" style="display: inline-block"></p> <p style="display: inline-block" th:utext="${curUser.name}"></p></td>
+        <td th:text="${curUser.level}"></td>
+        <td th:text = "${curUser.getStringRole()}"></td>
     </tr>
-    </th:block>
+    <tr th:each="curUser : ${groupUsers}" th:if = "${curUser.getStringRole() != 'Староста'}">
+        <td><p th:utext = "${curUser.surname}" style="display: inline-block"></p> <p style="display: inline-block" th:utext="${curUser.name}"></p></td>
+        <td th:text="${curUser.level}"></td>
+        <td th:text = "${curUser.getStringRole()}"></td>
+    </tr>
     </tbody>
 </table>
 </body>
