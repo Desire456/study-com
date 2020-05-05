@@ -62,11 +62,12 @@ public class MainController {
     }
 
     @GetMapping("/group")
-    public String showGroup(@ModelAttribute("user") User user) {
+    public ModelAndView showGroup(@ModelAttribute("user") User user) {
         Set<User> groupUsers = user.getGroup().getUsers();
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("group");
         modelAndView.addObject("groupUsers", groupUsers);
-        return "group";
+        return modelAndView;
     }
 
 

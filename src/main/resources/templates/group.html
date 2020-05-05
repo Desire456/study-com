@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
     <title>StudyCom</title>
 </head>
 <body>
@@ -38,11 +43,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each = "curUser : ${groupUsers}">
-        <td><a href="" th:text = "${curUser.surname} ${curUser.name}">ячейка</a></td>
+    <th:block th:each = "curUser : ${groupUsers}">
+    <tr>
+        <td><p th:utext = "${curUser.surname}"style="display: inline-block">ячейка</p> <p style="display: inline-block" th:utext="${curUser.name}"></p></td>
         <td th:text="${curUser.level}">ячейка</td>
-        <td th:text="${curUser.getStringRole()}">ячейка</td>
+        <td th:text = "${curUser.getStringRole()}">ячейка</td>
     </tr>
+    </th:block>
     </tbody>
 </table>
 </body>
