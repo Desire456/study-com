@@ -191,21 +191,25 @@ public class MainController {
             } else if (starostaCheck != null) {
                 user.makeStar();
                 thisUsersGroup.setStar(user);
+                thisUsersGroup.getUsers().add(user);
                 groupRepository.save(thisUsersGroup); //user сохранится при сохранении группы в котором есть староста
             } else {
-                userRepository.save(user);
+                thisUsersGroup.getUsers().add(user);
+                groupRepository.save(thisUsersGroup);
             }
         } else {
             user = new User(login, name, surname, hashPassword, group);
+            thisUsersGroup = new Group();
             if (starostaCheck != null) {
-                thisUsersGroup = new Group();
                 user.makeStar();
                 thisUsersGroup.setStar(user);
                 thisUsersGroup.setName(group);
                 user.setGroup(thisUsersGroup);
+                thisUsersGroup.getUsers().add(user);
                 groupRepository.save(thisUsersGroup);
             } else {
-                userRepository.save(user);
+                thisUsersGroup.getUsers().add(user);
+                groupRepository.save(thisUsersGroup);
             }
         }
         model.addObject("user", user);
