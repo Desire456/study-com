@@ -1,5 +1,7 @@
 package studycom.web.domain.UsersPart;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import studycom.web.domain.WeeksDays.Week;
 
 import javax.persistence.*;
@@ -13,7 +15,8 @@ public class HomeworkContent {
 
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Homework homework;
 
 

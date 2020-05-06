@@ -22,7 +22,7 @@ public class User implements Serializable {
     private Integer exp = 0;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = {CascadeType.MERGE})
     @OrderBy("lessonName")
     private Set<Homework> homeWorks;
 
