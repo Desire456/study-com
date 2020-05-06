@@ -42,9 +42,10 @@ public class HomeWorkController {
         for (Integer id : listIds) {
             HomeworkContent currHomeWorkContent = homeworkContentRepository.findById(id).get();
             Homework currHomework = homeworkRepository.findById(currHomeWorkContent.getHomework().getId()).get();
-            homeworkContentRepository.deleteById(id);
             if (currHomework.getContent().size() == 1) {
                 homeworkRepository.deleteById(currHomework.getId());
+            } else {
+                homeworkContentRepository.deleteById(id);
             }
         }
         return "redirect:/home";    

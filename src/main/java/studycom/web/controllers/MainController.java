@@ -200,6 +200,7 @@ public class MainController {
         } else {
             user = new User(login, name, surname, hashPassword, group);
             thisUsersGroup = new Group();
+            thisUsersGroup.setUsers(new HashSet<User>());
             if (starostaCheck != null) {
                 user.makeStar();
                 thisUsersGroup.setStar(user);
