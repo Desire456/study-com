@@ -41,34 +41,45 @@ public class TimetableController {
 
 
     @GetMapping("/addTimetable")
-    public String showTimetable(@ModelAttribute("user") User user) {
+    public String showAddTimetable(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
         return "addTimetable";
     }
+
+    @GetMapping("/timetable")
+    public ModelAndView showTimetable(@ModelAttribute("user") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("timetableNew");
+        return modelAndView;
+    }
+
     @PostMapping("/addTimetable")
-    public String addTimetable(@ModelAttribute("user") User user, @RequestParam(value = "numOfWeek") Integer numOfWeek, @RequestParam(value = "timetable") String timetable) {
+    public String addTimetable(@ModelAttribute("user") User user, @RequestParam(value = "numOfWeek") Integer numOfWeek,
+                               @RequestParam(value = "timetable") String timetable) {
         JSONObject jsonObject = new JSONObject(timetable);
         JSONArray jsonArray = jsonObject.getJSONArray("content");
         Group currGroup = user.getGroup();
         Timetable timetableToSave = currGroup.getTimetable();
         Week currWeek;
         if (timetableToSave != null) {
-            ArrayList<Week> weeks = new ArrayList<>(weekRepository.findByTimetableAndWeekNumb(timetableToSave, numOfWeek));
+            ArrayList<Week> weeks = new ArrayList<>(weekRepository.findByTimetableAndWeekNumb(timetableToSave,
+                    numOfWeek));
             if (weeks.isEmpty()) {
-                currWeek = new Week(numOfWeek, new HashSet<Day>(), timetableToSave);
+                currWeek = new Week(numOfWeek, new HashSet<>(), timetableToSave);
                 timetableToSave.getWeeks().add(currWeek);
                 parseAndFill(jsonArray, currWeek);
                 timetableRepository.save(timetableToSave);
             } else {
                 currWeek = weeks.get(0);
-                currWeek.setDays(new HashSet<Day>());
+                currWeek.setDays(new HashSet<>());
                 parseAndFill(jsonArray, currWeek);
                 weekRepository.save(currWeek);
             }
         } else {
-            timetableToSave = new Timetable(new HashSet<Week>());
-            currWeek = new Week(numOfWeek, new HashSet<Day>(), timetableToSave);
+            timetableToSave = new Timetable(new HashSet<>());
+            currWeek = new Week(numOfWeek, new HashSet<>(), timetableToSave);
             timetableToSave.getWeeks().add(currWeek);
             parseAndFill(jsonArray, currWeek);
             currGroup.setTimetable(timetableToSave);
@@ -85,7 +96,7 @@ public class TimetableController {
             JSONObject timetableForDay = jsonArray.getJSONObject(i);
             String dayName = timetableForDay.getString("day"); //получаем день недели
             JSONArray arrayOfLessons = timetableForDay.getJSONArray("timetableForDay"); //получаем массив уроков на день
-            currDay = new Day(dayName, new HashSet<Lesson>(), currWeek);
+            currDay = new Day(dayName, new HashSet<>(), currWeek);
             currWeek.getDays().add(currDay);
             for (int j = 0; j < arrayOfLessons.length(); j++) {
                 JSONObject lesson = arrayOfLessons.getJSONObject(j);

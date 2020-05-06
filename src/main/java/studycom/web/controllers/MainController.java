@@ -76,10 +76,10 @@ public class MainController {
         return "coin";
     }
 
-    @GetMapping("/timetable")
+    /*@GetMapping("/timetable")
     public String showTimeTable(@ModelAttribute("user") User user) {
         return "timetable";
-    }
+    }*/
 
 
     @GetMapping("/profile")
