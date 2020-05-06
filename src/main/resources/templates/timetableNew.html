@@ -7,18 +7,41 @@
 </head>
 
 <body>
+
+<!-- шапка  -->
+<div class="navbar">
+    <ul>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
+        <li><a href="/group"><b>Группа</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
+        <li><a href="#"><b>Чат</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
+                         class="profile-photo"></a>
+    </div>
+    <div class="profile-text">
+        <b th:text="${user.surname}"></b>
+        <b th:text="${user.name}"></b>
+        <br>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
+    </div>
+</div>
+
+
+<!-- таблица + модальные окна -->
 <div class="wrapper-table">
     <div class="modal-overlay"></div>
     <div class="modal-wrapper">
         <div class="modal">
             <button class="close-modal">×</button>
             ТФКП
+            <button class="change">Изменить</button>
         </div>
-        <button class="change">Изменить</button>
     </div>
     <table border="1" cellpadding="4" cellspacing="0" width="80%">
-        <caption class="cap">Расписание | Неделя 1 (нечетная)</caption>
-
+        <caption class="cap">Расписание</caption>
+        <caption class="cap">Неделя 1 (нечетная)</caption>
         <tr>
 
             <th>Время</th>
