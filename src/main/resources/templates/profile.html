@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="css/modal-window.css">
     <link rel="stylesheet" href="css/input.css">
     <title>StudyCom</title>
+    <style>
+        .scrollbox {
+            overflow: auto;
+            width: 500px;
+            max-height: 500px;
+            margin: 30px auto;
+            background-repeat: no-repeat;
+            background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+            background-attachment: local, local, scroll, scroll;
+        }
+    </style>
 </head>
 <body onload="createExpLine()">
 <div id="errorWindow" class="modalbackground" th:if="${error == null ? false : true}">
@@ -15,6 +26,57 @@
         <h3>Ошибка</h3>
         <p th:text="${error}"></p>
         <a onclick="closeModalWindow('errorWindow')">Закрыть</a>
+    </div>
+</div>
+<div id="faqLvl" class="modalbackground" style="opacity: 0; pointer-events: none">
+    <div class="modalwindow scrollbox">
+        <h3>FAQ по повышению уровня</h3>
+        <p>
+            1лвл - 100 xp - Новичок
+            <br>
+            2лвл - 150 xp - Ученик
+            <br>
+            3лвл - 250 xp - Знаток
+            <br>
+            4лвл - 400 xp - Мастер
+            <br>
+            5лвл - 600 xp - Гуру
+            <br>
+            6лвл - 850 xp - Мыслитель
+            <br>
+            7лвл - 1150 xp - Мудрец
+            <br>
+            8лвл - 1500 xp - Оракул
+            <br>
+            9лвл - 1900 xp - Искусственный интеллект
+            <br>
+            10лвл - 2350 xp - Высший разум
+            <br>
+            <br>
+            Посещение пары - 1 xp
+            <br>
+            Выполненная домашня работа/сданная лаба/реферат... - 10 xp
+            <br>
+            Благотворительность на благо группы(Написание конспектов, помощь с лабораторными...) 100 xp
+            <br>
+            <br>
+            Сессия:
+            <br>
+            Удовлетворительно - 300 xp
+            <br>
+            Хорошо - 450 xp
+            <br>
+            Отлично - 700 xp
+            <br>
+
+            <br><br>
+
+            Посещение 20ти пар подряд дает множитель x2 на общее получение опыта
+            <br>
+            <br>
+            Посещение 50ти пар подряд дает множитель x3 на общее получение опыта
+        </p>
+        <a onclick="closeModalWindow('faqLvl')">Закрыть</a>
     </div>
 </div>
 <div id="editWindow" class="modalbackground" style="opacity: 0; pointer-events: none">
@@ -76,21 +138,22 @@
     <ul>
         <li>
             <div class="gradient-border">
-                <a href=""><img th:src="${user.urlPhoto == null ?
+                <img th:src="${user.urlPhoto == null ?
                 'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
-                 user.urlPhoto}" style = "width: 550px; height: 550px; border-radius: 70px;"></a>
+                 user.urlPhoto}" style = "width: 400px; height: 400px; border-radius: 50px; border: 3px solid #E0FFFF">
             </div>
         </li>
         <li>
             <div class="profile-info">
                 <h1>
-                    <b th:text="${user.surname}"></b> <b th:text="${user.name}"></b>
+                    <b th:text="${user.surname}">Селицкий</b> <b th:text="${user.name}">Влад</b>
                 </h1>
                 <b>Группа </b> <b th:text="${user.group.name}"></b>
                 <br>
                 <br>
-                <b th:text="${user.role.name() == 'CASUAL' ? 'Студент' : 'Староста'}"></b>
+                <b th:text="${user.role.name() == 'CASUAL' ? 'Студент' : 'Староста'}">Студент</b>
                 <br><br>
+                <button onclick="openModalWindow()">Редактировать профиль</button>
 
             </div>
         </li>
@@ -101,8 +164,6 @@
                 <b>Пропущено пар: 99999</b>
                 <br>
                 <b>Всего пар: 99999</b>
-                <br><br>
-                <button onclick="openModalWindow()">Редактировать</button>
             </div>
         </li>
     </ul>
@@ -115,56 +176,10 @@
             <br>
             <h2 style="text-align: center; display: inline-block; margin-left: 85px" th:text="${user.level}"></h2>
             <h2 style="display: inline-block;"> уровень</h2>
-            <p style="text-align: center">FAQ по повышению уровня</p>
-            <div>
-                1лвл - 100 xp - Новичок
-                <br>
-                2лвл - 150 xp - Ученик
-                <br>
-                3лвл - 250 xp - Знаток
-                <br>
-                4лвл - 400 xp - Мастер
-                <br>
-                5лвл - 600 xp - Гуру
-                <br>
-                6лвл - 850 xp - Мыслитель
-                <br>
-                7лвл - 1150 xp - Мудрец
-                <br>
-                8лвл - 1500 xp - Оракул
-                <br>
-                9лвл - 1900 xp - Искусственный интеллект
-                <br>
-                10лвл - 2350 xp - Высший разум
-                <br>
-                <br>
-                Посещение пары - 1 xp
-                <br>
-                Выполненная домашня работа/сданная лаба/реферат... - 10 xp
-                <br>
-                Благотворительность на благо группы(Написание конспектов, помощь с лабораторными...) 100 xp
-                <br>
-                <br>
-                Бонус:
-                <br>
-                Закрытие всех заданий по предмету : 300 xp
-                <br>
-                <br>
-                Сессия:
-                <br>
-                Удовлетворительно - 300 xp
-                <br>
-                Хорошо - 450 xp
-                <br>
-                Отлично - 700 xp
-                <br>
-
-                <br><br>
-
-                Посещение 20ти пар подряд дает множитель x2 на общее получение опыта
-                <br>
-                Посещение 50ти пар подряд дает множитель x3 на общее получение опыта
-            </div>
+            <br>
+            <button style="margin-left: 30px" onclick = "document.getElementById('faqLvl').style.opacity = '1';
+                                document.getElementById('faqLvl').style.pointerEvents = 'auto'">
+                FAQ по повышению уровня</button>
         </div>
     </div>
 </div>

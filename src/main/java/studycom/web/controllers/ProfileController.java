@@ -39,7 +39,8 @@ public class ProfileController {
                 if (thisUsersGr.getStar() != null && thisUsersGr.getStar().getId().equals(user.getId())) {
                     thisUsersGr.setStar(null);
                     if (newGroup.getStar() != null) {
-                        model.addObject("error", "В данный группе уже существует староста");
+                        model.addObject("error", "В группе " + newGroup.getName()
+                                + " уже существует староста");
                         return model;
                     } else {
                         newGroup.setStar(user);
@@ -49,7 +50,7 @@ public class ProfileController {
                 groupRepository.save(thisUsersGr);
                 user.setGroup(newGroup);
             } else {
-                model.addObject("error", "Такой группы не существует");
+                model.addObject("error", "Группы " + group + " не существует");
                 return model;
             }
         }

@@ -220,7 +220,7 @@ body {
 }
 
 .main-profile li {
-    display: inline;
+    
     float: left;
 }
 
@@ -282,13 +282,12 @@ body {
 }
 
 .statistic {
-    display: inline-block;
-    margin-top: 0px;
-    margin-left: 500px;
+    margin-top: 165px;
+    margin-left: 100px;
 }
 
 .main-profile ul {
-    height: 550px;
+
     margin: 0;
     padding: 0;
 }
@@ -300,6 +299,9 @@ body {
     padding: 2%;
 }
 
+.gradient-border {
+    margin-left: 95px;
+}
 
 .exp {
     border: 2px solid black;
@@ -323,7 +325,7 @@ body {
 
 
 .exp-line {
-    background-color: green;
+    background-color: #008B8B;
     height: 100%;
 }
 
