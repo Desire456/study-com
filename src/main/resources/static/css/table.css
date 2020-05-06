@@ -150,8 +150,9 @@ th:last-child {
   border-right: none;
 }
 td {
+  min-width: 130px;
   text-align: center;
-  padding: 10px 10px;
+  padding: 10px 5px;
   background: white;
 }
 tr:last-child td:first-child {
