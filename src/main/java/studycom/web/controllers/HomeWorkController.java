@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.Homework;
 import studycom.web.domain.UsersPart.HomeworkContent;
@@ -48,7 +47,7 @@ public class HomeWorkController {
                 homeworkContentRepository.deleteById(id);
             }
         }
-        return "redirect:/home";    
+        return "redirect:/home";
     }
 
 
@@ -91,7 +90,7 @@ public class HomeWorkController {
     private List<Integer> parseStrIds(String ids) {
         List<Integer> listIds = new ArrayList<>();
         String[] splitIds = ids.split(" ");
-        for(String id : splitIds) {
+        for (String id : splitIds) {
             listIds.add(Integer.parseInt(id));
         }
         return listIds;

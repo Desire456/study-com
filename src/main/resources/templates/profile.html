@@ -169,10 +169,13 @@
     </ul>
     <div class="container">
         <div class="exp">
-            <input type="hidden" th:value="${user.exp}" id="percentOfLvl">
+            <input type="hidden" th:value="${user.exp}" id="userExp">
+            <input type="hidden" th:value="${user.getPrevLvlExp()}" id="prevExp">
+            <input type="hidden" th:value="${user.getFullExpOfCurrentLvl()}" id="fullExp">
             <div class="exp-line" id="expLine"></div>
-            <p th:text="${user.exp}" style="display: inline-block; margin-left: 115px"></p>
-            <p style="display: inline-block;">/100</p>
+            <p th:text="${user.exp}" style="display: inline-block; margin-left: 107px"></p>
+            <p style="display: inline;">/</p>
+            <p style="display: inline;" th:text = "${user.getFullExpOfCurrentLvl()}"></p>
             <br>
             <h2 style="text-align: center; display: inline-block; margin-left: 85px" th:text="${user.level}"></h2>
             <h2 style="display: inline-block;"> уровень</h2>
@@ -191,8 +194,11 @@
 
     function createExpLine() {
         let expLine = document.getElementById("expLine");
-        let percentOfLvl = document.getElementById("percentOfLvl");
-        expLine.style.width = percentOfLvl.value + '%';
+        let userExp = document.getElementById("userExp").value;
+        let prevExp = document.getElementById("prevExp").value;
+        let fullExp = document.getElementById("fullExp").value;
+        let percentOfLvl = ((userExp - prevExp) / (fullExp - prevExp)) * 100;
+        expLine.style.width = percentOfLvl + '%';
     }
 
     function openModalWindow() {
