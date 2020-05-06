@@ -120,7 +120,7 @@
         <li><a href="/home"><b>Домашняя страница</b></a></li>
         <li><a href="/group"><b>Группа</b></a></li>
         <li><a href="/timetable"><b>Расписание</b></a></li>
-        <li><a href="#"><b>Чат</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
     </ul>
     <div class="profile">
         <a href="#"><img th:src="${user.urlPhoto == null ?
@@ -177,7 +177,7 @@
             <h2 style="text-align: center; display: inline-block; margin-left: 85px" th:text="${user.level}"></h2>
             <h2 style="display: inline-block;"> уровень</h2>
             <br>
-            <button style="margin-left: 30px" onclick = "document.getElementById('faqLvl').style.opacity = '1';
+            <button style="margin-left: 40px" onclick = "document.getElementById('faqLvl').style.opacity = '1';
                                 document.getElementById('faqLvl').style.pointerEvents = 'auto'">
                 FAQ по повышению уровня</button>
         </div>

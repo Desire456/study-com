@@ -325,6 +325,7 @@ body {
 
 
 .exp-line {
+    width: 0;
     background-color: #008B8B;
     height: 100%;
 }

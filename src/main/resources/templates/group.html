@@ -17,11 +17,12 @@
         <li><a href="/home"><b>Домашняя страница</b></a></li>
         <li><a href="/group"><b>Группа</b></a></li>
         <li><a href="/timetable"><b>Расписание</b></a></li>
-        <li><a href="#"><b>Чат</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
     </ul>
     <div class="profile">
-        <a href="#"><img src="https://sun9-30.userapi.com/c855236/v855236163/96840/_gJAXx_rgkE.jpg"
-                         class="profile-photo"></a>
+        <a href="#"><img th:src="${user.urlPhoto == null ?
+                'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
+                 user.urlPhoto}" class="profile-photo"></a>
     </div>
     <div class="profile-text">
         <b th:text="${user.surname}"></b>

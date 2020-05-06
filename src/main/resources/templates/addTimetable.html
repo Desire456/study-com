@@ -34,9 +34,7 @@
         <li><a href="/home"><b>Домашняя страница</b></a></li>
         <li><a href="/group"><b>Группа</b></a></li>
         <li><a href="/timetable"><b>Расписание</b></a></li>
-        <li><a href="#"><b>Чат</b></a></li>
-        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
-        <li th:if="${user.role.name() == 'STAR'}"><a href="/addTimetable"><b>Добавить расписание</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>а
     </ul>
     <div class="profile">
         <a href="/profile"><img th:src="${user.urlPhoto == null ?
@@ -1145,10 +1143,10 @@
             arr.day = dayOfWeek;
             for (let i = 1; i <= 8; ++i) {
                 let td = document.getElementById(dayOfWeek.toLowerCase() + i);
-                let childs = td.childNodes;
-                lesson.time = childs[1].value;
-                for (let j = 2; j < childs.length; ++j) {
-                    let child = childs[j];
+                let children = td.childNodes;
+                lesson.time = children[1].value;
+                for (let j = 2; j < children.length; ++j) {
+                    let child = children[j];
                     if (child instanceof HTMLInputElement) {
                         lesson.lessonName = child.value;
                     } else if (child instanceof HTMLSelectElement) {
