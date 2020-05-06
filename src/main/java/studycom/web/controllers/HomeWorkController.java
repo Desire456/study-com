@@ -40,7 +40,12 @@ public class HomeWorkController {
     public String deleteHomework(@ModelAttribute("user") User user, @RequestParam(value = "works") String ids) {
         List<Integer> listIds = this.parseStrIds(ids);
         for (Integer id : listIds) {
+            HomeworkContent currHomeWorkContent = homeworkContentRepository.findById(id).get();
+            Homework currHomework = homeworkRepository.findById(currHomeWorkContent.getHomework().getId()).get();
             homeworkContentRepository.deleteById(id);
+            if (currHomework.getContent().size() == 1) {
+                homeworkRepository.deleteById(currHomework.getId());
+            }
         }
         return "redirect:/home";    
     }
