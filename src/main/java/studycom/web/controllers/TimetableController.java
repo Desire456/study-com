@@ -51,12 +51,14 @@ public class TimetableController {
 
     @GetMapping("/timetable")
     public ModelAndView showTimetable(@ModelAttribute("user") User user) {
-        Set<Week> weekSet = user.getGroup().getTimetable().getWeeks();
-        Map<String, List<Lesson>> lessonMapByTime = this.parseTimetable(weekSet);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
-        modelAndView.addObject("timetable", lessonMapByTime);
         modelAndView.setViewName("timetableNew");
+        if (user.getGroup().getTimetable() != null) {
+            Set<Week> weekSet = user.getGroup().getTimetable().getWeeks();
+            Map<String, List<Lesson>> lessonMapByTime = this.parseTimetable(weekSet);
+            modelAndView.addObject("timetable", lessonMapByTime);
+        }
         return modelAndView;
     }
 
