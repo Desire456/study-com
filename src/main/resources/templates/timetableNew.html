@@ -76,60 +76,22 @@
             <th>Суббота</th>
 
         </tr>
-        <tr>
+        <tr th:each="day : ${timetable}">
+            <th:block th:if = "${!day.value.isEmpty()}">
             <td>
                 <div class="content">
-                    <button class="open-modal">8.00 - 9.35</button>
+                    <button class="open-modal" th:text = "${day.key}">8.00 - 9.35</button>
                 </div>
             </td>
 
-            <td>
+            <td th:each="lesson : ${day.value}">
                 <div class="container">
                     <div class="content">
-                        <button class="open-modal">lesson</button>
+                        <button class="open-modal" th:text = "${lesson == null ? '-' : lesson.name}">lesson</button>
                     </div>
                 </div>
             </td>
-
-            <td>
-                <div class="container">
-                    <div class="content">
-                        <button class="open-modal">lesson</button>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div class="container">
-                    <div class="content">
-                        <button class="open-modal">lesson</button>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div class="container">
-                    <div class="content">
-                        <button class="open-modal">lesson</button>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div class="container">
-                    <div class="content">
-                        <button class="open-modal">lesson</button>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div class="container">
-                    <div class="content">
-                        <button class="open-modal">lesson</button>
-                    </div>
-                </div>
-            </td>
+            </th:block>
         </tr>
         <tr>
             <td>
