@@ -83,11 +83,16 @@
                     <button class="open-modal" th:text = "${day.key}">8.00 - 9.35</button>
                 </div>
             </td>
-
             <td th:each="lesson : ${day.value}">
                 <div class="container">
                     <div class="content">
-                        <button class="open-modal" th:text = "${lesson == null ? '-' : lesson.name}">lesson</button>
+                        <th:block th:if = "${lesson.name == '-'}">
+                        <p th:text = "${lesson.name}">lesson</p>
+                        </th:block>
+                        <th:block th:if = "${lesson.name != '-'}">
+                            <button class = "open-modal" th:text = "${lesson.name}">lesson</button>
+                            <p th:text = "${lesson.getLessonType().getNameType()}"></p>
+                        </th:block>
                     </div>
                 </div>
             </td>
@@ -100,6 +105,5 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> <!-- анимации -->
 
 <script src="js/table.js"></script>    <!-- открытие/закрытие окна -->
-
 </body>
 </html>

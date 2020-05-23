@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="days")
-public class    Day {
+public class Day {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

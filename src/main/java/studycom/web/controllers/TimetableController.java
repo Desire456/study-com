@@ -86,7 +86,7 @@ public class TimetableController {
             }
             List<Lesson> lessons = lessonList.stream().filter(lesson -> Objects.equals(lesson.getTime(), time))
                     .collect(Collectors.toList());
-            lessonMapByTime.put(time, lessons);
+            if (lessons.size() != 0) lessonMapByTime.put(time, lessons);
         }
         Map<String, List<Lesson>> sortedMap = new TreeMap<>(
                 (time1, time2) -> {
@@ -96,6 +96,14 @@ public class TimetableController {
                 }
         );
         sortedMap.putAll(lessonMapByTime);
+        for (String key : sortedMap.keySet()) {
+            List<Lesson> lessons = sortedMap.get(key);
+            if (lessons.size() != 6) {
+                while (lessons.size() != 6) {
+                    lessons.add(new Lesson("-", key, "PRACTICE", new Day()));
+                }
+            }
+        }
         return sortedMap;
     }
 

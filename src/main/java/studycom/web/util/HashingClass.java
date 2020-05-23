@@ -13,12 +13,13 @@ public class HashingClass {
     public static String hashPassword(String userPassword) {
         String generatedPassword = null;
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
-            byte[] bytes = md.digest(userPassword.getBytes(StandardCharsets.UTF_8));
+            MessageDigest md = MessageDigest.getInstance("SHA-512"); //получаем хэш-сумму текста нужного алгоритма хэширования
+            md.update(salt); //передаем массив байтов соли чтобы сформировать дайджест
+            byte[] bytes = md.digest(userPassword.getBytes(StandardCharsets.UTF_8)); //получаем массив байтов дайджеста сообщения
             StringBuilder sb = new StringBuilder();
             for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1)); //хэшируем каждый байт
+                                                                                                //и записываем в строку нового пароля
             }
             generatedPassword = sb.toString();
         } catch (NoSuchAlgorithmException e) {
@@ -27,7 +28,7 @@ public class HashingClass {
         return generatedPassword;
     }
 
-    public static boolean validatePassword(String userPassword, String passwordDb){
+    public static boolean validatePassword(String userPassword, String passwordDb){ //функция валидации нормального пароля и хэш пароля
         String hashPassword = hashPassword(userPassword);
         return hashPassword.equals(passwordDb);
     }

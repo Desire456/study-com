@@ -14,4 +14,13 @@ public enum LessonType {
     public String getName() {
         return name;
     }
+
+    public String getNameType() {
+        switch (this) {
+            case LAB: return "Лабораторная работа";
+            case LECTURE: return "Лекция";
+            case PRACTICE: return "Практика";
+            default: return "";
+        }
+    }
 }
