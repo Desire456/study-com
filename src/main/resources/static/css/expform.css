@@ -1,0 +1,98 @@
+
+p.forExp{
+	margin: 0;
+	padding-bottom: 2px;
+	border-bottom: 3px solid #008080;
+	color: #008080;
+	text-align: center;
+	font-size: 28px;
+}
+
+.student {
+	padding: 10px;
+	background: white;
+	margin: 3% auto;
+	border: 1px solid #008080;
+	border-radius: 20px/20px;
+	box-shadow: 1px 2px 3px rgba(0,0,0,0.82);
+}
+
+
+.achivement {
+	margin: 3% auto;
+	font-size: 25px;
+}
+
+form.forExp {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	max-width: 300px;
+	width: 300px;
+	height: 350px;
+	margin: -50% 3% 30% 70%;
+	position: absolute;
+	padding: 20px;
+	box-shadow: 2px 3px 5px rgba(0,0,0,0.82);
+	overflow: auto;
+	border: 3px solid #008080;
+	border-radius: 10px/10px;
+}
+
+input[type = "submit"] {
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 30px;
+	background: #008080;
+	color: white;
+	border: none;
+	font-size: 15px;
+	border-radius: 20px/20px;
+}
+
+input[type = "radio"] {
+	margin: 2%;
+	cursor: pointer;
+}
+
+input:hover {
+	opacity: .90;
+}
+
+::-webkit-scrollbar{
+    width:12px;
+
+}
+
+::-webkit-scrollbar-thumb{
+    border-width:1px 1px 1px 2px;
+    border-color: white;
+    background-color: #008080;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    border-width: 1px 1px 1px 2px;
+    border-color: #008080;
+    background-color: #008080;
+}
+
+::-webkit-scrollbar-track{
+    border-width:0;
+}
+
+::-webkit-scrollbar-track:hover{
+    border-left: solid 1px #aaa;
+    background-color: #eee;
+}
+
+.acces{
+	font-size: 22px;
+	color: green;
+}
+
+.denie{
+	font-size: 22px;
+	color: red;
+}
+
+.head {
+	font-size: 20px;
+}
