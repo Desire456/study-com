@@ -209,7 +209,7 @@ body {
 .main-profile {
     position: relative;
     background: white;
-    height: 1000px;
+
 }
 
 .main-profile ul {
@@ -306,7 +306,7 @@ body {
 .exp {
     border: 2px solid black;
     margin-left: 3%;
-    height: 3%;
+    height: 20px;
     width: 20%;
 }
 

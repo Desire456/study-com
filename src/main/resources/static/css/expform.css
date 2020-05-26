@@ -23,13 +23,14 @@ p.forExp{
 	font-size: 25px;
 }
 
-form.forExp {
+div.forExp{
+	margin-top: -400px;
+	margin-left: 550px;
+	margin-bottom: 50px;
+	display: inline-block;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	max-width: 300px;
-	width: 300px;
-	height: 350px;
-	margin: -38% 3% 30% 45%;
-	position: absolute;
+	width: 400px;
+	height: 400px;
 	padding: 20px;
 	box-shadow: 2px 3px 5px rgba(0,0,0,0.82);
 	overflow: auto;
@@ -37,7 +38,7 @@ form.forExp {
 	border-radius: 10px/10px;
 }
 
-input[type = "submit"] {
+.forExp input[type = "submit"] {
 	text-align: center;
 	cursor: pointer;
 	padding: 10px 30px;
