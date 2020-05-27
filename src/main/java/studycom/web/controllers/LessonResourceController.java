@@ -24,7 +24,9 @@ public class LessonResourceController {
     @GetMapping("/addLessonResource")
     public ModelAndView addLessonResource(@ModelAttribute("user") User user, @RequestParam(value = "content") String
             content, @RequestParam(value = "lessonName") String lessonName) {
-        lessonResourceRepository.save(new LessonResource(content, user.getGroup(), lessonName));
+        LessonResource toSave = new LessonResource(content, user.getGroup(), lessonName);
+        toSave.setId(user.getId());
+        lessonResourceRepository.save(toSave);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("timetable");
         return modelAndView;
