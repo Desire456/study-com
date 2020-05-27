@@ -1,230 +1,240 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>document.getElementsByTagName("html")[0].className += " js";</script>
-    <link rel="stylesheet" href="css/timetable.css">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>Расписание</title>
+    <link href="css/table.css" rel="stylesheet">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal_content {
+            background-color: #fff;
+            margin: 150px auto;
+            padding: 20px;
+            width: 40%;
+            z-index: 99999;
+        }
+
+        .close_modal_window {
+            color: #000;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-<header class="cd-main-header text-center flex flex-column flex-center">
 
-    <h1 class="text-xl">Расписание</h1>
-</header>
-
-<div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
-    <div class="cd-schedule__timeline">
-        <ul>
-            <li><span>08:00</span></li>
-            <li><span>08:30</span></li>
-            <li><span>09:00</span></li>
-            <li><span>09:30</span></li>
-            <li><span>10:00</span></li>
-            <li><span>10:30</span></li>
-            <li><span>11:00</span></li>
-            <li><span>11:30</span></li>
-            <li><span>12:00</span></li>
-            <li><span>12:30</span></li>
-            <li><span>13:00</span></li>
-            <li><span>13:30</span></li>
-            <li><span>14:00</span></li>
-            <li><span>14:30</span></li>
-            <li><span>15:00</span></li>
-            <li><span>15:30</span></li>
-            <li><span>16:00</span></li>
-            <li><span>16:30</span></li>
-            <li><span>17:00</span></li>
-            <li><span>17:30</span></li>
-            <li><span>18:00</span></li>
-        </ul>
+<!-- шапка  -->
+<div class="navbar">
+    <ul>
+        <li><a href="/home"><b>Домашняя страница</b></a></li>
+        <li><a href="/group"><b>Группа</b></a></li>
+        <li><a href="/timetable"><b>Расписание</b></a></li>
+        <li><a href="/coin"><b>Монетка судьбы</b></a></li>
+        <li th:if="${user.role.name() == 'STAR'}"><a href="/addTimetable"><b>Добавить расписание</b></a></li>
+    </ul>
+    <div class="profile">
+        <a href="#"><img class="profile-photo" th:src="${user.urlPhoto == null ?
+                'https://windows10free.ru/uploads/posts/2017-04/1493287748_1487679899_icon-user-640x640.png' :
+                 user.urlPhoto}"></a>
     </div>
+    <div class="profile-text">
+        <b th:text="${user.surname}"></b>
+        <b th:text="${user.name}"></b>
+        <br>
+        <b th:text="${user.group.name}"></b> | <b th:text="${user.level}"></b><b> уровень</b>
+    </div>
+</div>
 
-    <div class="cd-schedule__events">
+<div class="modal" id="my_modal">
+    <div class="modal_content">
+        <span class="close_modal_window" onclick="closeWindow()">×</span>
+        <h3 id="lessonName">Predmet: usefull links</h3>
         <ul>
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Понедельник</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="8:00" data-end="9:35" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Физическая культура</em>
-                        </a>
-                    </li>
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-rowing-workout" data-event="event-4"
-                           href="#0">
-                            <em class="cd-schedule__name">Операционные системы</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-rowing-workout" data-event="event-4"
-                           href="#0">
-                            <em class="cd-schedule__name">Численные методы</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="15:15" data-end="16:50" data-content="event-yoga-1" data-event="event-4"
-                           href="#0">
-                            <em class="cd-schedule__name">Введение в специальность</em>
-                        </a>
-                    </li>
-                </ul>
+            <li>
+                ssilka 1
             </li>
-
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Вторник</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-rowing-workout" data-event="event-1"
-                           href="#0">
-                            <em class="cd-schedule__name">Операционные системы</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-restorative-yoga"
-                           data-event="event-1" href="#0">
-                            <em class="cd-schedule__name">Системное программирование и архитектура ЭВМ</em>
-                        </a>
-                    </li>
-
-                </ul>
+            <li>
+                ssilka 1
             </li>
-
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Среда</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Физическая культура</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-yoga-1" data-event="event-4"
-                           href="#0">x
-                            <em class="cd-schedule__name">Теория функций комплексного переменного</em>
-                        </a>
-                    </li>
-                </ul>
+            <li>
+                ssilka 1
             </li>
-
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Четверг</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="09:45" data-end="11:20" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Теория вероятностей и математическая статистика</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Численные методы</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-abs-circuit" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Теория функций комплексного переменного</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="15:15" data-end="16:50" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Операционные системы</em>
-                        </a>
-                    </li>
-                </ul>
+            <li>
+                ssilka 1
             </li>
-
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Пятница</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="9:45" data-end="11:20" data-content="event-rowing-workout" data-event="event-2"
-                           href="#0">
-                            <em class="cd-schedule__name">Физика</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-abs-circuit" data-event="event-4"
-                           href="#0">
-                            <em class="cd-schedule__name">Физика</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-yoga-1" data-event="event-4"
-                           href="#0">
-                            <em class="cd-schedule__name">Теория вероятностей и математическая статистика</em>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Суббота</span></div>
-
-                <ul>
-                    <li class="cd-schedule__event">
-                        <a data-start="11:30" data-end="13:05" data-content="event-rowing-workout" data-event="event-1"
-                           href="#0">
-                            <em class="cd-schedule__name">Физика</em>
-                        </a>
-                    </li>
-
-                    <li class="cd-schedule__event">
-                        <a data-start="13:30" data-end="15:05" data-content="event-abs-circuit" data-event="event-1"
-                           href="#0">
-                            <em class="cd-schedule__name">Физика</em>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="cd-schedule__group">
-                <div class="cd-schedule__top-info"><span>Воскресенье</span></div>
+            <li>
+                ssilka 1
             </li>
         </ul>
+        Link: <input id="lesson-link" type="text">
+        <button id="addLessonLink" style="font: inherit">Add link</button>
     </div>
+</div>
 
-    <div class="cd-schedule-modal">
-        <header class="cd-schedule-modal__header">
-            <div class="cd-schedule-modal__content">
-                <span class="cd-schedule-modal__date"></span>
-                <h3 class="cd-schedule-modal__name"></h3>
-            </div>
+<!-- таблица + модальные окна -->
+<div class="wrapper-table">
+    <p class="cap" style="margin-left: 380px">Расписание</p>
+    <p class="cap" id="timetableCaption" style="margin-left: 280px">
+        <button class="cap" id="prevWeek"
+                onclick="prevWeek()"><
+        </button>
+        Неделя 1 (нечетная)
+        <button class="cap" id="nextWeek" onclick="nextWeek()">></button>
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0" id="timetable" width="80%">
+        <thead>
+        <tr>
 
-            <div class="cd-schedule-modal__header-bg"></div>
-        </header>
+            <th>Время</th>
 
-        <div class="cd-schedule-modal__body">
-            <div class="cd-schedule-modal__event-info"></div>
-            <div class="cd-schedule-modal__body-bg"></div>
-        </div>
+            <th>Понедельник</th>
 
-        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
-    </div>
+            <th>Вторник</th>
 
-    <div class="cd-schedule__cover-layer"></div>
-</div> <!-- .cd-schedule -->
-<button> Добавить расписание</button>
+            <th>Среда</th>
 
-<script src="js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
-<script src="js/main.js"></script>
+            <th>Четверг</th>
+
+            <th>Пятница</th>
+
+            <th>Суббота</th>
+
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <input id="numberOfWeeks" type="hidden" value="4">
+    <input id="fullTimetable" th:value="${timetable}" type="hidden">
+</div>
+<script>
+    const modal = document.getElementById("my_modal");
+    const btn = document.getElementById("btn_modal_window");
+    const span = document.getElementsByClassName("close_modal_window")[0];
+
+    function closeWindow() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function $id(id) {
+        return document.getElementById(id);
+    }
+
+    function calcPrevNumWeek(num) {
+        if (num > 1) return num - 1;
+        else return numberOfWeeks;
+    }
+
+    function calcNextNumWeek(num) {
+        if (num < numberOfWeeks) return num + 1;
+        else return 1;
+    }
+
+    const numberOfWeeks = $id("numberOfWeeks").value;
+    let currNumWeek = 1;
+
+    function prevWeek() {
+        drawTable(calcPrevNumWeek(currNumWeek));
+    }
+
+    function nextWeek() {
+        drawTable(calcNextNumWeek(currNumWeek));
+    }
+
+    let timetable;
+    window.onload = function () {
+        timetable = JSON.parse($id('fullTimetable').value);
+        drawTable(1);
+    };
+
+    function initButtonActions() {
+        let buttons = document.getElementsByClassName('open-modal');
+        for (let i = 0; i < buttons.length; ++i) {
+            buttons[i].onclick = function () {
+                $id('lessonName').innerHTML = buttons[i].innerHTML + ": полезные ресурсы";
+                modal.style.display = "block";
+            }
+        }
+    }
+
+    $id('addLessonLink').onclick = function () {
+        let link = {
+            "lessonName": $id('lessonName').innerHTML.split(':')[0],
+            "link": $id('lesson-link').value
+        }
+        let request = new XMLHttpRequest();
+        let body = "?lessonName=" + link.lessonName + "&content=" + link.link;
+        request.open("GET", "/addLessonResource" + body);
+        request.send();
+        console.log(link);
+    }
+
+    function drawTable(num) {
+        let newCaptionOfTable = $id("timetableCaption").innerHTML.replace(currNumWeek, num);
+        if (num % 2 === 0 && currNumWeek % 2 !== 0) newCaptionOfTable = newCaptionOfTable.replace('нечетная', 'четная');
+        else if (num % 2 !== 0 && currNumWeek % 2 === 0) newCaptionOfTable = newCaptionOfTable.replace('четная', 'нечетная');
+        $id("timetableCaption").innerHTML = newCaptionOfTable;
+        let htmlTable = $id('tbody');
+        let trs = document.getElementsByTagName('tr');
+        while (trs.length !== 1) {
+            htmlTable.removeChild(trs[1]);
+        }
+        let week = timetable.fullTimetable[num - 1].week;
+        if (week !== undefined) {
+            for (let i = 0; i < week.length; ++i) {
+                let lessonsByTime = week[i];
+                let tr = document.createElement('tr');
+                let td = document.createElement('td');
+                td.innerHTML = lessonsByTime.time;
+                tr.append(td);
+                let lessons = lessonsByTime.day;
+                for (let j = 0; j < lessons.length; ++j) {
+                    let td = document.createElement('td');
+                    let p = document.createElement('p');
+                    if (lessons[j].name != '-') {
+                        let button = document.createElement('button');
+                        button.className = 'open-modal';
+                        button.innerHTML = lessons[j].name;
+                        p.innerHTML = lessons[j].type;
+                        td.append(button);
+                        td.append(p);
+                    } else {
+                        p.innerHTML = lessons[j].name;
+                        td.append(p)
+                    }
+                    tr.append(td);
+                }
+                htmlTable.append(tr);
+            }
+        }
+        currNumWeek = num;
+        initButtonActions();
+    }
+</script>
+
+
 </body>
+
 </html>

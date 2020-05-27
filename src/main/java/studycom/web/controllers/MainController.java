@@ -17,12 +17,11 @@ import studycom.web.domain.WeeksDays.Timetable;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 import studycom.web.util.HashingClass;
+import studycom.web.util.NumberOfStudyWeekCalculator;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@SessionAttributes(value = "user")
+@SessionAttributes(value = {"user", "timetableToday"})
 @Controller
 public class MainController {
 
@@ -76,11 +75,6 @@ public class MainController {
         return "coin";
     }
 
-    /*@GetMapping("/timetable")
-    public String showTimeTable(@ModelAttribute("user") User user) {
-        return "timetable";
-    }*/
-
 
     @GetMapping("/profile")
     public String showProfile(@ModelAttribute("user") User user) {
@@ -88,82 +82,17 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public ModelAndView showHome(@ModelAttribute("user") User user) {
+    public ModelAndView showHome(@ModelAttribute("user") User user, @ModelAttribute("timetableToday")
+            Set<Lesson> lessons) {
         ModelAndView model = new ModelAndView();
         user = userRepository.findById(user.getId()).get();
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
         model.addObject("homeworks", user.getHomeWorks());
+        model.addObject("timetableToday", lessons);
         model.setViewName("home");
         return model;
     }
-
-    /*private Map<String, Set<HomeworkContent>> getMapFromSet(Set<Homework> homeworkSet) {
-        Map<String, Set<HomeworkContent>> homeworkMap = new HashMap<>();
-        for (Homework homework : homeworkSet) {
-            homeworkMap.put(homework.getLessonName(), homework.getContent());
-        }
-        return homeworkMap;
-    }*/
-
-
-    @GetMapping("/addLesson")
-    public String addLesson(@ModelAttribute("user") User user, @RequestParam(value = "weekNumber") Integer weekNumber,
-                            @RequestParam(value = "day") String day,
-                            @RequestParam(value = "time") String time, @RequestParam(value = "lessonType") String lessonType,
-                            @RequestParam(value = "lessonName") String lessonName) {
-        Timetable thisUserTimetable;
-        Week currWeek;
-        Day currDay;
-        Lesson currLesson;
-        if (user.getGroup().getTimetable() != null) {
-            thisUserTimetable = user.getGroup().getTimetable();
-            List<Week> currentWeek = weekRepository.findByTimetableAndWeekNumb(thisUserTimetable, weekNumber);
-            if (!currentWeek.isEmpty()) {
-                currWeek = currentWeek.get(0);
-                List<Day> currentDay = dayRepository.findByCurrentDayAndWeek(DayType.valueOf(day), currWeek);
-                if (!currentDay.isEmpty()) {
-                    currDay = currentDay.get(0);
-                    List<Lesson> currentLesson = lessonRepository.findByDayAndTime(currDay, time);
-                    if (!currentLesson.isEmpty()) {
-                        currLesson = currentLesson.get(0);
-                        currLesson.setName(lessonName);
-                        currLesson.setLessonType(LessonType.valueOf(lessonType));
-                        lessonRepository.save(currLesson);
-                    } else {
-                        currDay.getLessons().add(new Lesson(lessonName, time, lessonType, currDay));
-                        dayRepository.save(currDay);
-                    }
-                } else {
-                    currDay = new Day(day, new HashSet<Lesson>(), currWeek);
-                    currLesson = new Lesson(lessonName, time, lessonType, currDay);
-                    currDay.getLessons().add(currLesson);
-                    currWeek.getDays().add(currDay);
-                    weekRepository.save(currWeek);
-                }
-            } else {
-                currWeek = new Week(weekNumber, new HashSet<Day>(), thisUserTimetable);
-                currDay = new Day(day, new HashSet<Lesson>(), currWeek);
-                currLesson = new Lesson(lessonName, time, lessonType, currDay);
-                currDay.getLessons().add(currLesson);
-                currWeek.getDays().add(currDay);
-                weekRepository.save(currWeek);
-            }
-        } else {
-            currWeek = new Week(weekNumber, new HashSet<Day>());
-            currDay = new Day(day, new HashSet<Lesson>(), currWeek);
-            currLesson = new Lesson(lessonName, time, lessonType, currDay);
-            currDay.getLessons().add(currLesson);
-            currWeek.getDays().add(currDay);
-            thisUserTimetable = new Timetable(new HashSet<Week>());
-            currWeek.setTimetable(thisUserTimetable);
-            thisUserTimetable.getWeeks().add(currWeek);
-            user.getGroup().setTimetable(thisUserTimetable);
-            userRepository.save(user);
-        }
-        return "redirect:/timetable";
-    }
-
 
     @GetMapping("/addUser")
     public ModelAndView home(@RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
@@ -200,7 +129,7 @@ public class MainController {
         } else {
             user = new User(login, name, surname, hashPassword, group);
             thisUsersGroup = new Group();
-            thisUsersGroup.setUsers(new HashSet<User>());
+            thisUsersGroup.setUsers(new HashSet<>());
             if (starostaCheck != null) {
                 user.makeStar();
                 thisUsersGroup.setStar(user);
@@ -214,6 +143,29 @@ public class MainController {
             }
         }
         model.addObject("user", user);
+        Calendar calendar = Calendar.getInstance();
+        List<Week> weeks = weekRepository.findByTimetable(user.getGroup().getTimetable());
+        int numOfWeek = NumberOfStudyWeekCalculator.getNumberOfStudyWeek(calendar.get(Calendar.WEEK_OF_YEAR),
+                weeks.size());
+        Week week = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst().get();
+        Set<Lesson> lessons = null;
+        for (Day day : week.getDays()) {
+            if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
+                lessons = day.getLessons();
+            }
+        }
+        Set<Lesson> sortedLessons = null;
+        if (lessons != null) {
+            sortedLessons = new TreeSet<>(
+                    (lesson1, lesson2) -> {
+                        Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
+                        Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
+                        return hourOfTime1.compareTo(hourOfTime2);
+                    }
+            );
+            sortedLessons.addAll(lessons);
+        }
+        model.addObject("timetableToday", sortedLessons);
         model.setViewName("home");
         return model;
     }
@@ -246,6 +198,29 @@ public class MainController {
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
         model.addObject("homeworks", user.getHomeWorks());
+        Calendar calendar = Calendar.getInstance();
+        List<Week> weeks = weekRepository.findByTimetable(user.getGroup().getTimetable());
+        int numOfWeek = NumberOfStudyWeekCalculator.getNumberOfStudyWeek(calendar.get(Calendar.WEEK_OF_YEAR),
+                weeks.size());
+        Week week = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst().get();
+        Set<Lesson> lessons = null;
+        for (Day day : week.getDays()) {
+            if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
+                lessons = day.getLessons();
+            }
+        }
+        Set<Lesson> sortedLessons = null;
+        if (lessons != null) {
+            sortedLessons = new TreeSet<>(
+                    (lesson1, lesson2) -> {
+                        Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
+                        Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
+                        return hourOfTime1.compareTo(hourOfTime2);
+                    }
+            );
+            sortedLessons.addAll(lessons);
+        }
+        model.addObject("timetableToday", sortedLessons);
         model.setViewName("home");
         return model;
     }

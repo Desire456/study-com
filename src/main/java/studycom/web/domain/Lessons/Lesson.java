@@ -69,5 +69,9 @@ public class Lesson {
         this.time = time;
     }
 
+    public String formattedView() {
+        return time + " - " + name + " (" + lessonType.getNameType().toLowerCase() + ")";
+    }
+
 
 }

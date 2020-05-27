@@ -48,13 +48,11 @@
     </div>
 </div>
 <div class="timetable-today disp-inline">
-    <h2>Расписание на сегодня:</h2>
-    <ul>
-        <li>8.00 - 9.35 ТФКП</li>
-        <li>9.45 - 11:20 Тервер</li>
-        <li>11:20 - 13:05 ОС</li>
-        <li>13:30 - 15:05 СисПро</li>
+    <h2 id="timetableTodayHeader">Расписание на сегодня:</h2>
+    <ul th:if="${timetableToday != null}">
+        <li th:each="lesson : ${timetableToday}" th:text="${lesson.formattedView()}">8.00 - 9.35 ТФКП</li>
     </ul>
+    <p th:if="${timetableToday == null}">Расписание еще не добавлено или сегодня нет пар</p>
 </div>
 <div id="myDIV" class="todo disp-inline">
     <h2>Список задач:</h2>
@@ -72,18 +70,50 @@
 <div class="homework disp-inline">
     <h2>Домашнее задание</h2>
     <th:block th:each="homework : ${homeworks}">
-        <h3 th:if = "${!homework.content.isEmpty()}" th:text = "${homework?.lessonName}">Предмет1</h3>
+        <h3 th:if="${!homework.content.isEmpty()}" th:text="${homework?.lessonName}">Предмет1</h3>
         <ul>
             <th:block th:each="task : ${homework.content}">
-            <li><input type="checkbox" th:value = "${homework.lessonName}" class="custom-checkbox" th:id = "${task.id}" onchange="disableButtons()"><label
-                    th:for = "${task.id}" th:text = "${task.content}">dz asd</label></li>
+                <li><input type="checkbox" th:value="${homework.lessonName}" class="custom-checkbox" th:id="${task.id}"
+                           onchange="disableButtons()"><label
+                        th:for="${task.id}" th:text="${task.content}">dz asd</label></li>
             </th:block>
         </ul>
     </th:block>
-        <a th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</a>
-        <a id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick = "deleteWorks()">Удалить</a>
+    <a th:if="${user.role.name() == 'STAR'}" onclick="openModalWindow()">Добавить</a>
+    <a id="deleteButton" disabled="disabled" style="margin-left: 10px" onclick="deleteWorks()">Удалить</a>
 </div>
 <script>
+    function zeroFirstFormat(value) {
+        if (value < 10) {
+            value = '0' + value;
+        }
+        return value;
+    }
+
+    function dateTime() {
+        const current_datetime = new Date();
+        const day = zeroFirstFormat(current_datetime.getDate());
+        const month = zeroFirstFormat(current_datetime.getMonth() + 1);
+        const year = current_datetime.getFullYear();
+
+        return day + "." + month + "." + year;
+    }
+
+    function dateDay() {
+        switch (new Date().getDay()) {
+            case 0 : return 'Воскресенье';
+            case 1 : return 'Понедельник';
+            case 2 : return 'Вторник';
+            case 3 : return 'Среда';
+            case 4 : return 'Четверг';
+            case 5 : return 'Пятница';
+            case 6 : return 'Суббота';
+        }
+    }
+
+    document.getElementById('timetableTodayHeader').innerHTML = "Расписание на сегодня " + dateTime() + '<br>' +
+            dateDay();
+
     let addTaskWindow = document.getElementById("addWindow");
     const checkboxes = document.getElementsByClassName('custom-checkbox');
     let disableButton = document.getElementById('deleteButton');
@@ -108,14 +138,14 @@
 
     function deleteWorks() {
         let checkedCheckboxes = getChecked();
-        if(checkedCheckboxes == null) return;
+        if (checkedCheckboxes == null) return;
         const form = document.createElement('form');
         form.action = '/deleteWork';
         form.method = 'GET';
 
         form.innerHTML = '<input type = "hidden" id = "works" name = "works" value = "" >';
         let checkbox, ids = "";
-        for(let i = 0; i < checkedCheckboxes.length; ++i) {
+        for (let i = 0; i < checkedCheckboxes.length; ++i) {
             checkbox = checkedCheckboxes[i];
             ids += checkbox.id + " ";
         }

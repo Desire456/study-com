@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface LessonRepository extends CrudRepository<Lesson, Integer> {
     List<Lesson> findByDayAndTime(Day day, String time);
+    List<Lesson> findByName(String name);
 }

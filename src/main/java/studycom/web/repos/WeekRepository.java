@@ -10,4 +10,6 @@ public interface WeekRepository extends CrudRepository<Week, Integer> {
     List<Week> findByWeekNumb(Integer weekNumb);
 
     List<Week> findByTimetableAndWeekNumb(Timetable timetable, Integer weekNumber);
+
+    List<Week> findByTimetable(Timetable timetable);
 }
