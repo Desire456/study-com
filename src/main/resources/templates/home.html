@@ -49,10 +49,10 @@
 </div>
 <div class="timetable-today disp-inline">
     <h2 id="timetableTodayHeader">Расписание на сегодня:</h2>
-    <ul th:if="${timetableToday != null}">
+    <ul th:if="${!timetableToday.isEmpty()}">
         <li th:each="lesson : ${timetableToday}" th:text="${lesson.formattedView()}">8.00 - 9.35 ТФКП</li>
     </ul>
-    <p th:if="${timetableToday == null}">Расписание еще не добавлено или сегодня нет пар</p>
+    <p th:if="${timetableToday.isEmpty()}">Расписание еще не добавлено или сегодня нет пар</p>
 </div>
 <div id="myDIV" class="todo disp-inline">
     <h2>Список задач:</h2>
