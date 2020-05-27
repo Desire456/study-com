@@ -165,7 +165,7 @@ public class MainController {
                 sortedLessons.addAll(lessons);
             }
             model.addObject("timetableToday", sortedLessons);
-        }
+        } else model.addObject("timetableToday", null);
         model.setViewName("home");
         return model;
     }
@@ -223,7 +223,7 @@ public class MainController {
                 sortedLessons.addAll(lessons);
             }
             model.addObject("timetableToday", sortedLessons);
-        }
+        }  else model.addObject("timetableToday", null);
         model.setViewName("home");
         return model;
     }

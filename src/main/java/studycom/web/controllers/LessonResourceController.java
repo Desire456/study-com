@@ -1,6 +1,5 @@
 package studycom.web.controllers;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.Lessons.LessonResource;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.LessonRepository;
