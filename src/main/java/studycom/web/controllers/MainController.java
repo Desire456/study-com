@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.UsersPart.Group;
+import studycom.web.domain.UsersPart.Promotion;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.Week;
@@ -45,6 +46,19 @@ public class MainController {
 
     @Autowired
     private HomeworkRepository homeworkRepository;
+
+    @Autowired
+    private PromotionRepository promotionRepository;
+
+
+    @GetMapping("/sendPromotion")
+    public ModelAndView sendPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String
+            cause, @RequestParam(value = "senderName") String senderName, @RequestParam(value = "expNumber") Integer expNumber) {
+        promotionRepository.save(new Promotion(expNumber, senderName, cause, user.getGroup()));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
 
 
     @GetMapping("/inputLesson")

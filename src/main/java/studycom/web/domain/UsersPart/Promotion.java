@@ -45,9 +45,26 @@ public class Promotion {
     public Promotion() {
     }
 
-    public Promotion(int expNumber, String senderName, String cause) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public Promotion(int expNumber, String senderName, String cause, Group group) {
         this.cause = cause;
         this.expNumber = expNumber;
         this.senderName = senderName;
+        this.group = group;
     }
 }
