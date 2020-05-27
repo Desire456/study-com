@@ -64,7 +64,7 @@
     <div class="modal_content">
         <span class="close_modal_window" onclick="closeWindow()">×</span>
         <h3 id="lessonName">Predmet: usefull links</h3>
-        <ul>
+        <ul id = "ulRes">
             <li>
                 ssilka 1
             </li>
@@ -81,8 +81,8 @@
                 ssilka 1
             </li>
         </ul>
-        Link: <input id="lesson-link" type="text">
-        <button id="addLessonLink" style="font: inherit">Add link</button>
+        Link: <input id="lessonLink" type="text">
+        <button id="addLessonLink" style="font: inherit" disabled>Add link</button>
     </div>
 </div>
 
@@ -179,16 +179,21 @@
         }
     }
 
+    $id('lessonLink').addEventListener('input', () => $id('addLessonLink').disabled = $id('lessonLink').value === "");
+
     $id('addLessonLink').onclick = function () {
         let link = {
             "lessonName": $id('lessonName').innerHTML.split(':')[0],
-            "link": $id('lesson-link').value
+            "content": $id('lessonLink').value
         }
         let request = new XMLHttpRequest();
-        let body = "?lessonName=" + link.lessonName + "&content=" + link.link;
+        let body = "?lessonName=" + link.lessonName + "&content=" + link.content;
         request.open("GET", "/addLessonResource" + body);
         request.send();
-        console.log(link);
+        let li = document.createElement('li');
+        li.innerHTML = link.content;
+        $id('ulRes').append(li);
+        $id('lessonLink').value = "";
     }
 
     function drawTable(num) {

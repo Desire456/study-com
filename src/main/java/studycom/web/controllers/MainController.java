@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
-import studycom.web.domain.Lessons.LessonType;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
-import studycom.web.domain.WeeksDays.DayType;
-import studycom.web.domain.WeeksDays.Timetable;
 import studycom.web.domain.WeeksDays.Week;
 import studycom.web.repos.*;
 import studycom.web.util.HashingClass;
@@ -147,25 +144,28 @@ public class MainController {
         List<Week> weeks = weekRepository.findByTimetable(user.getGroup().getTimetable());
         int numOfWeek = NumberOfStudyWeekCalculator.getNumberOfStudyWeek(calendar.get(Calendar.WEEK_OF_YEAR),
                 weeks.size());
-        Week week = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst().get();
-        Set<Lesson> lessons = null;
-        for (Day day : week.getDays()) {
-            if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
-                lessons = day.getLessons();
+        Optional<Week> weekOpt = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst();
+        if (weekOpt.isPresent()) {
+            Week week = weekOpt.get();
+            Set<Lesson> lessons = null;
+            for (Day day : week.getDays()) {
+                if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
+                    lessons = day.getLessons();
+                }
             }
+            Set<Lesson> sortedLessons = null;
+            if (lessons != null) {
+                sortedLessons = new TreeSet<>(
+                        (lesson1, lesson2) -> {
+                            Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
+                            Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
+                            return hourOfTime1.compareTo(hourOfTime2);
+                        }
+                );
+                sortedLessons.addAll(lessons);
+            }
+            model.addObject("timetableToday", sortedLessons);
         }
-        Set<Lesson> sortedLessons = null;
-        if (lessons != null) {
-            sortedLessons = new TreeSet<>(
-                    (lesson1, lesson2) -> {
-                        Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
-                        Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
-                        return hourOfTime1.compareTo(hourOfTime2);
-                    }
-            );
-            sortedLessons.addAll(lessons);
-        }
-        model.addObject("timetableToday", sortedLessons);
         model.setViewName("home");
         return model;
     }
@@ -202,25 +202,28 @@ public class MainController {
         List<Week> weeks = weekRepository.findByTimetable(user.getGroup().getTimetable());
         int numOfWeek = NumberOfStudyWeekCalculator.getNumberOfStudyWeek(calendar.get(Calendar.WEEK_OF_YEAR),
                 weeks.size());
-        Week week = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst().get();
-        Set<Lesson> lessons = null;
-        for (Day day : week.getDays()) {
-            if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
-                lessons = day.getLessons();
+        Optional<Week> weekOpt = weeks.stream().filter(week1 -> week1.getWeekNumb() == numOfWeek).findFirst();
+        if (weekOpt.isPresent()) {
+            Week week = weekOpt.get();
+            Set<Lesson> lessons = null;
+            for (Day day : week.getDays()) {
+                if (day.getNumberOfCurrentDay() == calendar.get(Calendar.DAY_OF_WEEK)) {
+                    lessons = day.getLessons();
+                }
             }
+            Set<Lesson> sortedLessons = null;
+            if (lessons != null) {
+                sortedLessons = new TreeSet<>(
+                        (lesson1, lesson2) -> {
+                            Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
+                            Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
+                            return hourOfTime1.compareTo(hourOfTime2);
+                        }
+                );
+                sortedLessons.addAll(lessons);
+            }
+            model.addObject("timetableToday", sortedLessons);
         }
-        Set<Lesson> sortedLessons = null;
-        if (lessons != null) {
-            sortedLessons = new TreeSet<>(
-                    (lesson1, lesson2) -> {
-                        Integer hourOfTime1 = Integer.parseInt(lesson1.getTime().split("\\.")[0]);
-                        Integer hourOfTime2 = Integer.parseInt(lesson2.getTime().split("\\.")[0]);
-                        return hourOfTime1.compareTo(hourOfTime2);
-                    }
-            );
-            sortedLessons.addAll(lessons);
-        }
-        model.addObject("timetableToday", sortedLessons);
         model.setViewName("home");
         return model;
     }
