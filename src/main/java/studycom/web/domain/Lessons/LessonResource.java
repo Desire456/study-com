@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class LessonResource {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     private String content;
 

@@ -13,22 +13,27 @@ public class Group  {
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="timetable_id")
+    @JoinColumn(name = "timetable_id")
     private Timetable timetable;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="star_id")
+    @JoinColumn(name = "star_id")
     private User star;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @OrderBy("name")
     private Set<User> users;
 
-    public Group(String name){
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OrderBy("senderName")
+    private Set<Promotion> promotions;
+
+    public Group(String name) {
         this.name = name;
     }
 
-    public Group(){}
+    public Group() {
+    }
 
     private String name;
 
