@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
+import studycom.web.domain.Lessons.LessonResource;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
@@ -38,6 +39,9 @@ public class TimetableController {
     @Autowired
     private TimetableRepository timetableRepository;
 
+    @Autowired
+    private LessonResourceRepository lessonResourceRepository;
+
 
     @GetMapping("/addTimetable")
     public String showAddTimetable(@ModelAttribute("user") User user) {
@@ -55,8 +59,23 @@ public class TimetableController {
             Set<Week> weekSet = user.getGroup().getTimetable().getWeeks();
             modelAndView.addObject("numberOfWeeks", weekSet.size());
             modelAndView.addObject("timetable", this.parseTimetable(weekSet));
+            List<LessonResource> lessonResources = lessonResourceRepository.findByGroup(user.getGroup());
+            modelAndView.addObject("lessonResources", this.parseLessonResources(lessonResources));
         }
         return modelAndView;
+    }
+
+    private JSONObject parseLessonResources(List<LessonResource> lessonResources) {
+        JSONObject object = new JSONObject();
+        JSONArray jLessonResources = new JSONArray();
+        for (LessonResource lessonResource : lessonResources) {
+            JSONObject jLessonResource = new JSONObject();
+            jLessonResource.put("lessonName", lessonResource.getLesson());
+            jLessonResource.put("content", lessonResource.getContent());
+            jLessonResources.put(jLessonResource);
+        }
+        object.put("lessonResources", jLessonResources);
+        return object;
     }
 
     private JSONObject parseTimetable(Set<Week> weekSet) {

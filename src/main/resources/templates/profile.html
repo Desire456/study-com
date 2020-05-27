@@ -192,26 +192,30 @@
         <div class="student">
             <label for="promotionSelect" class="forExp">Тип поощрения</label>
             <br>
-            <select id="promotionSelect">
-                <option>Выполненная домашняя работа/сданная лаба/реферат - 10 xp</option>
-                <option>Благотворительность на благо группы(написание конспектов, помощь с лабораторными...) - 100
-                    xp</option>
-                <option>Сданная сессия на удовлетворительно - 300 xp</option>
-                <option>Сданная сессия на хорошо - 450 xp</option>
-                <option>Сданная сессия на отлично - 700 xp</option>
-            </select>
+            <form action="/addPromotion" method="GET">
+                <select id="promotionSelect" name="cause">
+                    <option value="homework 10">Выполненная домашняя работа/сданная лаба/реферат - 10 xp</option>
+                    <option value="charity 100">Благотворительность на благо группы(написание конспектов, помощь с
+                        лабораторными...) - 100
+                        xp
+                    </option>
+                    <option value="session 300">Сданная сессия на удовлетворительно - 300 xp</option>
+                    <option value="session 450">Сданная сессия на хорошо - 450 xp</option>
+                    <option value="session 700">Сданная сессия на отлично - 700 xp</option>
+                </select>
+            </form>
         </div>
         <input type="submit" id="promotionSend" value="Отправить">
     </div>
     <div class="forExp" style="margin-top:10px">
         <p class="forExp">Заявки на поощрения</p>
 
-        <div class="student" >
+        <div class="student">
             <div class="head">
-                <label class="forExp">От:Имя</label><br />
+                <label class="forExp">От:Имя</label><br/>
             </div>
             <div class="achivement">
-                <label class="forExp">Сданная лаба - 10xp</label><br />
+                <label class="forExp">Сданная лаба - 10xp</label><br/>
             </div>
             <div class="acces">
                 <input type="radio" name="st1" value="accesed">

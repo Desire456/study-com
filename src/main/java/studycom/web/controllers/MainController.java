@@ -90,7 +90,6 @@ public class MainController {
         return modelAndView;
     }
 
-
     @GetMapping("/coin")
     public String showCoin() {
         return "coin";
@@ -111,7 +110,7 @@ public class MainController {
         model.addObject("tasks", taskRepository.findByUser(user));
         model.addObject("homeworks", user.getHomeWorks());
         if (!lessons.isEmpty())
-        model.addObject("timetableToday", lessons);
+            model.addObject("timetableToday", lessons);
         model.setViewName("home");
         return model;
     }
@@ -248,7 +247,7 @@ public class MainController {
                 sortedLessons.addAll(lessons);
             }
             model.addObject("timetableToday", sortedLessons);
-        }  else model.addObject("timetableToday", new HashSet<>());
+        } else model.addObject("timetableToday", new HashSet<>());
         model.setViewName("home");
         return model;
     }

@@ -64,22 +64,7 @@
     <div class="modal_content">
         <span class="close_modal_window" onclick="closeWindow()">×</span>
         <h3 id="lessonName">Predmet: usefull links</h3>
-        <ul id = "ulRes">
-            <li>
-                ssilka 1
-            </li>
-            <li>
-                ssilka 1
-            </li>
-            <li>
-                ssilka 1
-            </li>
-            <li>
-                ssilka 1
-            </li>
-            <li>
-                ssilka 1
-            </li>
+        <ul id="ulRes">
         </ul>
         Link: <input id="lessonLink" type="text">
         <button id="addLessonLink" style="font: inherit" disabled>Add link</button>
@@ -120,8 +105,9 @@
 
         </tbody>
     </table>
-    <input id="numberOfWeeks" type="hidden" value="4">
+    <input id="numberOfWeeks" type="hidden" th:value="${numberOfWeeks}">
     <input id="fullTimetable" th:value="${timetable}" type="hidden">
+    <input id="lessonResources" th:value="${lessonResources}" type="hidden">
 </div>
 <script>
     const modal = document.getElementById("my_modal");
@@ -168,12 +154,40 @@
         timetable = JSON.parse($id('fullTimetable').value);
         drawTable(1);
     };
+    let resources = JSON.parse($id('lessonResources').value);
+
+    function getContentByLesson(lesson) {
+        let arr = [];
+        let lessonResources = resources.lessonResources;
+        for (let i = 0; i < lessonResources.length; ++i) {
+            if (lessonResources[i].lessonName === lesson)
+                arr.push(lessonResources[i].content);
+        }
+        return arr;
+    }
+
 
     function initButtonActions() {
         let buttons = document.getElementsByClassName('open-modal');
         for (let i = 0; i < buttons.length; ++i) {
             buttons[i].onclick = function () {
                 $id('lessonName').innerHTML = buttons[i].innerHTML + ": полезные ресурсы";
+                let liRes = document.querySelectorAll('ul[id = ulRes] li');
+                let ulRes = $id('ulRes');
+                if (liRes != null) {
+                    console.log(liRes);
+                    for (let i = 0; i < liRes.length; ++i) {
+                        console.log(1);
+                        ulRes.removeChild(liRes[i]);
+                    }
+                    console.log(ulRes);
+                }
+                let contentLesson = getContentByLesson(buttons[i].innerHTML);
+                for (let i = 0; i < contentLesson.length; ++i) {
+                    let li = document.createElement('li');
+                    li.innerHTML = contentLesson[i];
+                    ulRes.append(li);
+                }
                 modal.style.display = "block";
             }
         }
@@ -186,10 +200,12 @@
             "lessonName": $id('lessonName').innerHTML.split(':')[0],
             "content": $id('lessonLink').value
         }
+        console.log(link.lessonName);
         let request = new XMLHttpRequest();
         let body = "?lessonName=" + link.lessonName + "&content=" + link.content;
         request.open("GET", "/addLessonResource" + body);
         request.send();
+        resources.lessonResources.push({"lessonName": link.lessonName, "content": link.content});
         let li = document.createElement('li');
         li.innerHTML = link.content;
         $id('ulRes').append(li);
