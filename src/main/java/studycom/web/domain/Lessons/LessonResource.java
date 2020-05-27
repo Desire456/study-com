@@ -16,10 +16,10 @@ public class LessonResource {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Group group;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Lesson lesson;
 
-    public LessonResource(String content, Group group, Lesson lesson) {
+    private String lesson;
+
+    public LessonResource(String content, Group group, String lesson) {
         this.content = content;
         this.group = group;
         this.lesson = lesson;
@@ -53,11 +53,11 @@ public class LessonResource {
         this.group = group;
     }
 
-    public Lesson getLesson() {
+    public String getLesson() {
         return lesson;
     }
 
-    public void setLesson(Lesson lesson) {
+    public void setLesson(String lesson) {
         this.lesson = lesson;
     }
 

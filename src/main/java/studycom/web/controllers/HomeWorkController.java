@@ -66,7 +66,6 @@ public class HomeWorkController {
                 iterUser.getHomeWorks().add(homework);
             }
         } else {
-
             for (User iterUser : users) {
                 List<Homework> homeworkList = homeworkRepository.findByLessonNameAndUser(lesson, iterUser);
                 if (homeworkList.isEmpty()) {
