@@ -53,8 +53,18 @@ public class MainController {
 
     @GetMapping("/sendPromotion")
     public ModelAndView sendPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String
-            cause, @RequestParam(value = "senderName") String senderName, @RequestParam(value = "expNumber") Integer expNumber) {
-        promotionRepository.save(new Promotion(expNumber, senderName, cause, user.getGroup()));
+            cause, @RequestParam(value = "expNumber") Integer expNumber) {
+        promotionRepository.save(new Promotion(expNumber, user.getName(), cause, user.getGroup(), user.getId()));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
+
+
+    @GetMapping("/getPromotion")
+    public ModelAndView getPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String
+            cause, @RequestParam(value = "expNumber") Integer expNumber) {
+        promotionRepository.save(new Promotion(expNumber, user.getName(), cause, user.getGroup()));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
         return modelAndView;

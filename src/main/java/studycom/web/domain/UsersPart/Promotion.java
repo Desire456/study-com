@@ -14,6 +14,7 @@ public class Promotion {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    public Integer promoterId;
     public String cause;
     public String senderName;
     public int expNumber;
@@ -61,10 +62,19 @@ public class Promotion {
         return group;
     }
 
-    public Promotion(int expNumber, String senderName, String cause, Group group) {
+    public Integer getPromoterId() {
+        return promoterId;
+    }
+
+    public void setPromoterId(Integer promoterId) {
+        this.promoterId = promoterId;
+    }
+
+    public Promotion(int expNumber, String senderName, String cause, Group group, Integer promoterId) {
         this.cause = cause;
         this.expNumber = expNumber;
         this.senderName = senderName;
         this.group = group;
+        this.promoterId = promoterId;
     }
 }
