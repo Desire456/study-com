@@ -96,7 +96,7 @@ public class MainController {
     public ModelAndView showHome(@ModelAttribute("user") User user, @ModelAttribute("timetableToday")
             Set<Lesson> lessons) {
         ModelAndView model = new ModelAndView();
-        user = userRepository.findById(user.getId()).get();
+        user = userRepository.findByLogin(user.getLogin()).get(0);
         model.addObject("user", user);
         model.addObject("tasks", taskRepository.findByUser(user));
         model.addObject("homeworks", user.getHomeWorks());
