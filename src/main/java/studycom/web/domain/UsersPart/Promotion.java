@@ -14,29 +14,28 @@ public class Promotion {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    public String cause;
-    public Integer promoterId;
-    public int expNumber;
-
-    public String getCause() {
-        return cause;
-    }
+    private PromotionCause cause;
+    private Integer promoterId;
+    private int expNumber;
+    private String senderName;
 
     public int getExpNumber() {
         return expNumber;
     }
-
-
-    public void setCause(String cause) {
-        this.cause = cause;
-    }
-
 
     public void setExpNumber(int expNumber) {
         this.expNumber = expNumber;
     }
 
     public Promotion() {
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public void setId(Integer id) {
@@ -63,8 +62,17 @@ public class Promotion {
         this.promoterId = promoterId;
     }
 
-    public Promotion(int expNumber, String cause, Group group, Integer promoterId) {
+    public PromotionCause getCause() {
+        return cause;
+    }
+
+    public void setCause(PromotionCause cause) {
         this.cause = cause;
+    }
+
+    public Promotion(int expNumber, String senderName, String cause, Group group, Integer promoterId) {
+        this.cause = PromotionCause.valueOf(cause);
+        this.senderName = senderName;
         this.expNumber = expNumber;
         this.group = group;
         this.promoterId = promoterId;

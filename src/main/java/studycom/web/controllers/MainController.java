@@ -47,30 +47,6 @@ public class MainController {
     @Autowired
     private HomeworkRepository homeworkRepository;
 
-    @Autowired
-    private PromotionRepository promotionRepository;
-
-
-    @GetMapping("/sendPromotion")
-    public ModelAndView sendPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String
-            cause, @RequestParam(value = "expNumber") Integer expNumber) {
-        promotionRepository.save(new Promotion(expNumber, user.getName(), cause, user.getGroup(), user.getId()));
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile");
-        return modelAndView;
-    }
-
-
-    @GetMapping("/getPromotion")
-    public ModelAndView getPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String
-            cause, @RequestParam(value = "expNumber") Integer expNumber) {
-        promotionRepository.save(new Promotion(expNumber, user.getName(), cause, user.getGroup()));
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile");
-        return modelAndView;
-    }
-
-
     @GetMapping("/inputLesson")
     public String showInput() {
         return "inputLesson";

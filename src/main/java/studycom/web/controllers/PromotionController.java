@@ -21,11 +21,10 @@ public class PromotionController {
     public ModelAndView sendPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String cause) {
         String[] causeAndExp = cause.split(" ");
         int expNumber = Integer.parseInt(causeAndExp[1]);
-        promotionRepository.save(new Promotion(expNumber, causeAndExp[0], user.getGroup(), user.getId()));
+        String senderName = user.getSurname() + " " + user.getName();
+        promotionRepository.save(new Promotion(expNumber, senderName, causeAndExp[0], user.getGroup(), user.getId()));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
         return modelAndView;
     }
-
-
 }
