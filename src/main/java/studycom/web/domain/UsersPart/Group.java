@@ -24,9 +24,6 @@ public class Group  {
     @OrderBy("name")
     private Set<User> users;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @OrderBy("senderName")
-    private Set<Promotion> promotions;
 
     public Group(String name) {
         this.name = name;
