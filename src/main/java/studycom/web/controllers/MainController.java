@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.UsersPart.Group;
 import studycom.web.domain.UsersPart.Promotion;
+import studycom.web.domain.UsersPart.Role;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.domain.WeeksDays.Day;
 import studycom.web.domain.WeeksDays.Week;
@@ -47,6 +48,9 @@ public class MainController {
     @Autowired
     private HomeworkRepository homeworkRepository;
 
+    @Autowired
+    private PromotionRepository promotionRepository;
+
     @GetMapping("/inputLesson")
     public String showInput() {
         return "inputLesson";
@@ -73,8 +77,14 @@ public class MainController {
 
 
     @GetMapping("/profile")
-    public String showProfile(@ModelAttribute("user") User user) {
-        return "profile";
+    public ModelAndView showProfile(@ModelAttribute("user") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (user.getRole() == Role.STAR) {
+            Set<Promotion> promotions = promotionRepository.findByGroup(user.getGroup());
+            modelAndView.addObject("promotions", promotions);
+        }
+        modelAndView.setViewName("profile");
+        return modelAndView;
     }
 
     @GetMapping("/home")

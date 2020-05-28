@@ -1,6 +1,6 @@
 package studycom.web.domain.UsersPart;
 
-enum Role {
+public enum Role {
     CASUAL("CASUAL"),
     ADMIN("ADMIN"),
     STAR("STAR");

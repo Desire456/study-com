@@ -211,29 +211,63 @@
     <div class="forExp" style="margin-top:10px">
         <p class="forExp">Заявки на поощрения</p>
 
-        <div class="student">
+        <div class="student" th:each="promotion : ${promotions}">
+            <input type="hidden" th:value="${promotion.getPromoterId() + ' ' + promotion.getExpNumber() + ' ' +
+            promotion.id}">
             <div class="head">
-                <label class="forExp">От:Имя</label><br/>
+                <label class="forExp" th:text="'От: '+ ${promotion.senderName}">От:Имя</label><br/>
             </div>
             <div class="achivement">
-                <label class="forExp">Сданная лаба - 10xp</label><br/>
+                <label class="forExp"
+                       th:text="${promotion.getCause().getNameType() + ' - ' + promotion.getExpNumber()} + 'xp'">Сданная
+                    лаба - 10xp</label><br/>
             </div>
             <div class="acces">
-                <input type="radio" name="st1" value="accesed">
+                <input type="radio" th:name="${promotion.id}" value="yes" required>
                 ✓ Принять <br>
             </div>
             <div class="denie">
-                <input type="radio" name="st1" value="denied">
+                <input type="radio" th:name="${promotion.id}" value="no">
                 × Отказать
             </div>
         </div>
-        <input type="submit" value="Отправить">
+        <input type="submit" value="Обработать" id="sendPromotions">
     </div>
 </div>
 
 </body>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script>
+    let inputPromotionsSend = document.getElementById('sendPromotions');
+    inputPromotionsSend.onclick = function () {
+        let promotions = document.getElementsByClassName('student');
+        let access;
+        let promotionData;
+        let promotionToSend;
+        let promotionsToSend = [];
+        for (let i = 1; i < promotions.length; ++i) {
+            promotionData = promotions[i].firstElementChild.value.split(' ');
+            access = document.getElementsByName(String(promotionData[2]))[0].checked ? 'yes' : 'no';
+            promotionToSend = {
+                "promoterId": promotionData[0],
+                "expNumber": promotionData[1],
+                "access": access
+            }
+            console.log(promotionToSend);
+            promotionsToSend.push(promotionToSend);
+            promotionToSend = {};
+        }
+        let jsonPromotions = JSON.stringify({"promotions": promotionsToSend});
+        let form = document.createElement('form');
+        form.action = "/processPromotions";
+        form.method = "GET";
+        form.innerHTML = "<input type = 'text' value = '' id = 'promotionsToSend' name = 'promotions'>";
+        document.body.append(form);
+        document.getElementById('promotionsToSend').value = jsonPromotions;
+        form.submit();
+    }
+
+
     let editWindow = document.getElementById("editWindow");
     let errorWindow = document.getElementById("errorWindow");
 

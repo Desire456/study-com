@@ -8,5 +8,5 @@ import java.util.Set;
 
 
 public interface PromotionRepository extends CrudRepository<Promotion, Integer> {
-    Set<Promotion> getByGroup(Group group);
+    Set<Promotion> findByGroup(Group group);
 }
