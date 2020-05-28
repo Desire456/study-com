@@ -12,12 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.UsersPart.Promotion;
 import studycom.web.domain.UsersPart.User;
 import studycom.web.repos.PromotionRepository;
+import studycom.web.repos.UserRepository;
 
 @SessionAttributes(value = "user")
 @Controller
 public class PromotionController {
     @Autowired
     PromotionRepository promotionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/addPromotion")
     public ModelAndView addPromotion(@ModelAttribute("user") User user, @RequestParam(value = "cause") String cause) {
@@ -43,6 +47,10 @@ public class PromotionController {
             int expNumber = Integer.parseInt(jPromotion.getString("expNumber"));
             int promotionId = Integer.parseInt(jPromotion.getString("id"));
             boolean access = jPromotion.getString("access").equals("yes");
+            if (access) {
+                userRepository.findById(promoterId).get().addExp(expNumber);
+            }
+            promotionRepository.deleteById(promotionId);
         }
         return modelAndView;
     }
