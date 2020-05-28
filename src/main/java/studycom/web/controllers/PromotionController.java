@@ -41,6 +41,7 @@ public class PromotionController {
             JSONObject jPromotion = jPromotions.getJSONObject(i);
             int promoterId = Integer.parseInt(jPromotion.getString("promoterId"));
             int expNumber = Integer.parseInt(jPromotion.getString("expNumber"));
+            int promotionId = Integer.parseInt(jPromotion.getString("id"));
             boolean access = jPromotion.getString("access").equals("yes");
         }
         return modelAndView;

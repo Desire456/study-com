@@ -208,7 +208,7 @@
             </form>
         </div>
     </div>
-    <div class="forExp" style="margin-top:10px">
+    <div class="forExp" style="margin-top:10px" th:if="${user.role.name == 'STAR'}">
         <p class="forExp">Заявки на поощрения</p>
 
         <div class="student" th:each="promotion : ${promotions}">
@@ -248,9 +248,11 @@
         for (let i = 1; i < promotions.length; ++i) {
             promotionData = promotions[i].firstElementChild.value.split(' ');
             access = document.getElementsByName(String(promotionData[2]))[0].checked ? 'yes' : 'no';
+            if (access === 'no' && !document.getElementsByName(String(promotionData[2]))[1].checked) continue;
             promotionToSend = {
                 "promoterId": promotionData[0],
                 "expNumber": promotionData[1],
+                "id": promotionsToSend[2],
                 "access": access
             }
             console.log(promotionToSend);
