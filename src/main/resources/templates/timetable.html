@@ -6,6 +6,10 @@
     <title>Расписание</title>
     <link href="css/table.css" rel="stylesheet">
     <style>
+        #ulRes{
+            list-style: none;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -66,8 +70,10 @@
         <h3 id="lessonName">Predmet: usefull links</h3>
         <ul id="ulRes">
         </ul>
-        Link: <input id="lessonLink" type="text">
-        <button id="addLessonLink" style="font: inherit" disabled>Add link</button>
+        <button id = "deleteLessonLink" style = "font:inherit" disabled>Удалить</button>
+        <h4>Добавление</h4>
+        Полезный ресурс: <input id="lessonLink" type="text">
+        <button id="addLessonLink" style="font: inherit" disabled>Добавить</button>
     </div>
 </div>
 
@@ -161,9 +167,38 @@
         let lessonResources = resources.lessonResources;
         for (let i = 0; i < lessonResources.length; ++i) {
             if (lessonResources[i].lessonName === lesson)
-                arr.push(lessonResources[i].content);
+                arr.push(lessonResources[i]);
         }
         return arr;
+    }
+
+    function getCheckedCheckboxes() {
+        let arr = [];
+        let checkboxes = document.getElementsByClassName('checkbox');
+        for (let i = 0; i < checkboxes.length; ++i) {
+            if (checkboxes[i].checked) arr.push(checkboxes[i]);
+        }
+        return arr;
+    }
+
+    function enableDeleteButton() {
+        let arr = getCheckedCheckboxes();
+        $id('deleteLessonLink').disabled = arr.length < 1;
+    }
+
+    $id('deleteLessonLink').onclick = function() {
+        let arr = getCheckedCheckboxes();
+        let ids = "";
+        for (let i = 0; i < arr.length; ++i) {
+            ids += arr[i].value + ' ';
+        }
+        let form = document.createElement('form');
+        form.action = "/deleteLessonResource";
+        form.method = "GET";
+        form.innerHTML = "<input type = 'hidden' value = '' name = 'ids' id = 'linkIds'>";
+        document.body.append(form);
+        $id('linkIds').value = ids;
+        form.submit();
     }
 
 
@@ -175,16 +210,20 @@
                 let liRes = document.querySelectorAll('ul[id = ulRes] li');
                 let ulRes = $id('ulRes');
                 if (liRes != null) {
-                    console.log(liRes);
                     for (let i = 0; i < liRes.length; ++i) {
                         ulRes.removeChild(liRes[i]);
                     }
-                    console.log(ulRes);
                 }
                 let contentLesson = getContentByLesson(buttons[i].innerHTML);
                 for (let i = 0; i < contentLesson.length; ++i) {
                     let li = document.createElement('li');
-                    li.innerHTML = contentLesson[i];
+                    let input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.className = 'checkbox';
+                    input.setAttribute('onchange', 'enableDeleteButton()');
+                    input.value = contentLesson[i].id;
+                    li.append(input);
+                    li.innerHTML += contentLesson[i].content;
                     ulRes.append(li);
                 }
                 modal.style.display = "block";
@@ -199,14 +238,20 @@
             "lessonName": $id('lessonName').innerHTML.split(':')[0],
             "content": $id('lessonLink').value
         }
-        console.log(link.lessonName);
         let request = new XMLHttpRequest();
         let body = "?lessonName=" + link.lessonName + "&content=" + link.content;
-        request.open("GET", "/addLessonResource" + body);
+        request.open("GET", "/addLessonResource" + body, false);
         request.send();
-        resources.lessonResources.push({"lessonName": link.lessonName, "content": link.content});
+        link.id = request.getResponseHeader("idLessonResource");
+        resources.lessonResources.push(link);
         let li = document.createElement('li');
-        li.innerHTML = link.content;
+        let input = document.createElement('input');
+        input.type = 'checkbox';
+        input.className = 'checkbox';
+        input.setAttribute('onchange', 'enableDeleteButton()');
+        input.value = link.id;
+        li.append(input);
+        li.innerHTML += link.content;
         $id('ulRes').append(li);
         $id('lessonLink').value = "";
     }
@@ -233,7 +278,7 @@
                 for (let j = 0; j < lessons.length; ++j) {
                     let td = document.createElement('td');
                     let p = document.createElement('p');
-                    if (lessons[j].name != '-') {
+                    if (lessons[j].name !== '-') {
                         let button = document.createElement('button');
                         button.className = 'open-modal';
                         button.innerHTML = lessons[j].name;

@@ -54,8 +54,6 @@
             10лвл - 2350 xp - Высший разум
             <br>
             <br>
-            Посещение пары - 1 xp
-            <br>
             Выполненная домашняя работа/сданная лаба/реферат - 10 xp
             <br>
             Благотворительность на благо группы(Написание конспектов, помощь с лабораторными...) - 100 xp
@@ -68,14 +66,6 @@
             Хорошо - 450 xp
             <br>
             Отлично - 700 xp
-            <br>
-
-            <br><br>
-
-            Посещение 20ти пар подряд дает множитель x2 на общее получение опыта
-            <br>
-            <br>
-            Посещение 50ти пар подряд дает множитель x3 на общее получение опыта
         </p>
         <a onclick="closeModalWindow('faqLvl')">Закрыть</a>
     </div>
@@ -155,16 +145,7 @@
                 <b th:text="${user.role.name() == 'CASUAL' ? 'Студент' : 'Староста'}">Студент</b>
                 <br><br>
                 <button onclick="openModalWindow()">Редактировать профиль</button>
-                <button>Выйти</button>
-            </div>
-        </li>
-        <li>
-            <div class="statistic">
-                <b>Посещено пар: 0</b>
-                <br>
-                <b>Пропущено пар: 99999</b>
-                <br>
-                <b>Всего пар: 99999</b>
+                <button onclick="window.location.href = '/enter'">Выйти</button>
             </div>
         </li>
     </ul>
@@ -231,7 +212,8 @@
                 × Отказать
             </div>
         </div>
-        <input type="submit" value="Обработать" id="sendPromotions">
+        <p class = "forExp" style = "border: 0" th:if="${promotions.isEmpty()}">Заявок в данный момент нет</p>
+        <input type="submit" value="Обработать" id="sendPromotions" th:if ="${!promotions.isEmpty()}">
     </div>
 </div>
 

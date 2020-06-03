@@ -72,6 +72,7 @@ public class TimetableController {
             JSONObject jLessonResource = new JSONObject();
             jLessonResource.put("lessonName", lessonResource.getLesson());
             jLessonResource.put("content", lessonResource.getContent());
+            jLessonResource.put("id", lessonResource.getId());
             jLessonResources.put(jLessonResource);
         }
         object.put("lessonResources", jLessonResources);

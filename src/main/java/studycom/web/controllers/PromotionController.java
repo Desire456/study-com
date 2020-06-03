@@ -40,7 +40,7 @@ public class PromotionController {
         JSONObject object = new JSONObject(promotions);
         JSONArray jPromotions = object.getJSONArray("promotions");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile");
+        modelAndView.setViewName("redirect:/profile");
         for (int i = 0; i < jPromotions.length(); ++i) {
             JSONObject jPromotion = jPromotions.getJSONObject(i);
             int promoterId = Integer.parseInt(jPromotion.getString("promoterId"));
