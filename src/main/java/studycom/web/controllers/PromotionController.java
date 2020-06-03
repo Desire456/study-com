@@ -48,6 +48,10 @@ public class PromotionController {
             int promotionId = Integer.parseInt(jPromotion.getString("id"));
             boolean access = jPromotion.getString("access").equals("yes");
             if (access) {
+                if (promoterId == user.getId()) {
+                    user.addExp(expNumber);
+                    modelAndView.addObject("user", user);
+                }
                 userRepository.findById(promoterId).get().addExp(expNumber);
             }
             promotionRepository.deleteById(promotionId);
