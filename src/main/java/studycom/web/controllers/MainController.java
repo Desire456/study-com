@@ -2,10 +2,7 @@ package studycom.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import studycom.web.domain.Lessons.Lesson;
 import studycom.web.domain.UsersPart.Group;
@@ -86,6 +83,15 @@ public class MainController {
         modelAndView.setViewName("profile");
         return modelAndView;
     }
+
+    @RequestMapping(value = {"/profile/{id}"}, method = RequestMethod.GET)
+    public ModelAndView showOtherUser(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userToShow", userRepository.findById(id).get());
+        modelAndView.setViewName("profileOtherUser");
+        return modelAndView;
+    }
+
 
     @GetMapping("/home")
     public ModelAndView showHome(@ModelAttribute("user") User user, @ModelAttribute("timetableToday")
