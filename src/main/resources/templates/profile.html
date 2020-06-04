@@ -144,7 +144,8 @@
                 <br>
                 <b th:text="${user.role.name() == 'CASUAL' ? 'Студент' : 'Староста'}">Студент</b>
                 <br><br>
-                <button onclick="openModalWindow()">Редактировать профиль</button>
+                <button onclick="document.getElementById('editWindow').style.opacity = '1';
+                                document.getElementById('editWindow').style.pointerEvents = 'auto'">Редактировать профиль</button>
                 <button onclick="window.location.href = '/enter'">Выйти</button>
             </div>
         </li>
